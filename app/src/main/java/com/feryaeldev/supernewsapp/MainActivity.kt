@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.feryaeldev.supernewsapp.presentation.onboarding.OnBoardingScreen
 import com.feryaeldev.supernewsapp.presentation.onboarding.components.OnBoardingPage
 import com.feryaeldev.supernewsapp.ui.theme.SuperNewsAppTheme
@@ -22,6 +23,7 @@ import com.feryaeldev.supernewsapp.ui.theme.SuperNewsAppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
         enableEdgeToEdge()
         setContent {
