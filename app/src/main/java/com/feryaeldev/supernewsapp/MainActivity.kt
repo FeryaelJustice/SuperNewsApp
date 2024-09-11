@@ -17,9 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import com.feryaeldev.supernewsapp.domain.usecase.AppEntryUseCases
 import com.feryaeldev.supernewsapp.presentation.onboarding.OnBoardingScreen
+import com.feryaeldev.supernewsapp.presentation.onboarding.OnBoardingViewModel
 import com.feryaeldev.supernewsapp.presentation.onboarding.components.OnBoardingPage
 import com.feryaeldev.supernewsapp.ui.theme.SuperNewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +40,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         lifecycleScope.launch {
-            appEntryUseCases.readAppEntry().collect{
+            appEntryUseCases.readAppEntry().collect {
                 Log.d("Test", it.toString())
             }
         }
@@ -47,7 +49,8 @@ class MainActivity : ComponentActivity() {
             SuperNewsAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
-                        OnBoardingScreen(innerPadding = innerPadding)
+                        val viewModel: OnBoardingViewModel = hiltViewModel()
+                        OnBoardingScreen(innerPadding = innerPadding, event = viewModel::onEvent)
                     }
                 }
             }
