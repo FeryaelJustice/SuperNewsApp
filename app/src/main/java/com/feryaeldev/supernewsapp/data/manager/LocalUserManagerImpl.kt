@@ -27,7 +27,7 @@ class LocalUserManagerImpl(private val context: Context) : LocalUserManager {
         }
     }
 
-    override suspend fun readAppEntry(): Flow<Boolean> {
+    override fun readAppEntry(): Flow<Boolean> {
         return context.dataStore.data.map { prefs ->
             prefs[PreferencesKeys.APP_ENTRY] ?: false
         }

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import com.feryaeldev.supernewsapp.domain.usecase.AppEntryUseCases
+import com.feryaeldev.supernewsapp.presentation.navigation.NavGraph
 import com.feryaeldev.supernewsapp.presentation.onboarding.OnBoardingScreen
 import com.feryaeldev.supernewsapp.presentation.onboarding.OnBoardingViewModel
 import com.feryaeldev.supernewsapp.presentation.onboarding.components.OnBoardingPage
@@ -30,27 +32,21 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var appEntryUseCases: AppEntryUseCases
+
+    val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        installSplashScreen()
+        installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition } }
         enableEdgeToEdge()
-
-        lifecycleScope.launch {
-            appEntryUseCases.readAppEntry().collect {
-                Log.d("Test", it.toString())
-            }
-        }
 
         setContent {
             SuperNewsAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize()) {
                     Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
-                        val viewModel: OnBoardingViewModel = hiltViewModel()
-                        OnBoardingScreen(innerPadding = innerPadding, event = viewModel::onEvent)
+                        val startDestination = viewModel.startDestination
+                        NavGraph(startDestination = startDestination)
                     }
                 }
             }
