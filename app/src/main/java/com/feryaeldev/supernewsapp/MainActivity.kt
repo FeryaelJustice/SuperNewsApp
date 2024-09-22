@@ -37,18 +37,19 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition } }
         enableEdgeToEdge()
 
         setContent {
             SuperNewsAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) {
-
+                Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
+                    Log.d("tags", paddingValues.toString())
                     val isSystemInDarkMode = isSystemInDarkTheme()
 
                     SideEffect {
