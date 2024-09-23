@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2024. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
-
 package com.feryaeldev.supernewsapp.presentation.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -27,16 +19,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
 import com.feryaeldev.supernewsapp.R
 import com.feryaeldev.supernewsapp.domain.model.Article
+import com.feryaeldev.supernewsapp.presentation.Dimens.ExtraSmallPadding
+import com.feryaeldev.supernewsapp.presentation.Dimens.ExtraSmallPadding2
 import com.feryaeldev.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeldev.supernewsapp.presentation.common.ArticlesList
 import com.feryaeldev.supernewsapp.presentation.common.SearchBar
 import com.feryaeldev.supernewsapp.presentation.navigation.Route
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -66,7 +60,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
             modifier = Modifier
                 .width(150.dp)
                 .height(30.dp)
-                .padding(horizontal = MediumPadding1)
+                .padding(horizontal = ExtraSmallPadding)
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
@@ -100,6 +94,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
             articles = articles,
             onClick = {
                 //TODO: Navigate to Details Screen
+                navigate(Route.NewsDetailScreen.route)
             }
         )
     }

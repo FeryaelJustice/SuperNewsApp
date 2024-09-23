@@ -16,5 +16,5 @@ sealed class Route(val route: String) {
     data object NewsDetailScreen : Route(route = "newsDetailScreen")
     data object AppStartNavigation : Route(route = "appStartNavigation")
     data object NewsNavigation : Route(route = "newsNavigation")
-    data object NewsNavigationScreen : Route(route = "newsNavigationScreen")
+    data object NewsNavigatorScreen : Route(route = "newsNavigatorScreen")
 }
