@@ -19,14 +19,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
 import com.feryaeldev.supernewsapp.R
 import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.presentation.Dimens.ExtraSmallPadding
-import com.feryaeldev.supernewsapp.presentation.Dimens.ExtraSmallPadding2
 import com.feryaeldev.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeldev.supernewsapp.presentation.common.ArticlesList
 import com.feryaeldev.supernewsapp.presentation.common.SearchBar
