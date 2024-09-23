@@ -6,6 +6,12 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.domain.usecase
+package com.feryaeldev.supernewsapp.domain.usecase.app_entry
 
-data class AppEntryUseCases(val readAppEntry: ReadAppEntry, val saveAppEntry: SaveAppEntry)
+import com.feryaeldev.supernewsapp.domain.manager.LocalUserManager
+
+class SaveAppEntry(private val localUserManager: LocalUserManager) {
+    suspend operator fun invoke() {
+        localUserManager.saveAppEntry()
+    }
+}

@@ -6,14 +6,15 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.util
+package com.feryaeldev.supernewsapp.domain.model
 
-object Constants {
-    const val USER_SETTINGS = "userSettings"
-
-    const val APP_ENTRY = "appEntry"
-
-    const val API_KEY = "eb28f77919bd452baebe7065500b3eb5"
-
-    const val BASE_URL = "https://newsapi.org/v2/"
-}
+data class Article(
+    val author: String,
+    val content: String,
+    val description: String,
+    val publishedAt: String,
+    val source: Source,
+    val title: String,
+    val url: String,
+    val urlToImage: String
+)

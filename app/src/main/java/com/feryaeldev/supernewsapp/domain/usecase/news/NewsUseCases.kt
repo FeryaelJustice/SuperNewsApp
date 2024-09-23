@@ -6,13 +6,6 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.domain.usecase
+package com.feryaeldev.supernewsapp.domain.usecase.news
 
-import com.feryaeldev.supernewsapp.domain.manager.LocalUserManager
-import kotlinx.coroutines.flow.Flow
-
-class ReadAppEntry(private val localUserManager: LocalUserManager) {
-    operator fun invoke(): Flow<Boolean> {
-        return localUserManager.readAppEntry()
-    }
-}
+data class NewsUseCases(val getNews: GetNews)

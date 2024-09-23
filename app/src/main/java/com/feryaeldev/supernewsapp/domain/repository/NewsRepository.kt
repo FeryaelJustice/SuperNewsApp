@@ -6,14 +6,13 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.util
+package com.feryaeldev.supernewsapp.domain.repository
 
-object Constants {
-    const val USER_SETTINGS = "userSettings"
+import androidx.paging.PagingData
+import com.feryaeldev.supernewsapp.domain.model.Article
+import kotlinx.coroutines.flow.Flow
 
-    const val APP_ENTRY = "appEntry"
+interface NewsRepository {
 
-    const val API_KEY = "eb28f77919bd452baebe7065500b3eb5"
-
-    const val BASE_URL = "https://newsapi.org/v2/"
+    fun getNews(sources: List<String>): Flow<PagingData<Article>>
 }

@@ -6,14 +6,11 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.util
+package com.feryaeldev.supernewsapp.domain.usecase.news
 
-object Constants {
-    const val USER_SETTINGS = "userSettings"
+import com.feryaeldev.supernewsapp.domain.repository.NewsRepository
 
-    const val APP_ENTRY = "appEntry"
+class GetNews(private val newsRepository: NewsRepository) {
+    operator fun invoke(sources: List<String>) = newsRepository.getNews(sources)
 
-    const val API_KEY = "eb28f77919bd452baebe7065500b3eb5"
-
-    const val BASE_URL = "https://newsapi.org/v2/"
 }
