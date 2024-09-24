@@ -9,8 +9,9 @@
 package com.feryaeldev.supernewsapp.domain.usecase.news
 
 import com.feryaeldev.supernewsapp.domain.repository.NewsRepository
+import javax.inject.Inject
 
-class SearchNews(private val newsRepository: NewsRepository) {
+class SearchNews @Inject constructor(private val newsRepository: NewsRepository) {
     operator fun invoke(searchQuery: String, sources: List<String>) =
         newsRepository.searchNews(searchQuery, sources)
 

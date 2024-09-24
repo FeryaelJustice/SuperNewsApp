@@ -10,6 +10,8 @@ package com.feryaeldev.supernewsapp.presentation.mainActivity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -39,8 +41,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition } }
+        installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition.value } }
         enableEdgeToEdge()
+        
+        // Set up an OnPreDrawListener to the root view.
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    // Check whether the initial data is ready.
+                    return if (viewModel.splashCondition.value) {
+                        // The content is ready. Start drawing.
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        // The content isn't ready. Suspend.
+                        false
+                    }
+                }
+            }
+        )
 
         setContent {
             SuperNewsAppTheme {
@@ -56,8 +76,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
-                        val startDestination = viewModel.startDestination
-                        NavGraph(startDestination = startDestination)
+                        NavGraph(startDestination = viewModel.startDestination.value)
                     }
                 }
             }

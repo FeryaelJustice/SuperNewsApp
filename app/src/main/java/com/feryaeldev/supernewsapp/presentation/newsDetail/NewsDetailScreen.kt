@@ -36,6 +36,7 @@ import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.domain.model.Source
 import com.feryaeldev.supernewsapp.presentation.Dimens.ArticleImageHeight
 import com.feryaeldev.supernewsapp.presentation.Dimens.MediumPadding1
+import com.feryaeldev.supernewsapp.presentation.Dimens.SmallPadding1
 import com.feryaeldev.supernewsapp.presentation.newsDetail.components.DetailsTopBar
 import com.feryaeldev.supernewsapp.ui.theme.SuperNewsAppTheme
 import com.feryaeldev.supernewsapp.util.UIComponent
@@ -120,6 +121,8 @@ fun DetailsScreen(
                             .color.text_title
                     )
                 )
+
+                Spacer(modifier = Modifier.height(SmallPadding1))
 
                 Text(
                     text = article.content,

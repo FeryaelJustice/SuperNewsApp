@@ -52,7 +52,7 @@ fun OnBoardingPage(
             text = page.title,
             modifier = Modifier.padding(Dimens.MediumPadding2),
             style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
-            color = colorResource(id = R.color.display_small)
+            color = colorResource(id = R.color.onboarding_title)
         )
         Text(
             text = page.description,

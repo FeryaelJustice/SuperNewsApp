@@ -10,8 +10,9 @@ package com.feryaeldev.supernewsapp.domain.usecase.app_entry
 
 import com.feryaeldev.supernewsapp.domain.manager.LocalUserManager
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ReadAppEntry(private val localUserManager: LocalUserManager) {
+class ReadAppEntry @Inject constructor(private val localUserManager: LocalUserManager) {
     operator fun invoke(): Flow<Boolean> {
         return localUserManager.readAppEntry()
     }

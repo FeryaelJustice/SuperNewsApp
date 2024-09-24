@@ -63,7 +63,7 @@ fun SearchBar(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = null,
-                    modifier = Modifier.size(4.dp),
+                    modifier = Modifier.size(24.dp),
                     tint = colorResource(id = R.color.body)
                 )
             },
