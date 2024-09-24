@@ -8,4 +8,4 @@
 
 package com.feryaeldev.supernewsapp.domain.usecase.news
 
-data class NewsUseCases(val getNews: GetNews)
+data class NewsUseCases(val getNews: GetNews, val searchNews: SearchNews)

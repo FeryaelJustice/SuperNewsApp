@@ -13,6 +13,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.feryaeldev.supernewsapp.data.remote.NewsApi
 import com.feryaeldev.supernewsapp.data.remote.NewsPagingSource
+import com.feryaeldev.supernewsapp.data.remote.SearchNewsPagingSource
 import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
@@ -23,6 +24,14 @@ class NewsRepositoryImpl(private val newsApi: NewsApi) : NewsRepository {
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = {
                 NewsPagingSource(newsApi, sources.joinToString(","))
+            }).flow
+    }
+
+    override fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(pageSize = 20, enablePlaceholders = false),
+            pagingSourceFactory = {
+                SearchNewsPagingSource(newsApi, searchQuery, sources.joinToString(","))
             }).flow
     }
 }

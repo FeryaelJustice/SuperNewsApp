@@ -19,6 +19,7 @@ import com.feryaeldev.supernewsapp.domain.usecase.app_entry.ReadAppEntry
 import com.feryaeldev.supernewsapp.domain.usecase.app_entry.SaveAppEntry
 import com.feryaeldev.supernewsapp.domain.usecase.news.GetNews
 import com.feryaeldev.supernewsapp.domain.usecase.news.NewsUseCases
+import com.feryaeldev.supernewsapp.domain.usecase.news.SearchNews
 import com.feryaeldev.supernewsapp.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -26,7 +27,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -55,5 +55,5 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsUseCases(newsRepository: NewsRepository) = NewsUseCases(GetNews(newsRepository))
+    fun provideNewsUseCases(newsRepository: NewsRepository) = NewsUseCases(getNews = GetNews(newsRepository), searchNews = SearchNews(newsRepository))
 }

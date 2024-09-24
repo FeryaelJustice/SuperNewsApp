@@ -27,7 +27,6 @@ import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.presentation.Dimens.ExtraSmallPadding
 import com.feryaeldev.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeldev.supernewsapp.presentation.common.ArticlesList
-import com.feryaeldev.supernewsapp.presentation.common.SearchBar
 import com.feryaeldev.supernewsapp.presentation.navigation.Route
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -61,20 +60,21 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
                 .padding(horizontal = ExtraSmallPadding)
         )
 
-        Spacer(modifier = Modifier.height(MediumPadding1))
+//        Spacer(modifier = Modifier.height(MediumPadding1))
+//
+//        SearchBar(
+//            modifier = Modifier
+//                .padding(horizontal = MediumPadding1)
+//                .fillMaxWidth(),
+//            text = "",
+//            readOnly = true,
+//            onValueChange = {},
+//            onSearch = {},
+//            onClick = {
+//                navigate(Route.SearchScreen.route)
+//            }
+//        )
 
-        SearchBar(
-            modifier = Modifier
-                .padding(horizontal = MediumPadding1)
-                .fillMaxWidth(),
-            text = "",
-            readOnly = true,
-            onValueChange = {},
-            onSearch = {},
-            onClick = {
-                navigate(Route.SearchScreen.route)
-            }
-        )
         Spacer(modifier = Modifier.height(MediumPadding1))
 
         Text(
