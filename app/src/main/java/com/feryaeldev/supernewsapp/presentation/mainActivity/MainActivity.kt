@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition.value } }
         enableEdgeToEdge()
-        
+
         // Set up an OnPreDrawListener to the root view.
         val content: View = findViewById(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(

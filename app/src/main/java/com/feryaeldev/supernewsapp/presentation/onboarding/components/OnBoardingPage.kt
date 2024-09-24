@@ -20,12 +20,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.feryaeldev.supernewsapp.R
 import com.feryaeldev.supernewsapp.presentation.Dimens
@@ -38,26 +40,29 @@ fun OnBoardingPage(
     modifier: Modifier = Modifier,
     page: Page
 ) {
-    Column(modifier = modifier.background(Color.White)) {
+    Column(modifier = modifier) {
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.6f),
+                .fillMaxHeight(fraction = 0.60f),
             painter = painterResource(id = page.image),
             contentDescription = null,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center
         )
-        Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
+        Spacer(modifier = Modifier.height(Dimens.SmallPadding1))
         Text(
             text = page.title,
             modifier = Modifier.padding(Dimens.MediumPadding2),
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
-            color = colorResource(id = R.color.onboarding_title)
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+            color = colorResource(id = R.color.onboarding_title),
+            maxLines = 3,
+            overflow = TextOverflow.Clip
         )
         Text(
             text = page.description,
             modifier = Modifier.padding(Dimens.MediumPadding2),
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodySmall,
             color = colorResource(id = R.color.text_medium)
         )
     }

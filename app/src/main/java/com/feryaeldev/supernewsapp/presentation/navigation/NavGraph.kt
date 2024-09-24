@@ -2,10 +2,12 @@ package com.feryaeldev.supernewsapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.presentation.onboarding.OnBoardingScreen
 import com.feryaeldev.supernewsapp.presentation.onboarding.OnBoardingViewModel
 
@@ -20,7 +22,14 @@ fun NavGraph(startDestination: String) {
         ) {
             composable(route = Route.OnBoardingScreen.route) {
                 val viewModel: OnBoardingViewModel = hiltViewModel()
-                OnBoardingScreen(event = viewModel::onEvent)
+                OnBoardingScreen(
+                    event = viewModel::onEvent,
+//                    navigateToHome = {
+//                        navController.navigate(
+//                            route = Route.HomeScreen.route
+//                        )
+//                    },
+                )
             }
         }
 

@@ -16,7 +16,7 @@ val pages = listOf(
         image = R.drawable.onboarding1
     ),
     Page(
-        title = "This app will make you be informed of the most important news around the world",
+        title = "We will make you be informed of the most important news around the world",
         description = "No matter what is happening, you will be instantly informed.",
         image = R.drawable.onboarding2
     ),

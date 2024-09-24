@@ -9,6 +9,7 @@
 package com.feryaeldev.supernewsapp.presentation.onboarding
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.feryaeldev.supernewsapp.presentation.Dimens.MediumPadding2
 import com.feryaeldev.supernewsapp.presentation.Dimens.PageIndicatorWidth
 import com.feryaeldev.supernewsapp.presentation.common.NewsButton
@@ -36,8 +38,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
+// navigateToHome: () -> Unit
 fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
         val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
         }
@@ -84,6 +87,7 @@ fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
                     scope.launch {
                         if (pagerState.currentPage == 2) {
                             event(OnBoardingEvent.SaveAppEntry)
+//                            navigateToHome()
                         } else {
                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
                         }
