@@ -6,11 +6,12 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.presentation.home
+package com.feryaeldev.supernewsapp.presentation.newsDetail
 
-data class HomeState(
-    val newsTicker: String = "",
-    val isLoading: Boolean = false,
-    val scrollValue: Int = 0,
-    val maxScrollingValue: Int = 0
-)
+import com.feryaeldev.supernewsapp.domain.model.Article
+
+sealed class NewsDetailEvent {
+    data class UpsertDeleteArticle(val article: Article) : NewsDetailEvent()
+
+    data object RemoveSideEffect : NewsDetailEvent()
+}

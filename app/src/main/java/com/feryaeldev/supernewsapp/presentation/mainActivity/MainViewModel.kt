@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp
+package com.feryaeldev.supernewsapp.presentation.mainActivity
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

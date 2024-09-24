@@ -11,14 +11,20 @@ package com.feryaeldev.supernewsapp.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.feryaeldev.supernewsapp.data.local.NewsDao
 import com.feryaeldev.supernewsapp.data.remote.NewsApi
 import com.feryaeldev.supernewsapp.data.remote.NewsPagingSource
 import com.feryaeldev.supernewsapp.data.remote.SearchNewsPagingSource
 import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class NewsRepositoryImpl(private val newsApi: NewsApi) : NewsRepository {
+class NewsRepositoryImpl @Inject constructor(
+    private val newsApi: NewsApi,
+    private val newsDao: NewsDao
+) : NewsRepository {
+
     override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
@@ -33,5 +39,21 @@ class NewsRepositoryImpl(private val newsApi: NewsApi) : NewsRepository {
             pagingSourceFactory = {
                 SearchNewsPagingSource(newsApi, searchQuery, sources.joinToString(","))
             }).flow
+    }
+
+    override suspend fun upsertArticle(article: Article) {
+        newsDao.upsert(article)
+    }
+
+    override suspend fun deleteArticle(article: Article) {
+        newsDao.delete(article)
+    }
+
+    override fun getArticles(): Flow<List<Article>> {
+        return newsDao.getArticles()
+    }
+
+    override suspend fun getArticle(url: String): Article? {
+        return newsDao.getArticle(url = url)
     }
 }

@@ -6,23 +6,29 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.domain.repository
+package com.feryaeldev.supernewsapp.data.local
 
-import androidx.paging.PagingData
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.feryaeldev.supernewsapp.domain.model.Article
 import kotlinx.coroutines.flow.Flow
 
-interface NewsRepository {
+@Dao
+interface NewsDao {
 
-    fun getNews(sources: List<String>): Flow<PagingData<Article>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsert(article: Article)
 
-    fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>>
+    @Delete
+    suspend fun delete(article: Article)
 
-    suspend fun upsertArticle(article: Article)
-
-    suspend fun deleteArticle(article: Article)
-
+    @Query("SELECT * FROM Article")
     fun getArticles(): Flow<List<Article>>
 
+    @Query("SELECT * FROM Article WHERE url=:url")
     suspend fun getArticle(url: String): Article?
+
 }

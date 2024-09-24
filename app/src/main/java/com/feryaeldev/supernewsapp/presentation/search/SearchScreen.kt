@@ -21,8 +21,13 @@ import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.presentation.Dimens
 import com.feryaeldev.supernewsapp.presentation.common.ArticlesList
 import com.feryaeldev.supernewsapp.presentation.common.SearchBar
+
 @Composable
-fun SearchScreen(state: SearchState, event: (SearchEvent) -> Unit, navigateToDetails: (Article) -> Unit) {
+fun SearchScreen(
+    state: SearchState,
+    event: (SearchEvent) -> Unit,
+    navigateToDetails: (Article) -> Unit
+) {
 
     Column(
         modifier = Modifier

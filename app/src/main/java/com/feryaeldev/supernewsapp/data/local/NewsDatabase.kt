@@ -6,11 +6,15 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.presentation.home
+package com.feryaeldev.supernewsapp.data.local
 
-data class HomeState(
-    val newsTicker: String = "",
-    val isLoading: Boolean = false,
-    val scrollValue: Int = 0,
-    val maxScrollingValue: Int = 0
-)
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.feryaeldev.supernewsapp.domain.model.Article
+
+@Database(entities = [Article::class],version = 1,)
+@TypeConverters(NewsTypeConverter::class)
+abstract class NewsDatabase : RoomDatabase() {
+    abstract val newsDao: NewsDao
+}

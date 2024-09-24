@@ -6,23 +6,19 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.domain.repository
+package com.feryaeldev.supernewsapp.domain.usecase.news
 
-import androidx.paging.PagingData
+import com.feryaeldev.supernewsapp.data.local.NewsDao
 import com.feryaeldev.supernewsapp.domain.model.Article
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-interface NewsRepository {
+class GetSavedArticles @Inject constructor(
+    private val newsDao: NewsDao
+) {
 
-    fun getNews(sources: List<String>): Flow<PagingData<Article>>
+    operator fun invoke(): Flow<List<Article>> {
+        return newsDao.getArticles()
+    }
 
-    fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>>
-
-    suspend fun upsertArticle(article: Article)
-
-    suspend fun deleteArticle(article: Article)
-
-    fun getArticles(): Flow<List<Article>>
-
-    suspend fun getArticle(url: String): Article?
 }

@@ -3,7 +3,6 @@ package com.feryaeldev.supernewsapp.presentation.navigation
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,6 +20,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.feryaeldev.supernewsapp.R
 import com.feryaeldev.supernewsapp.domain.model.Article
+import com.feryaeldev.supernewsapp.presentation.bookmark.BookmarkScreen
+import com.feryaeldev.supernewsapp.presentation.bookmark.BookmarkViewModel
+import com.feryaeldev.supernewsapp.presentation.newsDetail.DetailsScreen
+import com.feryaeldev.supernewsapp.presentation.newsDetail.NewsDetailScreenViewModel
 import com.feryaeldev.supernewsapp.presentation.home.HomeScreen
 import com.feryaeldev.supernewsapp.presentation.home.HomeViewModel
 import com.feryaeldev.supernewsapp.presentation.navigation.components.BottomNavigationItem
@@ -29,10 +32,8 @@ import com.feryaeldev.supernewsapp.presentation.search.SearchScreen
 import com.feryaeldev.supernewsapp.presentation.search.SearchViewModel
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsNavigator() {
-
     val bottomNavigationItems = remember {
         listOf(
             BottomNavigationItem(icon = R.drawable.ic_home, text = "Home"),
@@ -53,30 +54,38 @@ fun NewsNavigator() {
         else -> 0
     }
 
+    //Hide the bottom navigation when the user is in the details screen
+    val isBottomBarVisible = remember(key1 = backStackState) {
+        backStackState?.destination?.route == Route.HomeScreen.route ||
+                backStackState?.destination?.route == Route.SearchScreen.route ||
+                backStackState?.destination?.route == Route.BookmarkScreen.route
+    }
 
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-        NewsBottomNavigation(
-            items = bottomNavigationItems,
-            selectedItem = selectedItem,
-            onItemClick = { index ->
-                when (index) {
-                    0 -> navigateToTab(
-                        navController = navController,
-                        route = Route.HomeScreen.route
-                    )
+        if (isBottomBarVisible) {
+            NewsBottomNavigation(
+                items = bottomNavigationItems,
+                selectedItem = selectedItem,
+                onItemClick = { index ->
+                    when (index) {
+                        0 -> navigateToTab(
+                            navController = navController,
+                            route = Route.HomeScreen.route
+                        )
 
-                    1 -> navigateToTab(
-                        navController = navController,
-                        route = Route.SearchScreen.route
-                    )
+                        1 -> navigateToTab(
+                            navController = navController,
+                            route = Route.SearchScreen.route
+                        )
 
-                    2 -> navigateToTab(
-                        navController = navController,
-                        route = Route.BookmarkScreen.route
-                    )
+                        2 -> navigateToTab(
+                            navController = navController,
+                            route = Route.BookmarkScreen.route
+                        )
+                    }
                 }
-            }
-        )
+            )
+        }
     }) { paddingValues ->
         val bottomPadding = paddingValues.calculateBottomPadding()
         NavHost(
@@ -89,12 +98,21 @@ fun NewsNavigator() {
                 val articles = viewModel.news.collectAsLazyPagingItems()
                 HomeScreen(
                     articles = articles,
-                    navigate = { route ->
+                    navigateToSearch = {
                         navigateToTab(
                             navController = navController,
-                            route = route
+                            route = Route.SearchScreen.route
                         )
-                    })
+                    },
+                    navigateToDetails = { article ->
+                        navigateToDetails(
+                            navController = navController,
+                            article = article
+                        )
+                    },
+                    event = viewModel::onEvent,
+                    state = viewModel.state.value
+                )
             }
             composable(route = Route.SearchScreen.route) {
                 val viewModel: SearchViewModel = hiltViewModel()
@@ -110,17 +128,32 @@ fun NewsNavigator() {
                         )
                     })
             }
-            composable(route = Route.BookmarkScreen.route) {
-                val viewModel: HomeViewModel = hiltViewModel()
-                val articles = viewModel.news.collectAsLazyPagingItems()
-                HomeScreen(
-                    articles = articles,
-                    navigate = { route ->
-                        navigateToTab(
-                            navController = navController,
-                            route = route
+            composable(route = Route.NewsDetailScreen.route) {
+                val viewModel: NewsDetailScreenViewModel = hiltViewModel()
+                navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
+                    ?.let { article ->
+                        DetailsScreen(
+                            article = article,
+                            event = viewModel::onEvent,
+                            navigateUp = { navController.navigateUp() },
+                            sideEffect = viewModel.sideEffect
                         )
-                    })
+                    }
+
+            }
+            composable(route = Route.BookmarkScreen.route) {
+                val viewModel: BookmarkViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                OnBackClickStateSaver(navController = navController)
+                BookmarkScreen(
+                    state = state,
+                    navigateToDetails = { article ->
+                        navigateToDetails(
+                            navController = navController,
+                            article = article
+                        )
+                    }
+                )
             }
         }
     }
@@ -138,8 +171,8 @@ fun OnBackClickStateSaver(navController: NavController) {
 
 private fun navigateToTab(navController: NavController, route: String) {
     navController.navigate(route) {
-        navController.graph.startDestinationRoute?.let { screen_route ->
-            popUpTo(screen_route) {
+        navController.graph.startDestinationRoute?.let { screenRoute ->
+            popUpTo(screenRoute) {
                 saveState = true
             }
         }
@@ -151,6 +184,6 @@ private fun navigateToTab(navController: NavController, route: String) {
 private fun navigateToDetails(navController: NavController, article: Article) {
     navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
     navController.navigate(
-        route = Route.HomeScreen.route
+        route = Route.NewsDetailScreen.route
     )
 }

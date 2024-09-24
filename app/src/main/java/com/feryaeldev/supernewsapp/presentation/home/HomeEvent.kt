@@ -8,9 +8,9 @@
 
 package com.feryaeldev.supernewsapp.presentation.home
 
-data class HomeState(
-    val newsTicker: String = "",
-    val isLoading: Boolean = false,
-    val scrollValue: Int = 0,
-    val maxScrollingValue: Int = 0
-)
+sealed class HomeEvent {
+
+    data class UpdateScrollValue(val newValue: Int) : HomeEvent()
+    data class UpdateMaxScrollingValue(val newValue: Int) : HomeEvent()
+
+}

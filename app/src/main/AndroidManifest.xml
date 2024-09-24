@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
 		android:name=".NewsApplication"
@@ -16,7 +16,7 @@
 		android:theme="@style/Theme.SuperNewsApp.SplashScreen"
 		tools:targetApi="31">
 		<activity
-			android:name=".MainActivity"
+			android:name=".presentation.mainActivity.MainActivity"
 			android:exported="true"
 			android:theme="@style/Theme.SuperNewsApp.SplashScreen">
 			<intent-filter>
@@ -25,5 +25,17 @@
 			</intent-filter>
 		</activity>
 	</application>
+
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<data android:scheme="https" />
+		</intent>
+
+		<intent>
+			<action android:name="android.intent.action.SEND" />
+		</intent>
+	</queries>
 
 </manifest>

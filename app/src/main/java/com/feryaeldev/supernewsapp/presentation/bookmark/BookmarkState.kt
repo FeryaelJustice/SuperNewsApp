@@ -6,11 +6,10 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.presentation.home
+package com.feryaeldev.supernewsapp.presentation.bookmark
 
-data class HomeState(
-    val newsTicker: String = "",
-    val isLoading: Boolean = false,
-    val scrollValue: Int = 0,
-    val maxScrollingValue: Int = 0
+import com.feryaeldev.supernewsapp.domain.model.Article
+
+data class BookmarkState(
+    val articles: List<Article> = emptyList()
 )

@@ -6,11 +6,18 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeldev.supernewsapp.presentation.home
+package com.feryaeldev.supernewsapp.domain.usecase.news
 
-data class HomeState(
-    val newsTicker: String = "",
-    val isLoading: Boolean = false,
-    val scrollValue: Int = 0,
-    val maxScrollingValue: Int = 0
-)
+import com.feryaeldev.supernewsapp.data.local.NewsDao
+import com.feryaeldev.supernewsapp.domain.model.Article
+import javax.inject.Inject
+
+class GetSavedArticle @Inject constructor(
+    private val newsDao: NewsDao
+) {
+
+    suspend operator fun invoke(url: String): Article?{
+        return newsDao.getArticle(url = url)
+    }
+
+}
