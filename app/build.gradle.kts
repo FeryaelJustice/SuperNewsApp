@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-    namespace = "com.feryaeldev.supernewsapp"
+    namespace = "com.feryaeljustice.supernewsapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.feryaeldev.supernewsapp"
+        applicationId = "com.feryaeljustice.supernewsapp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -25,11 +25,18 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+            isProfileable = true
+            isShrinkResources = false
         }
     }
     compileOptions {
