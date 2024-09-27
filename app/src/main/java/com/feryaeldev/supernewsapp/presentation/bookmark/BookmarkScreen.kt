@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.feryaeldev.supernewsapp.R
 import com.feryaeldev.supernewsapp.domain.model.Article
@@ -30,6 +31,8 @@ fun BookmarkScreen(
     state: BookmarkState,
     navigateToDetails: (Article) -> Unit
 ) {
+    val bookmarkText = stringResource(R.string.bookmark)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,7 +41,7 @@ fun BookmarkScreen(
     ) {
 
         Text(
-            text = "Bookmark",
+            text = bookmarkText,
             style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
             color = colorResource(
                 id = R.color.text_title

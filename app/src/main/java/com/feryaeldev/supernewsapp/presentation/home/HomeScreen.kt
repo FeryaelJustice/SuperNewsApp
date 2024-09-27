@@ -3,9 +3,7 @@ package com.feryaeldev.supernewsapp.presentation.home
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,17 +25,14 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import com.feryaeldev.supernewsapp.R
 import com.feryaeldev.supernewsapp.domain.model.Article
 import com.feryaeldev.supernewsapp.presentation.Dimens.ExtraSmallPadding
 import com.feryaeldev.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeldev.supernewsapp.presentation.common.ArticlesList
-import com.feryaeldev.supernewsapp.presentation.navigation.Route
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     articles: LazyPagingItems<Article>,
@@ -73,19 +68,6 @@ fun HomeScreen(
                 .height(30.dp)
                 .padding(horizontal = ExtraSmallPadding)
         )
-
-//        Spacer(modifier = Modifier.height(MediumPadding1))
-//
-//        SearchBar(
-//            modifier = Modifier
-//                .padding(horizontal = MediumPadding1)
-//                .fillMaxWidth(),
-//            text = "",
-//            readOnly = true,
-//            onValueChange = {},
-//            onSearch = {},
-//            onClick = navigateToSearch
-//        )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 

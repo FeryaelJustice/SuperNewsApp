@@ -1,0 +1,5 @@
+<resources>
+	<string name="home">Inicio</string>
+	<string name="search">Buscar</string>
+	<string name="bookmark">Marcadores</string>
+</resources>

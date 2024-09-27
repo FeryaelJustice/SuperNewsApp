@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.feryaeldev.supernewsapp.R
@@ -81,11 +82,15 @@ data class BottomNavigationItem(
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun NewsBottomNavigationPreview() {
+    val homeText = stringResource(R.string.home)
+    val searchText = stringResource(R.string.search)
+    val bookmarkText = stringResource(R.string.bookmark)
+
     SuperNewsAppTheme(dynamicColor = false) {
         NewsBottomNavigation(items = listOf(
-            BottomNavigationItem(icon = R.drawable.ic_home, text = "Home"),
-            BottomNavigationItem(icon = R.drawable.ic_search, text = "Search"),
-            BottomNavigationItem(icon = R.drawable.ic_bookmark, text = "Bookmark"),
+            BottomNavigationItem(icon = R.drawable.ic_home, text = homeText),
+            BottomNavigationItem(icon = R.drawable.ic_search, text = searchText),
+            BottomNavigationItem(icon = R.drawable.ic_bookmark, text = bookmarkText),
         ), selectedItem = 0, onItemClick = {})
     }
 }
