@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.kapt)
     alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -35,8 +35,6 @@ android {
         debug {
             isMinifyEnabled = false
             isDebuggable = true
-            isProfileable = true
-            isShrinkResources = false
         }
     }
     compileOptions {
@@ -77,12 +75,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+//    debugImplementation(libs.com.squareup.leakcanary)
+
     implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.com.google.dagger.hilt.android)
-    kapt(libs.com.google.dagger.hilt.compiler)
+    ksp(libs.com.google.dagger.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.com.squareup.retrofit2.retrofit2)
@@ -95,6 +95,6 @@ dependencies {
     implementation(libs.androidx.paging.paging.runtime)
     implementation(libs.androidx.paging.paging.compose)
     implementation(libs.androidx.room.room.runtime)
-    kapt(libs.androidx.room.room.compiler)
+    ksp(libs.androidx.room.room.compiler)
     implementation(libs.androidx.room.room.ktx)
 }

@@ -1,23 +1,25 @@
 [versions]
-agp = "8.6.1"
+agp = "8.7.0"
 kotlin = "1.9.0"
 kotlinPlugin = "1.8.10"
+ksp = "1.9.0-1.0.13"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.4"
-activityCompose = "1.9.1"
-composeBom = "2024.08.00"
+lifecycleRuntimeKtx = "2.8.6"
+activityCompose = "1.9.2"
+composeBom = "2024.09.03"
 splashScreen = "1.0.1"
-navigationCompose = "2.7.7"
+navigationCompose = "2.8.2"
 hiltAndroid = "2.49"
 hiltCompiler = "2.49"
 hiltNavigationCompose = "1.2.0"
 retrofit = "2.11.0"
+leakcanary = "2.14"
 coilCompose = "2.7.0"
 datastorePreferences = "1.1.1"
-composeFoundation = "1.6.8"
+composeFoundation = "1.7.3"
 pagingRuntime = "3.3.2"
 pagingCompose = "3.3.2"
 roomVersion = "2.6.1"
@@ -49,6 +51,7 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 
 com-squareup-retrofit2-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 com-squareup-retrofit2-convertergson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+com-squareup-leakcanary = { group = "'com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 
 io-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 
@@ -63,7 +66,7 @@ androidx-room-room-ktx = { group = "androidx.room", name = "room-ktx", version.r
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlinPlugin"  }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinPlugin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 
