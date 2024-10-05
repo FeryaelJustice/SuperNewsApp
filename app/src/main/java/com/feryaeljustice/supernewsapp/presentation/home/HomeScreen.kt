@@ -5,6 +5,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +21,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -28,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
-import com.feryaeljustice.supernewsapp.presentation.Dimens.ExtraSmallPadding
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeljustice.supernewsapp.presentation.common.ArticlesList
 import kotlinx.coroutines.delay
@@ -38,7 +41,7 @@ fun HomeScreen(
     articles: LazyPagingItems<Article>,
     state: HomeState,
     event: (HomeEvent) -> Unit,
-    navigateToSearch: () -> Unit,
+//    navigateToSearch: () -> Unit,
     navigateToDetails: (Article) -> Unit
 ) {
 
@@ -63,10 +66,12 @@ fun HomeScreen(
         Image(
             painter = painterResource(id = R.drawable.ic_home),
             contentDescription = null,
+            alignment = Alignment.CenterStart,
+            colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
             modifier = Modifier
                 .width(150.dp)
                 .height(30.dp)
-                .padding(horizontal = ExtraSmallPadding)
+                .padding(horizontal = MediumPadding1)
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
@@ -76,7 +81,7 @@ fun HomeScreen(
         Text(
             text = titles, modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = MediumPadding1)
+                .padding(horizontal = MediumPadding1)
                 .horizontalScroll(scrollState, enabled = false),
             fontSize = 12.sp,
             color = colorResource(id = R.color.placeholder)
