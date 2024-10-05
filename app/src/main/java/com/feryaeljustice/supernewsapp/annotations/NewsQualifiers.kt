@@ -6,14 +6,10 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.feryaeljustice.supernewsapp.util
+package com.feryaeljustice.supernewsapp.annotations
 
-object Constants {
-    const val USER_SETTINGS = "userSettings"
+import javax.inject.Qualifier
 
-    const val APP_ENTRY = "appEntry"
-
-    const val BASE_URL = "https://newsapi.org/v2/"
-
-
-}
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class NewsApiKey

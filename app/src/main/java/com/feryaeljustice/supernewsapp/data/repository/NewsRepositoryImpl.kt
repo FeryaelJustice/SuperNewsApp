@@ -11,6 +11,7 @@ package com.feryaeljustice.supernewsapp.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.feryaeljustice.supernewsapp.annotations.NewsApiKey
 import com.feryaeljustice.supernewsapp.data.local.NewsDao
 import com.feryaeljustice.supernewsapp.data.remote.NewsApi
 import com.feryaeljustice.supernewsapp.data.remote.NewsPagingSource
@@ -22,14 +23,15 @@ import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
     private val newsApi: NewsApi,
-    private val newsDao: NewsDao
+    private val newsDao: NewsDao,
+    @NewsApiKey private val apiKey: String
 ) : NewsRepository {
 
     override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = {
-                NewsPagingSource(newsApi, sources.joinToString(","))
+                NewsPagingSource(newsApi, sources.joinToString(","), apiKey)
             }).flow
     }
 
@@ -37,7 +39,7 @@ class NewsRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = {
-                SearchNewsPagingSource(newsApi, searchQuery, sources.joinToString(","))
+                SearchNewsPagingSource(newsApi, searchQuery, sources.joinToString(","), apiKey)
             }).flow
     }
 

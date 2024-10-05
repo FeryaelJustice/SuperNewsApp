@@ -15,7 +15,8 @@ import com.feryaeljustice.supernewsapp.domain.model.Article
 class SearchNewsPagingSource(
     private val newsApi: NewsApi,
     private val query: String,
-    private val sources: String
+    private val sources: String,
+    private val apiKey: String
 ) :
     PagingSource<Int, Article>() {
 
@@ -31,7 +32,7 @@ class SearchNewsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         val page = params.key ?: 1
         return try {
-            val response = newsApi.searchNews(query, page, sources)
+            val response = newsApi.searchNews(query, page, sources, apiKey = apiKey)
             totalNewsCount += response.articles.size
             val articles = response.articles.distinctBy { it.title }
             LoadResult.Page(

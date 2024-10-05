@@ -9,7 +9,6 @@
 package com.feryaeljustice.supernewsapp.data.remote
 
 import com.feryaeljustice.supernewsapp.data.remote.dto.NewsResponse
-import com.feryaeljustice.supernewsapp.util.Constants.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -19,7 +18,7 @@ interface NewsApi {
     suspend fun getNews(
         @Query("page") page: Int,
         @Query("sources") sources: String,
-        @Query("apiKey") apiKey: String = API_KEY
+        @Query("apiKey") apiKey: String
     ): NewsResponse
 
     @GET("everything")
@@ -27,6 +26,6 @@ interface NewsApi {
         @Query("q") query: String,
         @Query("page") page: Int,
         @Query("sources") sources: String,
-        @Query("apiKey") apiKey: String = API_KEY
+        @Query("apiKey") apiKey: String
     ): NewsResponse
 }

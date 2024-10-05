@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -5,6 +7,8 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.ksp)
 }
+
+val newsApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("api_key", "")
 
 android {
     namespace = "com.feryaeljustice.supernewsapp"
@@ -21,6 +25,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        resValue("string", "newsApiKey", "\"" + newsApiKey + "\"")
     }
 
     buildTypes {

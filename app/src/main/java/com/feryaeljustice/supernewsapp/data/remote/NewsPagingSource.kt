@@ -12,7 +12,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.feryaeljustice.supernewsapp.domain.model.Article
 
-class NewsPagingSource(private val newsApi: NewsApi, private val sources: String) :
+class NewsPagingSource(private val newsApi: NewsApi, private val sources: String, private val apiKey: String) :
     PagingSource<Int, Article>() {
 
     private var totalNewsCount = 0
@@ -27,7 +27,7 @@ class NewsPagingSource(private val newsApi: NewsApi, private val sources: String
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         val page = params.key ?: 1
         return try {
-            val response = newsApi.getNews(page, sources)
+            val response = newsApi.getNews(page, sources, apiKey = apiKey)
             totalNewsCount += response.articles.size
             val articles = response.articles.distinctBy { it.title }
             LoadResult.Page(
