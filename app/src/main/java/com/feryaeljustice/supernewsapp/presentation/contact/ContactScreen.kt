@@ -30,6 +30,7 @@ import com.feryaeljustice.supernewsapp.R
 @Composable
 fun ContactScreen(state: ContactState, onContactClick: (message: String) -> Unit) {
     val name = state.name
+    val newsSourceName = state.newsSourceName
     val message = rememberSaveable { mutableStateOf("") }
 
     Column(
@@ -43,6 +44,11 @@ fun ContactScreen(state: ContactState, onContactClick: (message: String) -> Unit
             fontStyle = FontStyle.Italic,
             fontFamily = FontFamily.Monospace,
             modifier = Modifier.padding(top = 36.dp)
+        )
+        Text(
+            text = "Source of news: $newsSourceName",
+            color = Color.White,
+            fontFamily = FontFamily.Monospace,
         )
 
         Column {
