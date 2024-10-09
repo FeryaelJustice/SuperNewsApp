@@ -18,6 +18,8 @@ interface NewsApi {
     suspend fun getNews(
         @Query("page") page: Int,
         @Query("sources") sources: String,
+        @Query("from") from: String,
+        @Query("to") to: String,
         @Query("apiKey") apiKey: String
     ): NewsResponse
 
@@ -26,6 +28,8 @@ interface NewsApi {
         @Query("q") query: String,
         @Query("page") page: Int,
         @Query("sources") sources: String,
+        @Query("from") from: String,
+        @Query("to") to: String,
         @Query("apiKey") apiKey: String
     ): NewsResponse
 }

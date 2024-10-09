@@ -8,9 +8,13 @@
 
 package com.feryaeljustice.supernewsapp.data.remote
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.feryaeljustice.supernewsapp.domain.model.Article
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class SearchNewsPagingSource(
     private val newsApi: NewsApi,
@@ -32,7 +36,18 @@ class SearchNewsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         val page = params.key ?: 1
         return try {
-            val response = newsApi.searchNews(query, page, sources, apiKey = apiKey)
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val aMonthAgo = LocalDateTime.now().minusMonths(1).format(formatter)
+            val current = LocalDateTime.now().format(formatter)
+
+            val response = newsApi.searchNews(
+                query,
+                page,
+                sources,
+                from = aMonthAgo,
+                to = current,
+                apiKey = apiKey
+            )
             totalNewsCount += response.articles.size
             val articles = response.articles.distinctBy { it.title }
             LoadResult.Page(
