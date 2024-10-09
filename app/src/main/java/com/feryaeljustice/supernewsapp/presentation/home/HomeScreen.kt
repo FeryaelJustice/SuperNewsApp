@@ -4,9 +4,12 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,6 +45,7 @@ fun HomeScreen(
     state: HomeState,
     event: (HomeEvent) -> Unit,
 //    navigateToSearch: () -> Unit,
+    navigateToContact: () -> Unit,
     navigateToDetails: (Article) -> Unit
 ) {
 
@@ -63,16 +67,32 @@ fun HomeScreen(
             .padding(top = MediumPadding1)
             .statusBarsPadding()
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_home),
-            contentDescription = null,
-            alignment = Alignment.CenterStart,
-            colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .width(150.dp)
-                .height(30.dp)
+                .fillMaxWidth()
                 .padding(horizontal = MediumPadding1)
-        )
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_home),
+                contentDescription = null,
+                alignment = Alignment.CenterStart,
+                colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(30.dp)
+            )
+            Image(
+                painter = painterResource(id = R.drawable.ic_contact),
+                contentDescription = null,
+                alignment = Alignment.CenterEnd,
+                colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
+                modifier = Modifier
+                    .width(30.dp)
+                    .height(30.dp)
+                    .clickable { navigateToContact() }
+            )
+        }
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 

@@ -1,5 +1,8 @@
 package com.feryaeljustice.supernewsapp.presentation.navigation
 
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -23,6 +27,8 @@ import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import com.feryaeljustice.supernewsapp.presentation.bookmark.BookmarkScreen
 import com.feryaeljustice.supernewsapp.presentation.bookmark.BookmarkViewModel
+import com.feryaeljustice.supernewsapp.presentation.contact.ContactScreen
+import com.feryaeljustice.supernewsapp.presentation.contact.ContactViewModel
 import com.feryaeljustice.supernewsapp.presentation.newsDetail.DetailsScreen
 import com.feryaeljustice.supernewsapp.presentation.newsDetail.NewsDetailScreenViewModel
 import com.feryaeljustice.supernewsapp.presentation.home.HomeScreen
@@ -35,6 +41,8 @@ import com.feryaeljustice.supernewsapp.presentation.search.SearchViewModel
 
 @Composable
 fun NewsNavigator() {
+    val context = LocalContext.current
+
     val homeText = stringResource(R.string.home)
     val searchText = stringResource(R.string.search)
     val bookmarkText = stringResource(R.string.bookmark)
@@ -115,8 +123,61 @@ fun NewsNavigator() {
                             article = article
                         )
                     },
+                    navigateToContact = {
+                        navigateToTab(
+                            navController = navController,
+                            route = Route.ContactScreen.route
+                        )
+                    },
                     event = viewModel::onEvent,
                     state = viewModel.state.value
+                )
+            }
+            composable(route = Route.ContactScreen.route) {
+                val viewModel: ContactViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                ContactScreen(
+                    state = state,
+                    onContactClick = { message ->
+                        if (message.isBlank() || message.isEmpty()) {
+                            Toast.makeText(
+                                context,
+                                "Empty messages not allowed",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            return@ContactScreen
+                        }
+                        if (message.length < 100) {
+                            Toast.makeText(
+                                context,
+                                "Please enter a shorter message than 100 characters",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            return@ContactScreen
+                        }
+
+                        val mailIntent = Intent(Intent.ACTION_SEND)
+                        mailIntent.data = Uri.parse("mailto:")
+                        mailIntent.type = "text/plain"
+                        mailIntent.putExtra(
+                            Intent.EXTRA_EMAIL,
+                            arrayOf("fgonzalezserrano10@gmail.com")
+                        )
+                        mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contact from user")
+                        mailIntent.putExtra(Intent.EXTRA_TEXT, message)
+                        try {
+                            context.startActivity(
+                                Intent.createChooser(
+                                    mailIntent,
+                                    "Choose an email client: "
+                                )
+                            )
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
                 )
             }
             composable(route = Route.SearchScreen.route) {
