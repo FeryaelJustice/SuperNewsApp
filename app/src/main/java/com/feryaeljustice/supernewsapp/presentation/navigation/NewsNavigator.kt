@@ -148,7 +148,7 @@ fun NewsNavigator() {
                                 .show()
                             return@ContactScreen
                         }
-                        if (message.length < 100) {
+                        if (message.length > 100) {
                             Toast.makeText(
                                 context,
                                 "Please enter a shorter message than 100 characters",
@@ -159,8 +159,7 @@ fun NewsNavigator() {
                         }
 
                         val mailIntent = Intent(Intent.ACTION_SEND)
-                        mailIntent.data = Uri.parse("mailto:")
-                        mailIntent.type = "text/plain"
+                        mailIntent.setDataAndType(Uri.parse("mailto:"), "text/plain")
                         mailIntent.putExtra(
                             Intent.EXTRA_EMAIL,
                             arrayOf("fgonzalezserrano10@gmail.com")
