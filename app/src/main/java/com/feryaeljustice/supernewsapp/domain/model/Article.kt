@@ -1,27 +1,24 @@
-/*
- * Copyright (c) 2024. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
+
 
 package com.feryaeljustice.supernewsapp.domain.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
+@Keep
 data class Article(
-    val author: String,
-    val content: String,
-    val description: String,
-    val publishedAt: String,
-    val source: Source,
-    val title: String,
-    @PrimaryKey val url: String,
-    val urlToImage: String
+    @SerializedName("author") val author: String,
+    @SerializedName("content") val content: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("publishedAt") val publishedAt: String,
+    @SerializedName("source") val source: Source,
+    @SerializedName("title") val title: String,
+    @SerializedName("url") @PrimaryKey val url: String,
+    @SerializedName("urlToImage") val urlToImage: String
 ) : Parcelable

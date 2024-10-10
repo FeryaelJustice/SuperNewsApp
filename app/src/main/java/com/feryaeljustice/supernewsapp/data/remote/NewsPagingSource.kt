@@ -1,22 +1,16 @@
-/*
- * Copyright (c) 2024. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
+
 
 package com.feryaeljustice.supernewsapp.data.remote
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
+import androidx.annotation.Keep
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+@Keep
 class NewsPagingSource(
     private val newsApi: NewsApi,
     private val sources: String,

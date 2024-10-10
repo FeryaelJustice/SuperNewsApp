@@ -1,10 +1,4 @@
-/*
- * Copyright (c) 2024. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
+
 
 package com.feryaeljustice.supernewsapp.presentation.common
 
@@ -14,8 +8,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.feryaeljustice.supernewsapp.domain.model.Article
@@ -28,7 +24,7 @@ fun ArticlesListNoPaging(
     articles: List<Article>,
     onClick: (Article) -> Unit
 ) {
-    if (articles.isEmpty()){
+    if (articles.isEmpty()) {
         EmptyScreen()
     }
     LazyColumn(
@@ -57,16 +53,26 @@ fun ArticlesList(
     val handlePagingResult = handlePagingResult(articles)
 
     if (handlePagingResult) {
-        LazyColumn(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(MediumPadding1),
-            contentPadding = PaddingValues(all = ExtraSmallPadding2)
-        ) {
-            items(
-                count = articles.itemCount,
+        if (articles.itemCount == 0) {
+            Text(
+                text = "No articles available",
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(MediumPadding1),
+                textAlign = TextAlign.Center
+            )
+        } else {
+            LazyColumn(
+                modifier = modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(MediumPadding1),
+                contentPadding = PaddingValues(all = ExtraSmallPadding2)
             ) {
-                articles[it]?.let { article ->
-                    ArticleCard(article = article, onClick = { onClick(article) })
+                items(
+                    count = articles.itemCount,
+                ) {
+                    articles[it]?.let { article ->
+                        ArticleCard(article = article, onClick = { onClick(article) })
+                    }
                 }
             }
         }
