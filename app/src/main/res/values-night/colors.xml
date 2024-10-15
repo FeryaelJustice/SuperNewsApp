@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="onboarding_title">#000000</color>
-	<color name="onboarding_body">#524479</color>
+	<color name="black">#000000</color>
+	<color name="white">#FFFFFF</color>
+
+	<color name="colorPrimary">#FF6200EE</color>
+	<color name="colorPrimaryDark">#FFBB86FC</color>
+	<color name="colorAccent">#409285</color>
+
+	<color name="onboarding_title">#FFFFFF</color>
+	<color name="onboarding_body">#BAB1D3</color>
 	<color name="text_medium">#BAB1D3</color>
 	<color name="text_title">#FFFC00</color>
 	<color name="iconTint">#B4ADDB</color>

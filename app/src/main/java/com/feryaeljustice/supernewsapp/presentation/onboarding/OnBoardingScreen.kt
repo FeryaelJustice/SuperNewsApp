@@ -1,9 +1,5 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.onboarding
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding2
 import com.feryaeljustice.supernewsapp.presentation.Dimens.PageIndicatorWidth
 import com.feryaeljustice.supernewsapp.presentation.common.NewsButton
@@ -30,11 +25,10 @@ import com.feryaeljustice.supernewsapp.presentation.onboarding.components.OnBoar
 import com.feryaeljustice.supernewsapp.presentation.onboarding.components.PageIndicator
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 // navigateToHome: () -> Unit
 fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
+    Column(modifier = Modifier.fillMaxSize()) {
         val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
         }

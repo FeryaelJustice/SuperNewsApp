@@ -24,7 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Color.Companion.LightGray
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -44,7 +46,7 @@ fun EmptyScreen(error: LoadState.Error? = null) {
     }
 
     if (error == null){
-        message = "You have not saved news so far !"
+        message = stringResource(R.string.notSavedNews)
         icon = R.drawable.ic_search_document
     }
 
@@ -75,7 +77,7 @@ fun EmptyContent(alphaAnim: Float, message: String, iconId: Int) {
         Icon(
             painter = painterResource(id = iconId),
             contentDescription = null,
-            tint = if (isSystemInDarkTheme()) LightGray else DarkGray,
+            tint = colorResource(R.color.iconTint),
             modifier = Modifier
                 .size(120.dp)
                 .alpha(alphaAnim)
@@ -86,7 +88,6 @@ fun EmptyContent(alphaAnim: Float, message: String, iconId: Int) {
                 .alpha(alphaAnim),
             text = message,
             style = MaterialTheme.typography.bodyMedium,
-            color = if (isSystemInDarkTheme()) LightGray else DarkGray,
         )
     }
 }

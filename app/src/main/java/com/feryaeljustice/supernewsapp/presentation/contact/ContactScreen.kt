@@ -1,9 +1,6 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.contact
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
@@ -33,30 +30,28 @@ fun ContactScreen(state: ContactState, onContactClick: (message: String) -> Unit
             .padding(24.dp)
     ) {
         Text(
-            text = "Author: $name",
-            color = Color.White,
+            text = stringResource(R.string.author, name),
             fontStyle = FontStyle.Italic,
             fontFamily = FontFamily.Monospace,
             modifier = Modifier.padding(top = 36.dp)
         )
         Text(
-            text = "Source of news: $newsSourceName",
-            color = Color.White,
+            text = stringResource(R.string.source_of_news, newsSourceName),
             fontFamily = FontFamily.Monospace,
         )
 
         Column {
-            Text(text = "Contact me")
+            Text(text = stringResource(R.string.contact))
             TextField(
                 value = message.value,
                 onValueChange = { message.value = it },
                 maxLines = 1,
-                placeholder = { Text("Your message") },
+                placeholder = { Text(stringResource(R.string.your_message)) },
             )
             Button(onClick = { onContactClick(message.value) }) {
                 Image(painter = painterResource(id = R.drawable.ic_mail), contentDescription = null)
                 Text(
-                    text = "Open your mail app and send me a message",
+                    text = stringResource(R.string.sendMailMessage),
                     modifier = Modifier.padding(start = 2.dp)
                 )
             }

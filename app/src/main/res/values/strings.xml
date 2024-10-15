@@ -3,4 +3,10 @@
 	<string name="home">Home</string>
 	<string name="search">Search</string>
 	<string name="bookmark">Bookmark</string>
+	<string name="sendMailMessage">Send us a message</string>
+	<string name="your_message">Your message</string>
+	<string name="contact">Contact us</string>
+	<string name="source_of_news">Source of news: %1$s</string>
+	<string name="author">Author: %1$s</string>
+	<string name="notSavedNews">You have not saved news so far!</string>
 </resources>

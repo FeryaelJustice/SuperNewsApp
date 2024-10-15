@@ -2,4 +2,10 @@
 	<string name="home">Inicio</string>
 	<string name="search">Buscar</string>
 	<string name="bookmark">Marcadores</string>
+	<string name="sendMailMessage">Mandanos un mensaje</string>
+	<string name="your_message">Tu mensaje</string>
+	<string name="contact">Contáctanos</string>
+	<string name="source_of_news">Fuente de las noticias: %1$s</string>
+	<string name="author">Autor: %1$s</string>
+	<string name="notSavedNews">¡No has guardado ninguna noticia hasta ahora!</string>
 </resources>

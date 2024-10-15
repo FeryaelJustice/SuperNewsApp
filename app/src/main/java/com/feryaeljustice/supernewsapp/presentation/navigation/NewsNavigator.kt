@@ -159,7 +159,8 @@ fun NewsNavigator() {
                         }
 
                         val mailIntent = Intent(Intent.ACTION_SEND)
-                        mailIntent.setDataAndType(Uri.parse("mailto:"), "text/plain")
+                        // type: text/plain
+                        mailIntent.setDataAndType(Uri.parse("mailto:"), "message/rfc822")
                         mailIntent.putExtra(
                             Intent.EXTRA_EMAIL,
                             arrayOf("fgonzalezserrano10@gmail.com")

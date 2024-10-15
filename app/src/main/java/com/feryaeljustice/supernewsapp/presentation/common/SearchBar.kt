@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,6 +39,7 @@ fun SearchBar(
     onValueChange: (String) -> Unit,
     onSearch: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     val searchText = stringResource(R.string.search)
 
@@ -79,6 +81,7 @@ fun SearchBar(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(
                 onSearch = {
+                    keyboardController?.hide()
                     onSearch()
                 }
             ),
