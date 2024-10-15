@@ -8,4 +8,6 @@ sealed class NewsDetailEvent {
     data class UpsertDeleteArticle(val article: Article) : NewsDetailEvent()
 
     data object RemoveSideEffect : NewsDetailEvent()
+
+    data class CheckIfArticleIsSaved(val article: Article) : NewsDetailEvent()
 }

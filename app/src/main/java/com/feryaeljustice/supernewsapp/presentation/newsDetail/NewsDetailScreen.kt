@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.newsDetail
 
 import android.content.Intent
@@ -17,12 +15,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.feryaeljustice.supernewsapp.R
@@ -38,10 +41,17 @@ import com.feryaeljustice.supernewsapp.util.UIComponent
 @Composable
 fun DetailsScreen(
     article: Article, event: (NewsDetailEvent) -> Unit,
+    viewModel: NewsDetailScreenViewModel,
     sideEffect: UIComponent?,
     navigateUp: () -> Unit
 ) {
     val context = LocalContext.current
+
+    var isBookmarked by remember { mutableStateOf(false) }
+
+    LaunchedEffect(article) {
+        isBookmarked = viewModel.checkIfArticleIsSaved(article)
+    }
 
     LaunchedEffect(key1 = sideEffect) {
         sideEffect?.let {
@@ -82,7 +92,8 @@ fun DetailsScreen(
             onBookmarkClick = {
                 event(NewsDetailEvent.UpsertDeleteArticle(article))
             },
-            onBackClick = navigateUp
+            onBackClick = navigateUp,
+            isBookmarked = isBookmarked,
         )
 
         LazyColumn(
@@ -149,6 +160,7 @@ fun DetailsScreenPreview() {
                 urlToImage = "https://media.wired.com/photos/6495d5e893ba5cd8bbdc95af/191:100/w_1280,c_limit/The-EU-Rules-Phone-Batteries-Must-Be-Replaceable-Gear-2BE6PRN.jpg"
             ),
             event = {},
+            viewModel = hiltViewModel(),
             sideEffect = null
         ) {
         }

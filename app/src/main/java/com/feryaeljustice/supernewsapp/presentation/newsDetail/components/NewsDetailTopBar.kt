@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.newsDetail.components
 
 import android.content.res.Configuration
@@ -29,7 +27,8 @@ fun DetailsTopBar(
     onBrowsingClick: () -> Unit,
     onShareClick: () -> Unit,
     onBookmarkClick: () -> Unit,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    isBookmarked: Boolean = false
 ) {
     TopAppBar(
         title = {},
@@ -50,7 +49,9 @@ fun DetailsTopBar(
         actions = {
             IconButton(onClick = onBookmarkClick) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_bookmark),
+                    painter = if (isBookmarked) painterResource(id = R.drawable.ic_bookmark_added) else painterResource(
+                        id = R.drawable.ic_bookmark
+                    ),
                     contentDescription = null
                 )
             }

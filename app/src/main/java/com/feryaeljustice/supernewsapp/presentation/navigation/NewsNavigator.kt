@@ -142,7 +142,7 @@ fun NewsNavigator() {
                         if (message.isBlank() || message.isEmpty()) {
                             Toast.makeText(
                                 context,
-                                "Empty messages not allowed",
+                                context.getString(R.string.emptyMsgNotAllowed),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -151,7 +151,7 @@ fun NewsNavigator() {
                         if (message.length > 100) {
                             Toast.makeText(
                                 context,
-                                "Please enter a shorter message than 100 characters",
+                                context.getString(R.string.contactMsgLengthWarning),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -163,15 +163,16 @@ fun NewsNavigator() {
                         mailIntent.setDataAndType(Uri.parse("mailto:"), "message/rfc822")
                         mailIntent.putExtra(
                             Intent.EXTRA_EMAIL,
-                            arrayOf("fgonzalezserrano10@gmail.com")
+                            arrayOf(context.getString(R.string.contact_to_email))
                         )
-                        mailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contact from user")
+                        mailIntent.putExtra(Intent.EXTRA_SUBJECT,
+                            context.getString(R.string.contact_from_user))
                         mailIntent.putExtra(Intent.EXTRA_TEXT, message)
                         try {
                             context.startActivity(
                                 Intent.createChooser(
                                     mailIntent,
-                                    "Choose an email client: "
+                                    context.getString(R.string.chooseMailClient)
                                 )
                             )
                         } catch (e: Exception) {
@@ -201,6 +202,7 @@ fun NewsNavigator() {
                         DetailsScreen(
                             article = article,
                             event = viewModel::onEvent,
+                            viewModel = viewModel,
                             navigateUp = { navController.navigateUp() },
                             sideEffect = viewModel.sideEffect
                         )

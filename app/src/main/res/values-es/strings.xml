@@ -8,4 +8,11 @@
 	<string name="source_of_news">Fuente de las noticias: %1$s</string>
 	<string name="author">Autor: %1$s</string>
 	<string name="notSavedNews">¡No has guardado ninguna noticia hasta ahora!</string>
+	<string name="emptyMsgNotAllowed">Los mensajes vacíos no están permitidos</string>
+	<string name="contactMsgLengthWarning">Porfavor ingresa un mensaje de menos de 100 caracteres</string>
+	<string name="chooseMailClient">"Elige un cliente de correo: "</string>
+	<string name="contact_from_user">Contacto desde usuario</string>
+	<string name="contact_to_email">fgonzalezserrano10@gmail.com</string>
+	<string name="article_inserted">Articulo insertado</string>
+	<string name="article_deleted">Articulo eliminado</string>
 </resources>
