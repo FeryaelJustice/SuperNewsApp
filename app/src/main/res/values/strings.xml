@@ -12,7 +12,7 @@
 	<string name="emptyMsgNotAllowed">Empty messages not allowed</string>
 	<string name="contactMsgLengthWarning">Please enter a shorter message than 100 characters</string>
 	<string name="chooseMailClient">"Choose an email client: "</string>
-	<string name="contact_from_user">Contact from user</string>
+	<string name="contact_from_user">Contact from user of SuperNewsApp Android</string>
 	<string name="contact_to_email">fgonzalezserrano10@gmail.com</string>
 	<string name="article_inserted">Article Inserted</string>
 	<string name="article_deleted">Article deleted</string>
