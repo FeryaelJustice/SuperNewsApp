@@ -160,21 +160,25 @@ fun NewsNavigator() {
 
                         val mailIntent = Intent(Intent.ACTION_SEND)
                         // type: text/plain
-                        mailIntent.setDataAndType(Uri.parse("mailto:"), "message/rfc822")
+                        mailIntent.data = Uri.parse("mailto:")
+//                        mailIntent.type = "message/rfc822"
                         mailIntent.putExtra(
                             Intent.EXTRA_EMAIL,
                             arrayOf(context.getString(R.string.contact_to_email))
                         )
-                        mailIntent.putExtra(Intent.EXTRA_SUBJECT,
-                            context.getString(R.string.contact_from_user))
+                        mailIntent.putExtra(
+                            Intent.EXTRA_SUBJECT,
+                            context.getString(R.string.contact_from_user)
+                        )
                         mailIntent.putExtra(Intent.EXTRA_TEXT, message)
                         try {
-                            context.startActivity(
-                                Intent.createChooser(
-                                    mailIntent,
-                                    context.getString(R.string.chooseMailClient)
-                                )
-                            )
+                            context.startActivity(mailIntent)
+//                            context.startActivity(
+//                                Intent.createChooser(
+//                                    mailIntent,
+//                                    context.getString(R.string.chooseMailClient)
+//                                )
+//                            )
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
