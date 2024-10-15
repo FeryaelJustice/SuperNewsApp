@@ -9,9 +9,10 @@
 	<color name="white">#FFFFFFFF</color>
 
 	<color name="onboarding_title">#000000</color>
-	<color name="text_medium">#6f5ca3</color>
-	<color name="text_title">#FFFC00</color>
-	<color name="body">#B4ADDB</color>
-	<color name="placeholder">#A0A3BD</color>
+	<color name="onboarding_body">#524479</color>
+	<color name="text_medium">#42355F</color>
+	<color name="text_title">#474500</color>
+	<color name="iconTint">#403579</color>
+	<color name="placeholder">#4F4F4F</color>
 	<color name="shimmer">#C3C3C3</color>
 </resources>

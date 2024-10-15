@@ -123,7 +123,7 @@ fun DetailsScreen(
                     style = MaterialTheme.typography.bodyMedium,
                     color = colorResource(
                         id = R
-                            .color.body
+                            .color.iconTint
                     )
                 )
             }
