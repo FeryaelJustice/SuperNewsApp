@@ -91,6 +91,7 @@ fun DetailsScreen(
             },
             onBookmarkClick = {
                 event(NewsDetailEvent.UpsertDeleteArticle(article))
+                isBookmarked = !isBookmarked
             },
             onBackClick = navigateUp,
             isBookmarked = isBookmarked,
