@@ -1,18 +1,26 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.home
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.filter
+import androidx.paging.map
+import com.deepl.api.Translator
+import com.feryaeljustice.supernewsapp.annotations.DeeplApiKey
 import com.feryaeljustice.supernewsapp.domain.usecase.news.GetNews
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getNewsUseCase: GetNews
+    getNewsUseCase: GetNews,
+    @DeeplApiKey private val deeplApiKey: String,
+    private val locale: String
 ) : ViewModel() {
 
     var state = mutableStateOf(HomeState())
@@ -28,6 +36,16 @@ class HomeViewModel @Inject constructor(
         )
     ).cachedIn(viewModelScope)
 
+    val translatedNews = news.map { pagingDataItem ->
+        pagingDataItem.filter { article ->
+            !article.title.isNullOrBlank() && !article.urlToImage.isNullOrBlank()
+        }.map { article ->
+            article.copy(
+                title = getTranslation(article.title!!, locale)
+            )
+        }
+    }
+
     fun onEvent(event: HomeEvent) {
         when (event) {
             is HomeEvent.UpdateScrollValue -> updateScrollValue(event.newValue)
@@ -41,5 +59,18 @@ class HomeViewModel @Inject constructor(
 
     private fun updateMaxScrollingValue(newValue: Int) {
         state.value = state.value.copy(maxScrollingValue = newValue)
+    }
+
+    private suspend fun getTranslation(text: String, locale: String): String {
+        return withContext(Dispatchers.IO) {
+            val translator = Translator(deeplApiKey)
+            try {
+                val result = translator.translateText(text, null, locale)
+                result.text
+            } catch (e: Exception) {
+                Log.e("translation", e.message.toString())
+                ""
+            }
+        }
     }
 }

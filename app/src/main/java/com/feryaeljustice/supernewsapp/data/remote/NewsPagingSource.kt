@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.data.remote
 
 import android.util.Log
@@ -36,7 +34,14 @@ class NewsPagingSource(
             Log.d("dates", "from: $aMonthAgo, to: $current")
 
             val response =
-                newsApi.getNews(page, sources, from = aMonthAgo, to = current, apiKey = apiKey)
+                newsApi.getNews(
+                    page = page,
+                    pageSize = 20,
+                    sources = sources,
+                    from = aMonthAgo,
+                    to = current,
+                    apiKey = apiKey
+                )
             totalNewsCount += response.articles.size
             val articles = response.articles.distinctBy { it.title }
             LoadResult.Page(

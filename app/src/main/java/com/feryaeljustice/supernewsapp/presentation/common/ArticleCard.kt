@@ -62,7 +62,7 @@ fun ArticleCard(
                 .height(ArticleCardSize)
         ) {
             Text(
-                text = article.title,
+                text = article.title.toString(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = colorResource(
                     R.color.text_medium

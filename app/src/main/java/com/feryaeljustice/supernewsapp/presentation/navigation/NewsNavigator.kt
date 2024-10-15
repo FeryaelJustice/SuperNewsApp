@@ -108,9 +108,10 @@ fun NewsNavigator() {
         ) {
             composable(route = Route.HomeScreen.route) {
                 val viewModel: HomeViewModel = hiltViewModel()
-                val articles = viewModel.news.collectAsLazyPagingItems()
+//                val articles = viewModel.news.collectAsLazyPagingItems()
+                val translatedArticles = viewModel.translatedNews.collectAsLazyPagingItems()
                 HomeScreen(
-                    articles = articles,
+                    articles = translatedArticles,
 //                    navigateToSearch = {
 //                        navigateToTab(
 //                            navController = navController,

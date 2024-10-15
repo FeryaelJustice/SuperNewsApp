@@ -56,6 +56,7 @@ class MainActivity : ComponentActivity() {
             }
         )
 
+        // MAIN APP
         setContent {
             SuperNewsAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->

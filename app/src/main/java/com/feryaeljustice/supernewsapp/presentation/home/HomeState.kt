@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.home
 
 data class HomeState(

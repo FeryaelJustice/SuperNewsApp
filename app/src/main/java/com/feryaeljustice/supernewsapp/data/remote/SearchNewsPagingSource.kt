@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.data.remote
 
 import androidx.annotation.Keep
@@ -35,12 +33,13 @@ class SearchNewsPagingSource(
             val current = LocalDateTime.now().format(formatter)
 
             val response = newsApi.searchNews(
+                page = page,
+                pageSize = 20,
                 query,
-                page,
                 sources,
                 from = aMonthAgo,
                 to = current,
-                apiKey = apiKey
+                apiKey = apiKey,
             )
             totalNewsCount += response.articles.size
             val articles = response.articles.distinctBy { it.title }

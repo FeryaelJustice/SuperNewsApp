@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.feryaeljustice.supernewsapp.R
+import com.feryaeljustice.supernewsapp.annotations.DeeplApiKey
 import com.feryaeljustice.supernewsapp.annotations.NewsApiKey
 import com.feryaeljustice.supernewsapp.data.local.NewsDao
 import com.feryaeljustice.supernewsapp.data.local.NewsDatabase
@@ -17,17 +18,30 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Locale
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Provides
+    @Singleton
+    fun provideLocale(@ApplicationContext context: Context): String {
+        return Locale.getDefault().language
+    }
+
     @NewsApiKey
     @Provides
     @Singleton
     fun provideNewsApiKey(@ApplicationContext context: Context): String =
         context.getString(R.string.newsApiKey)
+
+    @DeeplApiKey
+    @Provides
+    @Singleton
+    fun provideDeeplApiKey(@ApplicationContext context: Context): String =
+        context.getString(R.string.deeplApiKey)
 
     @Provides
     @Singleton

@@ -25,6 +25,7 @@ pagingRuntime = "3.3.2"
 pagingCompose = "3.3.2"
 roomVersion = "2.6.1"
 roomKtxVersion = "2.6.1"
+deeplJava = "1.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -64,6 +65,8 @@ androidx-paging-paging-compose = { group = "androidx.paging", name = "paging-com
 androidx-room-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
 androidx-room-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
 androidx-room-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtxVersion" }
+
+com-deepl-api = { group = "com.deepl.api", name = "deepl-java", version.ref = "deeplJava" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

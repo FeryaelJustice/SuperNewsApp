@@ -9,6 +9,7 @@ plugins {
 }
 
 val newsApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("api_key", "")
+val deeplApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("deepl_api_key", "")
 
 android {
     namespace = "com.feryaeljustice.supernewsapp"
@@ -27,6 +28,7 @@ android {
         }
 
         resValue("string", "newsApiKey", "\"" + newsApiKey + "\"")
+        resValue("string", "deeplApiKey", "\"" + deeplApiKey + "\"")
     }
 
     buildTypes {
@@ -104,4 +106,6 @@ dependencies {
     implementation(libs.androidx.room.room.runtime)
     ksp(libs.androidx.room.room.compiler)
     implementation(libs.androidx.room.room.ktx)
+
+    implementation(libs.com.deepl.api)
 }

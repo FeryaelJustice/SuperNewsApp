@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.data.local
 
 import androidx.room.Dao
