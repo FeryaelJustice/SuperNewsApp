@@ -18,4 +18,5 @@
 	<string name="contact_to_email">fgonzalezserrano10@gmail.com</string>
 	<string name="article_inserted">Article Inserted</string>
 	<string name="article_deleted">Article deleted</string>
+	<string name="enter_search_query">Please enter a search query</string>
 </resources>

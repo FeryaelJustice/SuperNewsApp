@@ -13,14 +13,14 @@ val deeplApiKey: String = gradleLocalProperties(rootDir, providers).getProperty(
 
 android {
     namespace = "com.feryaeljustice.supernewsapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.feryaeljustice.supernewsapp"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 6
-        versionName = "1.0.5"
+        targetSdk = 35
+        versionCode = 7
+        versionName = "1.0.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
