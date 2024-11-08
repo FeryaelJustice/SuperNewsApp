@@ -4,7 +4,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -45,7 +44,7 @@ fun HomeScreen(
     state: HomeState,
     event: (HomeEvent) -> Unit,
 //    navigateToSearch: () -> Unit,
-    navigateToContact: () -> Unit,
+//    navigateToContact: () -> Unit,
     navigateToDetails: (Article) -> Unit
 ) {
 
@@ -82,16 +81,16 @@ fun HomeScreen(
                     .width(150.dp)
                     .height(30.dp)
             )
-            Image(
-                painter = painterResource(id = R.drawable.ic_contact),
-                contentDescription = null,
-                alignment = Alignment.CenterEnd,
-                colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
-                modifier = Modifier
-                    .width(30.dp)
-                    .height(30.dp)
-                    .clickable { navigateToContact() }
-            )
+//            Image(
+//                painter = painterResource(id = R.drawable.ic_contact),
+//                contentDescription = null,
+//                alignment = Alignment.CenterEnd,
+//                colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
+//                modifier = Modifier
+//                    .width(30.dp)
+//                    .height(30.dp)
+//                    .clickable { navigateToContact() }
+//            )
         }
 
         Spacer(modifier = Modifier.height(MediumPadding1))

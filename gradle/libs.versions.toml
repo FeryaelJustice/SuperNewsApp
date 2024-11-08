@@ -17,7 +17,7 @@ hiltAndroid = "2.49"
 hiltCompiler = "2.49"
 hiltNavigationCompose = "1.2.0"
 retrofit = "2.11.0"
-leakcanary = "2.14"
+#leakcanary = "2.14"
 coilCompose = "2.7.0"
 datastorePreferences = "1.1.1"
 composeFoundation = "1.7.5"
@@ -54,7 +54,7 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 
 com-squareup-retrofit2-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 com-squareup-retrofit2-convertergson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
-com-squareup-leakcanary = { group = "'com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
+# com-squareup-leakcanary = { group = "'com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 
 io-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 

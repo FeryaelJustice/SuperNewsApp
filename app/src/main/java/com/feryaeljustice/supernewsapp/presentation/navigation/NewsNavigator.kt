@@ -46,12 +46,14 @@ fun NewsNavigator() {
     val homeText = stringResource(R.string.home)
     val searchText = stringResource(R.string.search)
     val bookmarkText = stringResource(R.string.bookmark)
+    val contactText = stringResource(R.string.contact)
 
     val bottomNavigationItems = remember {
         listOf(
             BottomNavigationItem(icon = R.drawable.ic_home, text = homeText),
             BottomNavigationItem(icon = R.drawable.ic_search, text = searchText),
             BottomNavigationItem(icon = R.drawable.ic_bookmark, text = bookmarkText),
+            BottomNavigationItem(icon = R.drawable.ic_contact, text = contactText)
         )
     }
 
@@ -71,7 +73,8 @@ fun NewsNavigator() {
     val isBottomBarVisible = remember(key1 = backStackState) {
         backStackState?.destination?.route == Route.HomeScreen.route ||
                 backStackState?.destination?.route == Route.SearchScreen.route ||
-                backStackState?.destination?.route == Route.BookmarkScreen.route
+                backStackState?.destination?.route == Route.BookmarkScreen.route ||
+                backStackState?.destination?.route == Route.ContactScreen.route
     }
 
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
@@ -94,6 +97,11 @@ fun NewsNavigator() {
                         2 -> navigateToTab(
                             navController = navController,
                             route = Route.BookmarkScreen.route
+                        )
+
+                        3 -> navigateToTab(
+                            navController = navController,
+                            route = Route.ContactScreen.route
                         )
                     }
                 }
@@ -126,12 +134,12 @@ fun NewsNavigator() {
                             article = article
                         )
                     },
-                    navigateToContact = {
-                        navigateToTab(
-                            navController = navController,
-                            route = Route.ContactScreen.route
-                        )
-                    },
+//                    navigateToContact = {
+//                        navigateToTab(
+//                            navController = navController,
+//                            route = Route.ContactScreen.route
+//                        )
+//                    },
                     event = viewModel::onEvent,
                     state = viewModel.state.value
                 )
@@ -185,6 +193,10 @@ fun NewsNavigator() {
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
+                    },
+                    onOpenNewsSource = { link ->
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                        context.startActivity(browserIntent)
                     }
                 )
             }

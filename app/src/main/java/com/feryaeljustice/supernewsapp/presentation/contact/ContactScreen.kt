@@ -27,9 +27,14 @@ import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 
 @Composable
-fun ContactScreen(state: ContactState, onContactClick: (message: String) -> Unit) {
+fun ContactScreen(
+    state: ContactState,
+    onContactClick: (message: String) -> Unit,
+    onOpenNewsSource: (link: String) -> Unit
+) {
     val name = state.name
     val newsSourceName = state.newsSourceName
+    val newsSourceLink = state.newsSourceLink
     val message = rememberSaveable { mutableStateOf("") }
 
     Box(
@@ -46,9 +51,20 @@ fun ContactScreen(state: ContactState, onContactClick: (message: String) -> Unit
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = stringResource(R.string.source_of_news, newsSourceName),
+                text = stringResource(R.string.source_of_news, newsSourceName, newsSourceLink),
                 fontFamily = FontFamily.Monospace,
             )
+
+            Spacer(modifier = Modifier.padding(16.dp))
+
+            Button(onClick = {
+                onOpenNewsSource(newsSourceLink)
+            }) {
+                Text(
+                    text = stringResource(R.string.openLink, newsSourceName),
+                    fontFamily = FontFamily.Monospace
+                )
+            }
 
             Spacer(modifier = Modifier.padding(16.dp))
             Text(text = stringResource(R.string.contact))
