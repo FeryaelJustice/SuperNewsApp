@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp
 
 import android.app.Application
