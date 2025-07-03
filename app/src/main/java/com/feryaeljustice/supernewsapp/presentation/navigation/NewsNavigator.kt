@@ -1,7 +1,6 @@
 package com.feryaeljustice.supernewsapp.presentation.navigation
 
 import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -177,7 +177,7 @@ fun NewsNavigator() {
 
                         val mailIntent = Intent(Intent.ACTION_SEND)
                         // type: text/plain
-                        mailIntent.data = Uri.parse("mailto:")
+                        mailIntent.data = "mailto:".toUri()
 //                        mailIntent.type = "message/rfc822"
                         mailIntent.putExtra(
                             Intent.EXTRA_EMAIL,
@@ -201,7 +201,7 @@ fun NewsNavigator() {
                         }
                     },
                     onOpenNewsSource = { link ->
-                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                        val browserIntent = Intent(Intent.ACTION_VIEW, link.toUri())
                         context.startActivity(browserIntent)
                     },
                 )

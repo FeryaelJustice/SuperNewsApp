@@ -24,7 +24,7 @@ constructor(
     private val getSavedArticleUseCase: GetSavedArticle,
     private val deleteArticleUseCase: DeleteArticle,
     private val upsertArticleUseCase: UpsertArticle,
-    @ApplicationContext private val application: Context,
+    @param:ApplicationContext private val application: Context,
 ) : ViewModel() {
     var sideEffect by mutableStateOf<UIComponent?>(null)
         private set
