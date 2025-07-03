@@ -1,31 +1,31 @@
 [versions]
-agp = "8.7.2"
-kotlin = "1.9.0"
-kotlinPlugin = "1.8.10"
-ksp = "1.9.0-1.0.13"
-coreKtx = "1.15.0"
+agp = "8.11.0"
+kotlin = "2.2.0"
+kotlinPlugin = "2.2.0"
+ksp = "2.2.0-2.0.2"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.11.00"
+lifecycleRuntimeKtx = "2.9.1"
+activityCompose = "1.10.1"
+composeBom = "2025.06.01"
 googleMaterial = "1.12.0"
 splashScreen = "1.0.1"
-navigationCompose = "2.8.4"
-hiltAndroid = "2.49"
-hiltCompiler = "2.49"
+navigationCompose = "2.9.1"
+hiltAndroid = "2.56.2"
+hiltCompiler = "2.56.2"
 hiltNavigationCompose = "1.2.0"
-retrofit = "2.11.0"
+retrofit = "3.0.0"
 #leakcanary = "2.14"
 coilCompose = "2.7.0"
-datastorePreferences = "1.1.1"
-composeFoundation = "1.7.5"
-pagingRuntime = "3.3.4"
-pagingCompose = "3.3.4"
-roomVersion = "2.6.1"
-roomKtxVersion = "2.6.1"
-deeplJava = "1.6.0"
+datastorePreferences = "1.1.7"
+composeFoundation = "1.8.3"
+pagingRuntime = "3.3.6"
+pagingCompose = "3.3.6"
+roomVersion = "2.7.2"
+roomKtxVersion = "2.7.2"
+deeplJava = "1.10.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -71,6 +71,7 @@ com-deepl-api = { group = "com.deepl.api", name = "deepl-java", version.ref = "d
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinPlugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
