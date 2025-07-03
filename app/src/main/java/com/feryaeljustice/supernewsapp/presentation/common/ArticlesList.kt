@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.common
 
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +20,7 @@ import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 fun ArticlesListNoPaging(
     modifier: Modifier = Modifier,
     articles: List<Article>,
-    onClick: (Article) -> Unit
+    onClick: (Article) -> Unit,
 ) {
     if (articles.isEmpty()) {
         EmptyScreen()
@@ -30,7 +28,7 @@ fun ArticlesListNoPaging(
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(MediumPadding1),
-        contentPadding = PaddingValues(all = ExtraSmallPadding2)
+        contentPadding = PaddingValues(all = ExtraSmallPadding2),
     ) {
         items(
             count = articles.size,
@@ -40,32 +38,31 @@ fun ArticlesListNoPaging(
             }
         }
     }
-
 }
 
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,
     articles: LazyPagingItems<Article>,
-    onClick: (Article) -> Unit
+    onClick: (Article) -> Unit,
 ) {
-
     val handlePagingResult = handlePagingResult(articles)
 
     if (handlePagingResult) {
         if (articles.itemCount == 0) {
             Text(
                 text = "No articles available",
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(MediumPadding1),
-                textAlign = TextAlign.Center
+                modifier =
+                    modifier
+                        .fillMaxSize()
+                        .padding(MediumPadding1),
+                textAlign = TextAlign.Center,
             )
         } else {
             LazyColumn(
                 modifier = modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(MediumPadding1),
-                contentPadding = PaddingValues(all = ExtraSmallPadding2)
+                contentPadding = PaddingValues(all = ExtraSmallPadding2),
             ) {
                 items(
                     count = articles.itemCount,
@@ -82,12 +79,13 @@ fun ArticlesList(
 @Composable
 fun handlePagingResult(articles: LazyPagingItems<Article>): Boolean {
     val loadState = articles.loadState
-    val error = when {
-        loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-        loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-        loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-        else -> null
-    }
+    val error =
+        when {
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            else -> null
+        }
 
     return when {
         loadState.refresh is LoadState.Loading -> {
@@ -111,7 +109,7 @@ fun ShimmerEffect() {
     Column(verticalArrangement = Arrangement.spacedBy(MediumPadding1)) {
         repeat(10) {
             ArticleCardShimmerEffect(
-                modifier = Modifier.padding(horizontal = MediumPadding1)
+                modifier = Modifier.padding(horizontal = MediumPadding1),
             )
         }
     }

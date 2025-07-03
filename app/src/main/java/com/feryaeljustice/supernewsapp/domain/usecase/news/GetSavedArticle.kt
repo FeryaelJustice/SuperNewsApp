@@ -4,12 +4,10 @@ import com.feryaeljustice.supernewsapp.data.local.NewsDao
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import javax.inject.Inject
 
-class GetSavedArticle @Inject constructor(
-    private val newsDao: NewsDao
+class GetSavedArticle
+@Inject
+constructor(
+    private val newsDao: NewsDao,
 ) {
-
-    suspend operator fun invoke(url: String): Article? {
-        return newsDao.getArticle(url = url)
-    }
-
+    suspend operator fun invoke(url: String): Article? = newsDao.getArticle(url = url)
 }

@@ -29,15 +29,14 @@ import com.feryaeljustice.supernewsapp.presentation.bookmark.BookmarkScreen
 import com.feryaeljustice.supernewsapp.presentation.bookmark.BookmarkViewModel
 import com.feryaeljustice.supernewsapp.presentation.contact.ContactScreen
 import com.feryaeljustice.supernewsapp.presentation.contact.ContactViewModel
-import com.feryaeljustice.supernewsapp.presentation.newsDetail.DetailsScreen
-import com.feryaeljustice.supernewsapp.presentation.newsDetail.NewsDetailScreenViewModel
 import com.feryaeljustice.supernewsapp.presentation.home.HomeScreen
 import com.feryaeljustice.supernewsapp.presentation.home.HomeViewModel
 import com.feryaeljustice.supernewsapp.presentation.navigation.components.BottomNavigationItem
 import com.feryaeljustice.supernewsapp.presentation.navigation.components.NewsBottomNavigation
+import com.feryaeljustice.supernewsapp.presentation.newsDetail.DetailsScreen
+import com.feryaeljustice.supernewsapp.presentation.newsDetail.NewsDetailScreenViewModel
 import com.feryaeljustice.supernewsapp.presentation.search.SearchScreen
 import com.feryaeljustice.supernewsapp.presentation.search.SearchViewModel
-
 
 @Composable
 fun NewsNavigator() {
@@ -48,34 +47,37 @@ fun NewsNavigator() {
     val bookmarkText = stringResource(R.string.bookmark)
     val contactText = stringResource(R.string.contact)
 
-    val bottomNavigationItems = remember {
-        listOf(
-            BottomNavigationItem(icon = R.drawable.ic_home, text = homeText),
-            BottomNavigationItem(icon = R.drawable.ic_search, text = searchText),
-            BottomNavigationItem(icon = R.drawable.ic_bookmark, text = bookmarkText),
-            BottomNavigationItem(icon = R.drawable.ic_contact, text = contactText)
-        )
-    }
+    val bottomNavigationItems =
+        remember {
+            listOf(
+                BottomNavigationItem(icon = R.drawable.ic_home, text = homeText),
+                BottomNavigationItem(icon = R.drawable.ic_search, text = searchText),
+                BottomNavigationItem(icon = R.drawable.ic_bookmark, text = bookmarkText),
+                BottomNavigationItem(icon = R.drawable.ic_contact, text = contactText),
+            )
+        }
 
     val navController = rememberNavController()
     val backStackState = navController.currentBackStackEntryAsState().value
     var selectedItem by rememberSaveable {
         mutableIntStateOf(0)
     }
-    selectedItem = when (backStackState?.destination?.route) {
-        Route.HomeScreen.route -> 0
-        Route.SearchScreen.route -> 1
-        Route.BookmarkScreen.route -> 2
-        else -> 0
-    }
+    selectedItem =
+        when (backStackState?.destination?.route) {
+            Route.HomeScreen.route -> 0
+            Route.SearchScreen.route -> 1
+            Route.BookmarkScreen.route -> 2
+            else -> 0
+        }
 
-    //Hide the bottom navigation when the user is in the details screen
-    val isBottomBarVisible = remember(key1 = backStackState) {
-        backStackState?.destination?.route == Route.HomeScreen.route ||
-                backStackState?.destination?.route == Route.SearchScreen.route ||
-                backStackState?.destination?.route == Route.BookmarkScreen.route ||
-                backStackState?.destination?.route == Route.ContactScreen.route
-    }
+    // Hide the bottom navigation when the user is in the details screen
+    val isBottomBarVisible =
+        remember(key1 = backStackState) {
+            backStackState?.destination?.route == Route.HomeScreen.route ||
+                    backStackState?.destination?.route == Route.SearchScreen.route ||
+                    backStackState?.destination?.route == Route.BookmarkScreen.route ||
+                    backStackState?.destination?.route == Route.ContactScreen.route
+        }
 
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
         if (isBottomBarVisible) {
@@ -84,27 +86,31 @@ fun NewsNavigator() {
                 selectedItem = selectedItem,
                 onItemClick = { index ->
                     when (index) {
-                        0 -> navigateToTab(
-                            navController = navController,
-                            route = Route.HomeScreen.route
-                        )
+                        0 ->
+                            navigateToTab(
+                                navController = navController,
+                                route = Route.HomeScreen.route,
+                            )
 
-                        1 -> navigateToTab(
-                            navController = navController,
-                            route = Route.SearchScreen.route
-                        )
+                        1 ->
+                            navigateToTab(
+                                navController = navController,
+                                route = Route.SearchScreen.route,
+                            )
 
-                        2 -> navigateToTab(
-                            navController = navController,
-                            route = Route.BookmarkScreen.route
-                        )
+                        2 ->
+                            navigateToTab(
+                                navController = navController,
+                                route = Route.BookmarkScreen.route,
+                            )
 
-                        3 -> navigateToTab(
-                            navController = navController,
-                            route = Route.ContactScreen.route
-                        )
+                        3 ->
+                            navigateToTab(
+                                navController = navController,
+                                route = Route.ContactScreen.route,
+                            )
                     }
-                }
+                },
             )
         }
     }) { paddingValues ->
@@ -112,7 +118,7 @@ fun NewsNavigator() {
         NavHost(
             navController = navController,
             startDestination = Route.HomeScreen.route,
-            modifier = Modifier.padding(bottom = bottomPadding)
+            modifier = Modifier.padding(bottom = bottomPadding),
         ) {
             composable(route = Route.HomeScreen.route) {
                 val viewModel: HomeViewModel = hiltViewModel()
@@ -131,7 +137,7 @@ fun NewsNavigator() {
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = article
+                            article = article,
                         )
                     },
 //                    navigateToContact = {
@@ -141,7 +147,7 @@ fun NewsNavigator() {
 //                        )
 //                    },
                     event = viewModel::onEvent,
-                    state = viewModel.state.value
+                    state = viewModel.state.value,
                 )
             }
             composable(route = Route.ContactScreen.route) {
@@ -151,21 +157,21 @@ fun NewsNavigator() {
                     state = state,
                     onContactClick = { message ->
                         if (message.isBlank() || message.isEmpty()) {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.emptyMsgNotAllowed),
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            Toast
+                                .makeText(
+                                    context,
+                                    context.getString(R.string.emptyMsgNotAllowed),
+                                    Toast.LENGTH_SHORT,
+                                ).show()
                             return@ContactScreen
                         }
                         if (message.length > 100) {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.contactMsgLengthWarning),
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            Toast
+                                .makeText(
+                                    context,
+                                    context.getString(R.string.contactMsgLengthWarning),
+                                    Toast.LENGTH_SHORT,
+                                ).show()
                             return@ContactScreen
                         }
 
@@ -175,11 +181,11 @@ fun NewsNavigator() {
 //                        mailIntent.type = "message/rfc822"
                         mailIntent.putExtra(
                             Intent.EXTRA_EMAIL,
-                            arrayOf(context.getString(R.string.contact_to_email))
+                            arrayOf(context.getString(R.string.contact_to_email)),
                         )
                         mailIntent.putExtra(
                             Intent.EXTRA_SUBJECT,
-                            context.getString(R.string.contact_from_user)
+                            context.getString(R.string.contact_from_user),
                         )
                         mailIntent.putExtra(Intent.EXTRA_TEXT, message)
                         try {
@@ -197,7 +203,7 @@ fun NewsNavigator() {
                     onOpenNewsSource = { link ->
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
                         context.startActivity(browserIntent)
-                    }
+                    },
                 )
             }
             composable(route = Route.SearchScreen.route) {
@@ -210,23 +216,25 @@ fun NewsNavigator() {
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = article
+                            article = article,
                         )
-                    })
+                    },
+                )
             }
             composable(route = Route.NewsDetailScreen.route) {
                 val viewModel: NewsDetailScreenViewModel = hiltViewModel()
-                navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
+                navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.get<Article?>("article")
                     ?.let { article ->
                         DetailsScreen(
                             article = article,
                             event = viewModel::onEvent,
                             viewModel = viewModel,
                             navigateUp = { navController.navigateUp() },
-                            sideEffect = viewModel.sideEffect
+                            sideEffect = viewModel.sideEffect,
                         )
                     }
-
             }
             composable(route = Route.BookmarkScreen.route) {
                 val viewModel: BookmarkViewModel = hiltViewModel()
@@ -237,9 +245,9 @@ fun NewsNavigator() {
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = article
+                            article = article,
                         )
-                    }
+                    },
                 )
             }
         }
@@ -251,12 +259,15 @@ fun OnBackClickStateSaver(navController: NavController) {
     BackHandler(true) {
         navigateToTab(
             navController = navController,
-            route = Route.HomeScreen.route
+            route = Route.HomeScreen.route,
         )
     }
 }
 
-private fun navigateToTab(navController: NavController, route: String) {
+private fun navigateToTab(
+    navController: NavController,
+    route: String,
+) {
     navController.navigate(route) {
         navController.graph.startDestinationRoute?.let { screenRoute ->
             popUpTo(screenRoute) {
@@ -268,9 +279,12 @@ private fun navigateToTab(navController: NavController, route: String) {
     }
 }
 
-private fun navigateToDetails(navController: NavController, article: Article) {
+private fun navigateToDetails(
+    navController: NavController,
+    article: Article,
+) {
     navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
     navController.navigate(
-        route = Route.NewsDetailScreen.route
+        route = Route.NewsDetailScreen.route,
     )
 }

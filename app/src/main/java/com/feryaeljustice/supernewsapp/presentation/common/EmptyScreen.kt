@@ -3,7 +3,6 @@ package com.feryaeljustice.supernewsapp.presentation.common
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,8 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color.Companion.DarkGray
-import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -36,7 +33,6 @@ import java.net.SocketTimeoutException
 
 @Composable
 fun EmptyScreen(error: LoadState.Error? = null) {
-
     var message by remember {
         mutableStateOf(parseErrorMessage(error = error))
     }
@@ -45,7 +41,7 @@ fun EmptyScreen(error: LoadState.Error? = null) {
         mutableIntStateOf(R.drawable.ic_network_error)
     }
 
-    if (error == null){
+    if (error == null) {
         message = stringResource(R.string.notSavedNews)
         icon = R.drawable.ic_search_document
     }
@@ -56,7 +52,8 @@ fun EmptyScreen(error: LoadState.Error? = null) {
 
     val alphaAnimation by animateFloatAsState(
         targetValue = if (startAnimation) 0.3f else 0f,
-        animationSpec = tween(durationMillis = 1000), label = ""
+        animationSpec = tween(durationMillis = 1000),
+        label = "",
     )
 
     LaunchedEffect(key1 = true) {
@@ -64,37 +61,41 @@ fun EmptyScreen(error: LoadState.Error? = null) {
     }
 
     EmptyContent(alphaAnim = alphaAnimation, message = message, iconId = icon)
-
 }
 
 @Composable
-fun EmptyContent(alphaAnim: Float, message: String, iconId: Int) {
+fun EmptyContent(
+    alphaAnim: Float,
+    message: String,
+    iconId: Int,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Icon(
             painter = painterResource(id = iconId),
             contentDescription = null,
             tint = colorResource(R.color.iconTint),
-            modifier = Modifier
-                .size(120.dp)
-                .alpha(alphaAnim)
+            modifier =
+                Modifier
+                    .size(120.dp)
+                    .alpha(alphaAnim),
         )
         Text(
-            modifier = Modifier
-                .padding(10.dp)
-                .alpha(alphaAnim),
+            modifier =
+                Modifier
+                    .padding(10.dp)
+                    .alpha(alphaAnim),
             text = message,
             style = MaterialTheme.typography.bodyMedium,
         )
     }
 }
 
-
-fun parseErrorMessage(error: LoadState.Error?): String {
-    return when (error?.error) {
+fun parseErrorMessage(error: LoadState.Error?): String =
+    when (error?.error) {
         is SocketTimeoutException -> {
             "Server Unavailable."
         }
@@ -107,11 +108,10 @@ fun parseErrorMessage(error: LoadState.Error?): String {
             "Unknown Error."
         }
     }
-}
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun EmptyScreenPreview() {
-    EmptyContent(alphaAnim = 0.3f, message = "Internet Unavailable.",R.drawable.ic_network_error)
+    EmptyContent(alphaAnim = 0.3f, message = "Internet Unavailable.", R.drawable.ic_network_error)
 }

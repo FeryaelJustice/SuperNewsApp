@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.util
 
 object Constants {
@@ -8,6 +6,4 @@ object Constants {
     const val APP_ENTRY = "appEntry"
 
     const val BASE_URL = "https://newsapi.org/v2/"
-
-
 }

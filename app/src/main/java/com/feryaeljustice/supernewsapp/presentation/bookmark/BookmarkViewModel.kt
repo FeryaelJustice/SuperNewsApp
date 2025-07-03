@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.bookmark
 
 import androidx.compose.runtime.State
@@ -13,8 +11,11 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class BookmarkViewModel @Inject constructor(private val getSavedArticlesUseCase: GetSavedArticles) :
-    ViewModel() {
+class BookmarkViewModel
+@Inject
+constructor(
+    private val getSavedArticlesUseCase: GetSavedArticles,
+) : ViewModel() {
     private val _state = mutableStateOf(BookmarkState())
     val state: State<BookmarkState> = _state
 
@@ -23,8 +24,9 @@ class BookmarkViewModel @Inject constructor(private val getSavedArticlesUseCase:
     }
 
     private fun getArticles() {
-        getSavedArticlesUseCase().onEach {
-            _state.value = _state.value.copy(articles = it)
-        }.launchIn(viewModelScope)
+        getSavedArticlesUseCase()
+            .onEach {
+                _state.value = _state.value.copy(articles = it)
+            }.launchIn(viewModelScope)
     }
 }

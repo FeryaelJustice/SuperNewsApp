@@ -16,7 +16,7 @@ fun NavGraph(startDestination: String) {
     NavHost(navController = navController, startDestination = startDestination) {
         navigation(
             route = Route.AppStartNavigation.route,
-            startDestination = Route.OnBoardingScreen.route
+            startDestination = Route.OnBoardingScreen.route,
         ) {
             composable(route = Route.OnBoardingScreen.route) {
                 val viewModel: OnBoardingViewModel = hiltViewModel()
@@ -33,7 +33,7 @@ fun NavGraph(startDestination: String) {
 
         navigation(
             route = Route.NewsNavigation.route,
-            startDestination = Route.NewsNavigatorScreen.route
+            startDestination = Route.NewsNavigatorScreen.route,
         ) {
             composable(route = Route.NewsNavigatorScreen.route) {
                 NewsNavigator()

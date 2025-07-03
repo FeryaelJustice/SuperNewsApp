@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.bookmark
 
 import androidx.compose.foundation.layout.Column
@@ -23,30 +21,31 @@ import com.feryaeljustice.supernewsapp.presentation.common.ArticlesListNoPaging
 @Composable
 fun BookmarkScreen(
     state: BookmarkState,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetails: (Article) -> Unit,
 ) {
     val bookmarkText = stringResource(R.string.bookmark)
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1),
     ) {
-
         Text(
             text = bookmarkText,
             style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
-            color = colorResource(
-                id = R.color.text_title
-            )
+            color =
+                colorResource(
+                    id = R.color.text_title,
+                ),
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 
         ArticlesListNoPaging(
             articles = state.articles,
-            onClick = navigateToDetails
+            onClick = navigateToDetails,
         )
     }
 }

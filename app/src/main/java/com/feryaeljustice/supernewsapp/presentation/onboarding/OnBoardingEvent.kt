@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.onboarding
 
 sealed class OnBoardingEvent {

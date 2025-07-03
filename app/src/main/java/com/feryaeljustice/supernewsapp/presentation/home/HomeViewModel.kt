@@ -10,24 +10,27 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel
+@Inject
+constructor(
     getNewsUseCase: GetNews,
-    @DeeplApiKey private val deeplApiKey: String,
-    private val locale: String
+    @param:DeeplApiKey private val deeplApiKey: String,
+    private val locale: String,
 ) : ViewModel() {
-
     var state = mutableStateOf(HomeState())
         private set
 
-    val news = getNewsUseCase(
-        sources = listOf(
-            "bbc-news",
-            "cnn",
-            "fox-news",
-            "google-news",
-            "reuters"
-        )
-    ).cachedIn(viewModelScope)
+    val news =
+        getNewsUseCase(
+            sources =
+                listOf(
+                    "bbc-news",
+                    "cnn",
+                    "fox-news",
+                    "google-news",
+                    "reuters",
+                ),
+        ).cachedIn(viewModelScope)
 
 //    val translatedNews = news.map { pagingDataItem ->
 //        pagingDataItem.filter { article ->

@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,11 +30,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
+import com.feryaeljustice.supernewsapp.presentation.Dimens.ExtraSmallPadding
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeljustice.supernewsapp.presentation.common.ArticlesList
 import kotlinx.coroutines.delay
@@ -45,9 +48,8 @@ fun HomeScreen(
     event: (HomeEvent) -> Unit,
 //    navigateToSearch: () -> Unit,
 //    navigateToContact: () -> Unit,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetails: (Article) -> Unit,
 ) {
-
     val titles by remember {
         derivedStateOf {
             if (articles.itemCount > 10) {
@@ -61,26 +63,39 @@ fun HomeScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = MediumPadding1)
-            .statusBarsPadding()
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(top = MediumPadding1)
+                .statusBarsPadding(),
     ) {
         Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = MediumPadding1)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = MediumPadding1),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_home),
-                contentDescription = null,
-                alignment = Alignment.CenterStart,
-                colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
-                modifier = Modifier
-                    .width(150.dp)
-                    .height(30.dp)
-            )
+            Row(horizontalArrangement = Arrangement.Start) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_home),
+                    contentDescription = null,
+                    alignment = Alignment.CenterStart,
+                    colorFilter = ColorFilter.tint(if (isSystemInDarkTheme()) Color.White else Color.Black),
+                    modifier =
+                        Modifier
+                            .width(150.dp)
+                            .height(30.dp),
+                )
+
+                Spacer(modifier = Modifier.width(ExtraSmallPadding))
+
+                Text(
+                    text = stringResource(id = R.string.home),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
 //            Image(
 //                painter = painterResource(id = R.drawable.ic_contact),
 //                contentDescription = null,
@@ -98,12 +113,14 @@ fun HomeScreen(
         val scrollState = rememberScrollState(initial = state.scrollValue)
 
         Text(
-            text = titles, modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = MediumPadding1)
-                .horizontalScroll(scrollState, enabled = false),
+            text = titles,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = MediumPadding1)
+                    .horizontalScroll(scrollState, enabled = false),
             fontSize = 12.sp,
-            color = colorResource(id = R.color.placeholder)
+            color = colorResource(id = R.color.placeholder),
         )
 
         // Update the maxScrollingValue
@@ -120,13 +137,14 @@ fun HomeScreen(
             if (state.maxScrollingValue > 0) {
                 scrollState.animateScrollTo(
                     value = state.maxScrollingValue,
-                    animationSpec = infiniteRepeatable(
-                        tween(
-                            durationMillis = (state.maxScrollingValue - state.scrollValue) * 50_000 / state.maxScrollingValue,
-                            easing = LinearEasing,
-                            delayMillis = 1000
-                        )
-                    )
+                    animationSpec =
+                        infiniteRepeatable(
+                            tween(
+                                durationMillis = (state.maxScrollingValue - state.scrollValue) * 50_000 / state.maxScrollingValue,
+                                easing = LinearEasing,
+                                delayMillis = 1000,
+                            ),
+                        ),
                 )
             }
         }
@@ -136,7 +154,7 @@ fun HomeScreen(
         ArticlesList(
             modifier = Modifier.padding(horizontal = MediumPadding1),
             articles = articles,
-            onClick = navigateToDetails
+            onClick = navigateToDetails,
         )
     }
 }

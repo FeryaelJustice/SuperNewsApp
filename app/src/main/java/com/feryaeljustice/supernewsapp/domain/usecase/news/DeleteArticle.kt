@@ -4,12 +4,12 @@ import com.feryaeljustice.supernewsapp.data.local.NewsDao
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import javax.inject.Inject
 
-class DeleteArticle @Inject constructor(
-    private val newsDao: NewsDao
+class DeleteArticle
+@Inject
+constructor(
+    private val newsDao: NewsDao,
 ) {
-
-    suspend operator fun invoke(article: Article){
+    suspend operator fun invoke(article: Article) {
         newsDao.delete(article = article)
     }
-
 }

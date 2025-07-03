@@ -1,11 +1,8 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation
 
 import androidx.compose.ui.unit.dp
 
 object Dimens {
-
     val ExtraSmallPadding = 3.dp
 
     val ExtraSmallPadding2 = 6.dp

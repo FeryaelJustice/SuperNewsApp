@@ -24,48 +24,49 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
-    fun provideLocale(@ApplicationContext context: Context): String {
-        return Locale.getDefault().language
-    }
+    fun provideLocale(
+        @ApplicationContext context: Context,
+    ): String = Locale.getDefault().language
 
     @NewsApiKey
     @Provides
     @Singleton
-    fun provideNewsApiKey(@ApplicationContext context: Context): String =
-        context.getString(R.string.newsApiKey)
+    fun provideNewsApiKey(
+        @ApplicationContext context: Context,
+    ): String = context.getString(R.string.newsApiKey)
 
     @DeeplApiKey
     @Provides
     @Singleton
-    fun provideDeeplApiKey(@ApplicationContext context: Context): String =
-        context.getString(R.string.deeplApiKey)
+    fun provideDeeplApiKey(
+        @ApplicationContext context: Context,
+    ): String = context.getString(R.string.deeplApiKey)
 
     @Provides
     @Singleton
     fun provideNewsAPI(): NewsApi =
-        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
-            .build().create(NewsApi::class.java)
+        Retrofit
+            .Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(NewsApi::class.java)
 
     @Provides
     @Singleton
-    fun provideNewsDatabase(
-        application: Application
-    ): NewsDatabase {
-        return Room.databaseBuilder(
-            context = application,
-            klass = NewsDatabase::class.java,
-            name = "news_db"
-        ).addTypeConverter(NewsTypeConverter())
+    fun provideNewsDatabase(application: Application): NewsDatabase =
+        Room
+            .databaseBuilder(
+                context = application,
+                klass = NewsDatabase::class.java,
+                name = "news_db",
+            ).addTypeConverter(NewsTypeConverter())
             .fallbackToDestructiveMigration()
             .build()
-    }
 
     @Provides
     @Singleton
-    fun provideNewsDao(
-        newsDatabase: NewsDatabase
-    ): NewsDao = newsDatabase.newsDao
+    fun provideNewsDao(newsDatabase: NewsDatabase): NewsDao = newsDatabase.newsDao
 }

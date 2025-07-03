@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.onboarding.components
 
 import android.content.res.Configuration
@@ -30,17 +28,18 @@ import com.feryaeljustice.supernewsapp.ui.theme.SuperNewsAppTheme
 @Composable
 fun OnBoardingPage(
     modifier: Modifier = Modifier,
-    page: Page
+    page: Page,
 ) {
     Column(modifier = modifier) {
         Image(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.60f),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(fraction = 0.60f),
             painter = painterResource(id = page.image),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            alignment = Alignment.Center
+            alignment = Alignment.Center,
         )
         Spacer(modifier = Modifier.height(Dimens.SmallPadding1))
         Text(
@@ -49,13 +48,13 @@ fun OnBoardingPage(
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
             color = colorResource(id = R.color.onboarding_title),
             maxLines = 3,
-            overflow = TextOverflow.Clip
+            overflow = TextOverflow.Clip,
         )
         Text(
             text = page.description,
             modifier = Modifier.padding(Dimens.MediumPadding2),
             style = MaterialTheme.typography.bodySmall,
-            color = colorResource(id = R.color.onboarding_body)
+            color = colorResource(id = R.color.onboarding_body),
         )
     }
 }

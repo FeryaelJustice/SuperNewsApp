@@ -30,7 +30,7 @@ import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 fun ContactScreen(
     state: ContactState,
     onContactClick: (message: String) -> Unit,
-    onOpenNewsSource: (link: String) -> Unit
+    onOpenNewsSource: (link: String) -> Unit,
 ) {
     val name = state.name
     val newsSourceName = state.newsSourceName
@@ -38,17 +38,18 @@ fun ContactScreen(
     val message = rememberSaveable { mutableStateOf("") }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                top = MediumPadding1,
-                start = MediumPadding1,
-                end = MediumPadding1
-            )
-            .statusBarsPadding()
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(
+                    top = MediumPadding1,
+                    start = MediumPadding1,
+                    end = MediumPadding1,
+                )
+                .statusBarsPadding(),
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             Text(
                 text = stringResource(R.string.source_of_news, newsSourceName, newsSourceLink),
@@ -62,7 +63,7 @@ fun ContactScreen(
             }) {
                 Text(
                     text = stringResource(R.string.openLink, newsSourceName),
-                    fontFamily = FontFamily.Monospace
+                    fontFamily = FontFamily.Monospace,
                 )
             }
 
@@ -78,11 +79,12 @@ fun ContactScreen(
             Button(
                 border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape(20),
-                onClick = { onContactClick(message.value) }) {
+                onClick = { onContactClick(message.value) },
+            ) {
                 Image(painter = painterResource(id = R.drawable.ic_mail), contentDescription = null)
                 Text(
                     text = stringResource(R.string.sendMailMessage),
-                    modifier = Modifier.padding(start = 2.dp)
+                    modifier = Modifier.padding(start = 2.dp),
                 )
             }
         }
@@ -91,8 +93,9 @@ fun ContactScreen(
             text = stringResource(R.string.author, name),
             fontStyle = FontStyle.Italic,
             fontFamily = FontFamily.Monospace,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter),
         )
     }
 }

@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.mainActivity
 
 import androidx.compose.runtime.State
@@ -15,9 +13,11 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(readAppEntry: ReadAppEntry) :
-    ViewModel() {
-
+class MainViewModel
+@Inject
+constructor(
+    readAppEntry: ReadAppEntry,
+) : ViewModel() {
     private val _splashCondition = mutableStateOf(true)
     val splashCondition: State<Boolean> = _splashCondition
 
@@ -25,14 +25,16 @@ class MainViewModel @Inject constructor(readAppEntry: ReadAppEntry) :
     val startDestination: State<String> = _startDestination
 
     init {
-        readAppEntry().onEach { shouldStartFromHomeScreen ->
-            _startDestination.value = if (shouldStartFromHomeScreen) {
-                Route.NewsNavigation.route
-            } else {
-                Route.AppStartNavigation.route
-            }
-            delay(300)
-            _splashCondition.value = false
-        }.launchIn(viewModelScope)
+        readAppEntry()
+            .onEach { shouldStartFromHomeScreen ->
+                _startDestination.value =
+                    if (shouldStartFromHomeScreen) {
+                        Route.NewsNavigation.route
+                    } else {
+                        Route.AppStartNavigation.route
+                    }
+                delay(300)
+                _splashCondition.value = false
+            }.launchIn(viewModelScope)
     }
 }

@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.search
 
 import androidx.compose.runtime.State
@@ -12,10 +10,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val searchNewsUseCase: SearchNews
+class SearchViewModel
+@Inject
+constructor(
+    private val searchNewsUseCase: SearchNews,
 ) : ViewModel() {
-
     private val _state = mutableStateOf(SearchState())
     val state: State<SearchState> = _state
 
@@ -34,15 +33,18 @@ class SearchViewModel @Inject constructor(
     private fun searchNews() {
         val searchQuery = state.value.searchQuery
         if (searchQuery.isNotEmpty()) {
-            val articles = searchNewsUseCase(
-                searchQuery = searchQuery, sources = listOf(
-                    "bbc-news",
-                    "cnn",
-                    "fox-news",
-                    "google-news",
-                    "reuters"
-                )
-            ).cachedIn(viewModelScope)
+            val articles =
+                searchNewsUseCase(
+                    searchQuery = searchQuery,
+                    sources =
+                        listOf(
+                            "bbc-news",
+                            "cnn",
+                            "fox-news",
+                            "google-news",
+                            "reuters",
+                        ),
+                ).cachedIn(viewModelScope)
             _state.value = state.value.copy(articles = articles)
         }
     }

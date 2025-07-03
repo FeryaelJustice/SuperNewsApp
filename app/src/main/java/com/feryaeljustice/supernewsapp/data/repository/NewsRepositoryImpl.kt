@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.data.repository
 
 import androidx.annotation.Keep
@@ -17,27 +15,31 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @Keep
-class NewsRepositoryImpl @Inject constructor(
+class NewsRepositoryImpl
+@Inject
+constructor(
     private val newsApi: NewsApi,
     private val newsDao: NewsDao,
-    @NewsApiKey private val apiKey: String
+    @param:NewsApiKey private val apiKey: String,
 ) : NewsRepository {
-
-    override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
-        return Pager(
+    override fun getNews(sources: List<String>): Flow<PagingData<Article>> =
+        Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = {
                 NewsPagingSource(newsApi, sources.joinToString(","), apiKey)
-            }).flow
-    }
+            },
+        ).flow
 
-    override fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>> {
-        return Pager(
+    override fun searchNews(
+        searchQuery: String,
+        sources: List<String>,
+    ): Flow<PagingData<Article>> =
+        Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = {
                 SearchNewsPagingSource(newsApi, searchQuery, sources.joinToString(","), apiKey)
-            }).flow
-    }
+            },
+        ).flow
 
     override suspend fun upsertArticle(article: Article) {
         newsDao.upsert(article)
@@ -47,11 +49,7 @@ class NewsRepositoryImpl @Inject constructor(
         newsDao.delete(article)
     }
 
-    override fun getArticles(): Flow<List<Article>> {
-        return newsDao.getArticles()
-    }
+    override fun getArticles(): Flow<List<Article>> = newsDao.getArticles()
 
-    override suspend fun getArticle(url: String): Article? {
-        return newsDao.getArticle(url = url)
-    }
+    override suspend fun getArticle(url: String): Article? = newsDao.getArticle(url = url)
 }

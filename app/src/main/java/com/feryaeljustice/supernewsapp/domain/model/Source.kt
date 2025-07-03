@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.domain.model
 
 import android.os.Parcelable
@@ -11,5 +9,5 @@ import kotlinx.parcelize.Parcelize
 @Keep
 data class Source(
     @SerializedName("id") val id: String,
-    @SerializedName("name") val name: String
+    @SerializedName("name") val name: String,
 ) : Parcelable

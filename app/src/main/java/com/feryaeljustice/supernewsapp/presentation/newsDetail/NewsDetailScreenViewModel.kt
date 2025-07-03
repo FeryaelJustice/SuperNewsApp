@@ -18,13 +18,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsDetailScreenViewModel @Inject constructor(
+class NewsDetailScreenViewModel
+@Inject
+constructor(
     private val getSavedArticleUseCase: GetSavedArticle,
     private val deleteArticleUseCase: DeleteArticle,
     private val upsertArticleUseCase: UpsertArticle,
-    @ApplicationContext private val application: Context
+    @ApplicationContext private val application: Context,
 ) : ViewModel() {
-
     var sideEffect by mutableStateOf<UIComponent?>(null)
         private set
 
@@ -63,7 +64,6 @@ class NewsDetailScreenViewModel @Inject constructor(
         sideEffect = UIComponent.Toast(application.getString(R.string.article_inserted))
     }
 
-    suspend fun checkIfArticleIsSaved(article: Article): Boolean {
-        return getSavedArticleUseCase(url = article.url) != null
-    }
+    suspend fun checkIfArticleIsSaved(article: Article): Boolean =
+        getSavedArticleUseCase(url = article.url) != null
 }

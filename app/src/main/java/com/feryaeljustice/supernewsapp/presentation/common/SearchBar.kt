@@ -37,17 +37,18 @@ fun SearchBar(
     readOnly: Boolean,
     onClick: (() -> Unit)? = null,
     onValueChange: (String) -> Unit,
-    onSearch: () -> Unit
+    onSearch: () -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val searchText = stringResource(R.string.search)
 
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
+    val interactionSource =
+        remember {
+            MutableInteractionSource()
+        }
     val isClicked = interactionSource.collectIsPressedAsState().value
-    LaunchedEffect(key1 = isClicked){
+    LaunchedEffect(key1 = isClicked) {
         if (isClicked) {
             onClick?.invoke()
         }
@@ -55,9 +56,10 @@ fun SearchBar(
 
     Box(modifier = modifier) {
         TextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .searchBar(),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .searchBar(),
             value = text,
             onValueChange = onValueChange,
             readOnly = readOnly,
@@ -66,42 +68,44 @@ fun SearchBar(
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = null,
                     modifier = Modifier.size(24.dp),
-                    tint = colorResource(id = R.color.iconTint)
+                    tint = colorResource(id = R.color.iconTint),
                 )
             },
             placeholder = {
                 Text(
                     text = searchText,
                     style = MaterialTheme.typography.bodySmall,
-                    color = colorResource(id = R.color.placeholder)
+                    color = colorResource(id = R.color.placeholder),
                 )
             },
             shape = MaterialTheme.shapes.medium,
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    keyboardController?.hide()
-                    onSearch()
-                }
-            ),
+            keyboardActions =
+                KeyboardActions(
+                    onSearch = {
+                        keyboardController?.hide()
+                        onSearch()
+                    },
+                ),
             textStyle = MaterialTheme.typography.bodySmall,
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
         )
     }
 }
 
-fun Modifier.searchBar(): Modifier = composed {
-    if (!isSystemInDarkTheme()) {
-        border(
-            width = 1.dp,
-            color = Color.Black,
-            shape = MaterialTheme.shapes.medium
-        )
-    } else {
-        this
+fun Modifier.searchBar(): Modifier =
+    composed {
+        if (!isSystemInDarkTheme()) {
+            border(
+                width = 1.dp,
+                color = Color.Black,
+                shape = MaterialTheme.shapes.medium,
+            )
+        } else {
+            this
+        }
     }
-}
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
@@ -109,7 +113,6 @@ fun Modifier.searchBar(): Modifier = composed {
 fun SearchBarPreview() {
     SuperNewsAppTheme {
         SearchBar(text = "", onValueChange = {}, readOnly = false) {
-
         }
     }
 }

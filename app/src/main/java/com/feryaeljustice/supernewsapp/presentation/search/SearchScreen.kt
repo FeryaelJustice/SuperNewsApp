@@ -22,24 +22,25 @@ import com.feryaeljustice.supernewsapp.presentation.common.SearchBar
 fun SearchScreen(
     state: SearchState,
     event: (SearchEvent) -> Unit,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetails: (Article) -> Unit,
 ) {
-
     Column(
-        modifier = Modifier
-            .padding(
-                top = Dimens.MediumPadding1,
-                start = Dimens.MediumPadding1,
-                end = Dimens.MediumPadding1
-            )
-            .statusBarsPadding()
-            .fillMaxSize()
+        modifier =
+            Modifier
+                .padding(
+                    top = Dimens.MediumPadding1,
+                    start = Dimens.MediumPadding1,
+                    end = Dimens.MediumPadding1,
+                )
+                .statusBarsPadding()
+                .fillMaxSize(),
     ) {
         SearchBar(
             text = state.searchQuery,
             readOnly = false,
             onValueChange = { event(SearchEvent.UpdateSearchQuery(it)) },
-            onSearch = { event(SearchEvent.SearchNews) })
+            onSearch = { event(SearchEvent.SearchNews) },
+        )
 
         Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
@@ -47,7 +48,7 @@ fun SearchScreen(
             Text(
                 text = stringResource(R.string.enter_search_query),
                 modifier = Modifier.fillMaxSize(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         } else {
             state.articles?.let {
@@ -55,8 +56,5 @@ fun SearchScreen(
                 ArticlesList(articles = articles, onClick = navigateToDetails)
             }
         }
-
-
     }
-
 }

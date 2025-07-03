@@ -22,14 +22,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.feryaeljustice.supernewsapp.presentation.navigation.NavGraph
-import com.feryaeljustice.supernewsapp.ui.theme.SuperNewsAppTheme
-import dagger.hilt.android.AndroidEntryPoint
 import com.feryaeljustice.supernewsapp.ui.theme.Blue
 import com.feryaeljustice.supernewsapp.ui.theme.LightRed
+import com.feryaeljustice.supernewsapp.ui.theme.SuperNewsAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,7 @@ class MainActivity : ComponentActivity() {
                         false
                     }
                 }
-            }
+            },
         )
 
         // MAIN APP
@@ -72,24 +71,26 @@ class MainActivity : ComponentActivity() {
 
                     DisposableEffect(isSystemInDarkMode) {
                         context.enableEdgeToEdge(
-                            statusBarStyle = if (!isSystemInDarkMode) {
-                                SystemBarStyle.light(
-                                    statusBarLight,
-                                    statusBarDark
-                                )
-                            } else {
-                                SystemBarStyle.dark(
-                                    statusBarDark
-                                )
-                            },
-                            navigationBarStyle = if(!isSystemInDarkMode){
-                                SystemBarStyle.light(
-                                    navigationBarLight,
-                                    navigationBarDark
-                                )
-                            } else {
-                                SystemBarStyle.dark(navigationBarDark)
-                            }
+                            statusBarStyle =
+                                if (!isSystemInDarkMode) {
+                                    SystemBarStyle.light(
+                                        statusBarLight,
+                                        statusBarDark,
+                                    )
+                                } else {
+                                    SystemBarStyle.dark(
+                                        statusBarDark,
+                                    )
+                                },
+                            navigationBarStyle =
+                                if (!isSystemInDarkMode) {
+                                    SystemBarStyle.light(
+                                        navigationBarLight,
+                                        navigationBarDark,
+                                    )
+                                } else {
+                                    SystemBarStyle.dark(navigationBarDark)
+                                },
                         )
 
                         onDispose { }

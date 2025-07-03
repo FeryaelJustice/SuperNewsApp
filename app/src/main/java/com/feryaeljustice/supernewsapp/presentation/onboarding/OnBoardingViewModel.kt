@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
@@ -10,9 +8,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnBoardingViewModel @Inject constructor(private val saveAppEntry: SaveAppEntry) :
-    ViewModel() {
-
+class OnBoardingViewModel
+@Inject
+constructor(
+    private val saveAppEntry: SaveAppEntry,
+) : ViewModel() {
     fun onEvent(event: OnBoardingEvent) {
         when (event) {
             is OnBoardingEvent.SaveAppEntry -> {

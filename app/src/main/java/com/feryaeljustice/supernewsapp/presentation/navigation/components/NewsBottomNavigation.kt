@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.navigation.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -28,17 +26,16 @@ import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.presentation.Dimens.ExtraSmallPadding2
 import com.feryaeljustice.supernewsapp.ui.theme.SuperNewsAppTheme
 
-
 @Composable
 fun NewsBottomNavigation(
     items: List<BottomNavigationItem>,
     selectedItem: Int,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int) -> Unit,
 ) {
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
         containerColor = MaterialTheme.colorScheme.background,
-        tonalElevation = 10.dp
+        tonalElevation = 10.dp,
     ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
@@ -55,13 +52,14 @@ fun NewsBottomNavigation(
                         Text(text = item.text, style = MaterialTheme.typography.labelSmall)
                     }
                 },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                    selectedTextColor = MaterialTheme.colorScheme.primary,
-                    unselectedIconColor = colorResource(id = R.color.iconTint),
-                    unselectedTextColor = colorResource(id = R.color.iconTint),
-                    indicatorColor = MaterialTheme.colorScheme.background
-                ),
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.primary,
+                        selectedTextColor = MaterialTheme.colorScheme.primary,
+                        unselectedIconColor = colorResource(id = R.color.iconTint),
+                        unselectedTextColor = colorResource(id = R.color.iconTint),
+                        indicatorColor = MaterialTheme.colorScheme.background,
+                    ),
             )
         }
     }
@@ -69,7 +67,7 @@ fun NewsBottomNavigation(
 
 data class BottomNavigationItem(
     @DrawableRes val icon: Int,
-    val text: String
+    val text: String,
 )
 
 @Preview
@@ -81,10 +79,15 @@ fun NewsBottomNavigationPreview() {
     val bookmarkText = stringResource(R.string.bookmark)
 
     SuperNewsAppTheme(dynamicColor = false) {
-        NewsBottomNavigation(items = listOf(
-            BottomNavigationItem(icon = R.drawable.ic_home, text = homeText),
-            BottomNavigationItem(icon = R.drawable.ic_search, text = searchText),
-            BottomNavigationItem(icon = R.drawable.ic_bookmark, text = bookmarkText),
-        ), selectedItem = 0, onItemClick = {})
+        NewsBottomNavigation(
+            items =
+                listOf(
+                    BottomNavigationItem(icon = R.drawable.ic_home, text = homeText),
+                    BottomNavigationItem(icon = R.drawable.ic_search, text = searchText),
+                    BottomNavigationItem(icon = R.drawable.ic_bookmark, text = bookmarkText),
+                ),
+            selectedItem = 0,
+            onItemClick = {},
+        )
     }
 }

@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.domain.model
 
 import android.os.Parcelable
@@ -20,5 +18,5 @@ data class Article(
     @SerializedName("source") val source: Source,
     @SerializedName("title") val title: String? = "",
     @SerializedName("url") @PrimaryKey val url: String,
-    @SerializedName("urlToImage") val urlToImage: String? = ""
+    @SerializedName("urlToImage") val urlToImage: String? = "",
 ) : Parcelable

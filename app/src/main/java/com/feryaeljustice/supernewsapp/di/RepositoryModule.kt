@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.di
 
 import com.feryaeljustice.supernewsapp.data.repository.NewsRepositoryImpl
@@ -13,9 +11,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-
     @Binds
     @Singleton
     abstract fun bindNewsRepository(newsRepositoryImpl: NewsRepositoryImpl): NewsRepository
-
 }

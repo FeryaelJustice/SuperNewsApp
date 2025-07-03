@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.common
 
 import android.annotation.SuppressLint
@@ -34,50 +32,60 @@ import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeljustice.supernewsapp.ui.theme.SuperNewsAppTheme
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
-fun Modifier.shimmerEffect() = composed {
-    val transition = rememberInfiniteTransition(label = "")
-    val alpha = transition.animateFloat(
-        initialValue = 0.2f,
-        targetValue = 0.9f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000),
-            repeatMode = RepeatMode.Reverse
-        ), label = ""
-    ).value
-    background(color = colorResource(id = R.color.shimmer).copy(alpha = alpha))
-}
+fun Modifier.shimmerEffect() =
+    composed {
+        val transition = rememberInfiniteTransition(label = "")
+        val alpha =
+            transition
+                .animateFloat(
+                    initialValue = 0.2f,
+                    targetValue = 0.9f,
+                    animationSpec =
+                        infiniteRepeatable(
+                            animation = tween(durationMillis = 1000),
+                            repeatMode = RepeatMode.Reverse,
+                        ),
+                    label = "",
+                ).value
+        background(color = colorResource(id = R.color.shimmer).copy(alpha = alpha))
+    }
 
 @Composable
 fun ArticleCardShimmerEffect(modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Box(
-            modifier = Modifier
-                .size(ArticleCardSize)
-                .clip(MaterialTheme.shapes.medium)
-                .shimmerEffect()
+            modifier =
+                Modifier
+                    .size(ArticleCardSize)
+                    .clip(MaterialTheme.shapes.medium)
+                    .shimmerEffect(),
         )
 
         Column(
-            verticalArrangement = Arrangement.SpaceAround, modifier = Modifier
-                .padding(
-                    horizontal = ExtraSmallPadding
-                )
-                .height(ArticleCardSize)
+            verticalArrangement = Arrangement.SpaceAround,
+            modifier =
+                Modifier
+                    .padding(
+                        horizontal = ExtraSmallPadding,
+                    )
+                    .height(ArticleCardSize),
         ) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .padding(horizontal = MediumPadding1)
-                    .shimmerEffect()
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(30.dp)
+                        .padding(horizontal = MediumPadding1)
+                        .shimmerEffect(),
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth(0.5f)
-                        .height(15.dp)
-                        .padding(horizontal = MediumPadding1)
-                        .shimmerEffect()
+                    modifier =
+                        Modifier
+                            .fillMaxWidth(0.5f)
+                            .height(15.dp)
+                            .padding(horizontal = MediumPadding1)
+                            .shimmerEffect(),
                 )
             }
         }
@@ -87,7 +95,7 @@ fun ArticleCardShimmerEffect(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun ArticleCardShimmerEffectPreview(){
+fun ArticleCardShimmerEffectPreview() {
     SuperNewsAppTheme {
         ArticleCardShimmerEffect()
     }

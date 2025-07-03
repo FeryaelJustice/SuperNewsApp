@@ -28,31 +28,37 @@ fun DetailsTopBar(
     onShareClick: () -> Unit,
     onBookmarkClick: () -> Unit,
     onBackClick: () -> Unit,
-    isBookmarked: Boolean = false
+    isBookmarked: Boolean = false,
 ) {
     TopAppBar(
         title = {},
         modifier = Modifier.fillMaxWidth(),
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = Color.Transparent,
-            actionIconContentColor = colorResource(id = R.color.iconTint),
-            navigationIconContentColor = colorResource(id = R.color.iconTint)
-        ),
+        colors =
+            TopAppBarDefaults.mediumTopAppBarColors(
+                containerColor = Color.Transparent,
+                actionIconContentColor = colorResource(id = R.color.iconTint),
+                navigationIconContentColor = colorResource(id = R.color.iconTint),
+            ),
         navigationIcon = {
             IconButton(onClick = onBackClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_back_arrow),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         },
         actions = {
             IconButton(onClick = onBookmarkClick) {
                 Icon(
-                    painter = if (isBookmarked) painterResource(id = R.drawable.ic_bookmark_added) else painterResource(
-                        id = R.drawable.ic_bookmark
-                    ),
-                    contentDescription = null
+                    painter =
+                        if (isBookmarked) {
+                            painterResource(id = R.drawable.ic_bookmark_added)
+                        } else {
+                            painterResource(
+                                id = R.drawable.ic_bookmark,
+                            )
+                        },
+                    contentDescription = null,
                 )
             }
             IconButton(onClick = onShareClick) {
@@ -61,12 +67,11 @@ fun DetailsTopBar(
             IconButton(onClick = onBrowsingClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_network),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
-        }
+        },
     )
-
 }
 
 @Preview(showBackground = true)
@@ -79,7 +84,7 @@ fun DetailsTopBarPreview() {
                 onBrowsingClick = {},
                 onShareClick = {},
                 onBookmarkClick = {},
-                onBackClick = {}
+                onBackClick = {},
             )
         }
     }

@@ -1,5 +1,3 @@
-
-
 package com.feryaeljustice.supernewsapp.presentation.onboarding.components
 
 import androidx.compose.foundation.background
@@ -22,13 +20,16 @@ fun PageIndicator(
     pageSize: Int,
     selectedPage: Int,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedColor: Color = BlueGray
+    unselectedColor: Color = BlueGray,
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
         repeat(pageSize) { page ->
             Box(
-                modifier = Modifier.size(IndicatorSize).clip(CircleShape)
-                    .background(color = if (page == selectedPage) selectedColor else unselectedColor)
+                modifier =
+                    Modifier
+                        .size(IndicatorSize)
+                        .clip(CircleShape)
+                        .background(color = if (page == selectedPage) selectedColor else unselectedColor),
             )
         }
     }
