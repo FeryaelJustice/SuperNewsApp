@@ -18,7 +18,7 @@
         <activity
             android:name=".presentation.mainActivity.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.SuperNewsApp.SplashScreen"
+            android:theme="@style/Theme.SuperNewsApp"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,8 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,15 +24,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 
 @Composable
 fun ContactScreen(
-    state: ContactState,
     onContactClick: (message: String) -> Unit,
     onOpenNewsSource: (link: String) -> Unit,
 ) {
+    val viewModel: ContactViewModel = hiltViewModel()
+    val state = viewModel.state.value
+
     val name = state.name
     val newsSourceName = state.newsSourceName
     val newsSourceLink = state.newsSourceLink
@@ -46,7 +50,7 @@ fun ContactScreen(
                     start = MediumPadding1,
                     end = MediumPadding1,
                 )
-                .statusBarsPadding(),
+                .verticalScroll(rememberScrollState())
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

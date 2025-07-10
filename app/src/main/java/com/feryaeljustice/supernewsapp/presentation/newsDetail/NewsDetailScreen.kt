@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,11 +40,9 @@ import com.feryaeljustice.supernewsapp.util.UIComponent
 @Composable
 fun DetailsScreen(
     article: Article,
-    event: (NewsDetailEvent) -> Unit,
-    viewModel: NewsDetailScreenViewModel,
-    sideEffect: UIComponent?,
     navigateUp: () -> Unit,
 ) {
+    val viewModel: NewsDetailScreenViewModel = hiltViewModel()
     val context = LocalContext.current
 
     var isBookmarked by remember { mutableStateOf(false) }
@@ -54,12 +51,12 @@ fun DetailsScreen(
         isBookmarked = viewModel.checkIfArticleIsSaved(article)
     }
 
-    LaunchedEffect(key1 = sideEffect) {
-        sideEffect?.let {
-            when (sideEffect) {
+    LaunchedEffect(key1 = viewModel.sideEffect) {
+        viewModel.sideEffect?.let { sE ->
+            when (sE) {
                 is UIComponent.Toast -> {
-                    Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
-                    event(NewsDetailEvent.RemoveSideEffect)
+                    Toast.makeText(context, sE.message, Toast.LENGTH_SHORT).show()
+                    viewModel.onEvent(NewsDetailEvent.RemoveSideEffect)
                 }
 
                 else -> Unit
@@ -68,10 +65,8 @@ fun DetailsScreen(
     }
 
     Column(
-        modifier =
-            Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),
+        modifier = Modifier
+            .fillMaxSize()
     ) {
         DetailsTopBar(
             onBrowsingClick = {
@@ -92,7 +87,7 @@ fun DetailsScreen(
                 }
             },
             onBookmarkClick = {
-                event(NewsDetailEvent.UpsertDeleteArticle(article))
+                viewModel.onEvent(NewsDetailEvent.UpsertDeleteArticle(article))
                 isBookmarked = !isBookmarked
             },
             onBackClick = navigateUp,
@@ -131,9 +126,7 @@ fun DetailsScreen(
                     style = MaterialTheme.typography.displaySmall,
                     color =
                         colorResource(
-                            id =
-                                R
-                                    .color.text_title,
+                            id = R.color.text_title,
                         ),
                 )
 
@@ -144,9 +137,7 @@ fun DetailsScreen(
                     style = MaterialTheme.typography.bodyMedium,
                     color =
                         colorResource(
-                            id =
-                                R
-                                    .color.iconTint,
+                            id = R.color.iconTint,
                         ),
                 )
             }
@@ -174,9 +165,6 @@ fun DetailsScreenPreview() {
                     url = "https://consent.google.com/ml?continue=https://news.google.com/rss/articles/CBMiaWh0dHBzOi8vY3J5cHRvc2F1cnVzLnRlY2gvY29pbmJhc2Utc2F5cy1hcHBsZS1ibG9ja2VkLWl0cy1sYXN0LWFwcC1yZWxlYXNlLW9uLW5mdHMtaW4td2FsbGV0LXJldXRlcnMtY29tL9IBAA?oc%3D5&gl=FR&hl=en-US&cm=2&pc=n&src=1",
                     urlToImage = "https://media.wired.com/photos/6495d5e893ba5cd8bbdc95af/191:100/w_1280,c_limit/The-EU-Rules-Phone-Batteries-Must-Be-Replaceable-Gear-2BE6PRN.jpg",
                 ),
-            event = {},
-            viewModel = hiltViewModel(),
-            sideEffect = null,
         ) {
         }
     }

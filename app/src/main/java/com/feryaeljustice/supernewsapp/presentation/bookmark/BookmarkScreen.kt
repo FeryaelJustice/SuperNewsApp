@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
@@ -20,9 +21,10 @@ import com.feryaeljustice.supernewsapp.presentation.common.ArticlesListNoPaging
 
 @Composable
 fun BookmarkScreen(
-    state: BookmarkState,
     navigateToDetails: (Article) -> Unit,
 ) {
+    val viewModel: BookmarkViewModel = hiltViewModel()
+    val state = viewModel.state.value
     val bookmarkText = stringResource(R.string.bookmark)
 
     Column(

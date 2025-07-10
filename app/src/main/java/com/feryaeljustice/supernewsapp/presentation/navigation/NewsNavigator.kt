@@ -16,27 +16,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import com.feryaeljustice.supernewsapp.presentation.bookmark.BookmarkScreen
-import com.feryaeljustice.supernewsapp.presentation.bookmark.BookmarkViewModel
 import com.feryaeljustice.supernewsapp.presentation.contact.ContactScreen
-import com.feryaeljustice.supernewsapp.presentation.contact.ContactViewModel
 import com.feryaeljustice.supernewsapp.presentation.home.HomeScreen
-import com.feryaeljustice.supernewsapp.presentation.home.HomeViewModel
 import com.feryaeljustice.supernewsapp.presentation.navigation.components.BottomNavigationItem
 import com.feryaeljustice.supernewsapp.presentation.navigation.components.NewsBottomNavigation
 import com.feryaeljustice.supernewsapp.presentation.newsDetail.DetailsScreen
-import com.feryaeljustice.supernewsapp.presentation.newsDetail.NewsDetailScreenViewModel
 import com.feryaeljustice.supernewsapp.presentation.search.SearchScreen
-import com.feryaeljustice.supernewsapp.presentation.search.SearchViewModel
 
 @Composable
 fun NewsNavigator() {
@@ -121,13 +114,7 @@ fun NewsNavigator() {
             modifier = Modifier.padding(bottom = bottomPadding),
         ) {
             composable(route = Route.HomeScreen.route) {
-                val viewModel: HomeViewModel = hiltViewModel()
-                // Here we decide to translate the news before showing or not
-                val articles = viewModel.news.collectAsLazyPagingItems()
-//                val translatedArticles = viewModel.translatedNews.collectAsLazyPagingItems()
                 HomeScreen(
-                    articles = articles,
-//                    articles = translatedArticles,
 //                    navigateToSearch = {
 //                        navigateToTab(
 //                            navController = navController,
@@ -146,15 +133,10 @@ fun NewsNavigator() {
 //                            route = Route.ContactScreen.route
 //                        )
 //                    },
-                    event = viewModel::onEvent,
-                    state = viewModel.state.value,
                 )
             }
             composable(route = Route.ContactScreen.route) {
-                val viewModel: ContactViewModel = hiltViewModel()
-                val state = viewModel.state.value
                 ContactScreen(
-                    state = state,
                     onContactClick = { message ->
                         if (message.isBlank() || message.isEmpty()) {
                             Toast
@@ -207,12 +189,8 @@ fun NewsNavigator() {
                 )
             }
             composable(route = Route.SearchScreen.route) {
-                val viewModel: SearchViewModel = hiltViewModel()
-                val state = viewModel.state.value
                 OnBackClickStateSaver(navController = navController)
                 SearchScreen(
-                    state = state,
-                    event = viewModel::onEvent,
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
@@ -222,26 +200,19 @@ fun NewsNavigator() {
                 )
             }
             composable(route = Route.NewsDetailScreen.route) {
-                val viewModel: NewsDetailScreenViewModel = hiltViewModel()
                 navController.previousBackStackEntry
                     ?.savedStateHandle
                     ?.get<Article?>("article")
                     ?.let { article ->
                         DetailsScreen(
                             article = article,
-                            event = viewModel::onEvent,
-                            viewModel = viewModel,
                             navigateUp = { navController.navigateUp() },
-                            sideEffect = viewModel.sideEffect,
                         )
                     }
             }
             composable(route = Route.BookmarkScreen.route) {
-                val viewModel: BookmarkViewModel = hiltViewModel()
-                val state = viewModel.state.value
                 OnBackClickStateSaver(navController = navController)
                 BookmarkScreen(
-                    state = state,
                     navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
