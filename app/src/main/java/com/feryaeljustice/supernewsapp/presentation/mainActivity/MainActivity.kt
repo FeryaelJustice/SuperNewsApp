@@ -18,9 +18,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
 import com.feryaeljustice.supernewsapp.presentation.navigation.NavGraph
 import com.feryaeljustice.supernewsapp.ui.theme.Blue
 import com.feryaeljustice.supernewsapp.ui.theme.LightRed
@@ -34,7 +33,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition.value } }
         enableEdgeToEdge()
 
@@ -67,10 +66,11 @@ class MainActivity : ComponentActivity() {
                     val statusBarDark = LightRed.toArgb()
                     val navigationBarLight = Blue.toArgb()
                     val navigationBarDark = LightRed.toArgb()
-                    val context = LocalContext.current as ComponentActivity
+                    val view = LocalView.current
 
                     DisposableEffect(isSystemInDarkMode) {
-                        context.enableEdgeToEdge(
+                        val activity = view.context as? ComponentActivity
+                        activity?.enableEdgeToEdge(
                             statusBarStyle =
                                 if (!isSystemInDarkMode) {
                                     SystemBarStyle.light(
