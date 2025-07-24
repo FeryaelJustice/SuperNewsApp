@@ -1,5 +1,6 @@
 [versions]
-agp = "8.11.0"
+agp = "8.11.1"
+integrity = "1.4.0"
 kotlin = "2.2.0"
 kotlinPlugin = "2.2.0"
 ksp = "2.2.0-2.0.2"
@@ -25,10 +26,11 @@ pagingRuntime = "3.3.6"
 pagingCompose = "3.3.6"
 roomVersion = "2.7.2"
 roomKtxVersion = "2.7.2"
-deeplJava = "1.10.1"
+deeplJava = "1.10.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+integrity = { module = "com.google.android.play:integrity", version.ref = "integrity" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

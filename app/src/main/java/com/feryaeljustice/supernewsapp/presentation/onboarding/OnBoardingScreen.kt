@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding2
 import com.feryaeljustice.supernewsapp.presentation.Dimens.PageIndicatorWidth
 import com.feryaeljustice.supernewsapp.presentation.common.NewsButton
@@ -28,7 +30,12 @@ import kotlinx.coroutines.launch
 // navigateToHome: () -> Unit
 @Composable
 fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .semantics(mergeDescendants = true) {
+                contentDescription = "OnBoardingScreen"
+            }) {
         val pagerState =
             rememberPagerState(initialPage = 0) {
                 pages.size

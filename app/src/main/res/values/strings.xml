@@ -20,4 +20,7 @@
     <string name="article_deleted">Article deleted</string>
     <string name="enter_search_query">Please enter a search query</string>
     <string name="openLink">Open %1$s</string>
+    <string name="author_text">Author: %1$s</string>
+    <string name="unknown">Unknown</string>
+    <string name="noContent">No content</string>
 </resources>

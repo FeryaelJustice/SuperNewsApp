@@ -17,4 +17,7 @@
     <string name="article_deleted">Articulo eliminado</string>
     <string name="enter_search_query">Porfavor introduce una consulta</string>
     <string name="openLink">Abrir %1$s</string>
+    <string name="author_text">Autor: %1$s</string>
+    <string name="unknown">Desconocido</string>
+    <string name="noContent">Sin contenido</string>
 </resources>

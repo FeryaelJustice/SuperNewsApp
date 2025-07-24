@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,6 +31,7 @@ import coil.request.ImageRequest
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import com.feryaeljustice.supernewsapp.domain.model.Source
+import com.feryaeljustice.supernewsapp.domain.util.removeTrailingCharsIndicator
 import com.feryaeljustice.supernewsapp.presentation.Dimens.ArticleImageHeight
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeljustice.supernewsapp.presentation.Dimens.SmallPadding1
@@ -132,8 +134,26 @@ fun DetailsScreen(
 
                 Spacer(modifier = Modifier.height(SmallPadding1))
 
+                val displayedAuthor = article.author
+                    .takeIf { !it.isNullOrBlank() }
+                    ?: stringResource(R.string.unknown)
                 Text(
-                    text = article.content,
+                    text = stringResource(
+                        R.string.author_text,
+                        displayedAuthor
+                    ),
+                    style = MaterialTheme.typography.labelMedium,
+                    color =
+                        colorResource(
+                            id = R.color.colorAccent,
+                        ),
+                )
+
+                Spacer(modifier = Modifier.height(SmallPadding1))
+
+                Text(
+                    text = article.content.removeTrailingCharsIndicator().takeIf { !it.isBlank() }
+                        ?: stringResource(R.string.noContent),
                     style = MaterialTheme.typography.bodyMedium,
                     color =
                         colorResource(
