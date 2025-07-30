@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,11 +14,9 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
 import com.feryaeljustice.supernewsapp.presentation.navigation.NavGraph
 import com.feryaeljustice.supernewsapp.ui.theme.SuperNewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,22 +26,22 @@ class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition.value } }
 
         // MAIN APP
         setContent {
             SuperNewsAppTheme {
                 val view = LocalView.current
-                val useDarkIcons = !isSystemInDarkTheme()
+                /* val useDarkIcons = !isSystemInDarkTheme()
 
-                SideEffect {
-                    WindowCompat.getInsetsController(window, view).apply {
-                        isAppearanceLightStatusBars = useDarkIcons
-                        isAppearanceLightNavigationBars = useDarkIcons
-                    }
-                }
+                 SideEffect {
+                     WindowCompat.getInsetsController(window, view).apply {
+                         isAppearanceLightStatusBars = useDarkIcons
+                         isAppearanceLightNavigationBars = useDarkIcons
+                     }
+                 }*/
 
                 Scaffold { paddingValues ->
                     Box(

@@ -14,6 +14,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import androidx.navigation.NavController
@@ -34,6 +35,7 @@ import com.feryaeljustice.supernewsapp.presentation.search.SearchScreen
 @Composable
 fun NewsNavigator() {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
 
     val homeText = stringResource(R.string.home)
     val searchText = stringResource(R.string.search)
@@ -183,8 +185,7 @@ fun NewsNavigator() {
                         }
                     },
                     onOpenNewsSource = { link ->
-                        val browserIntent = Intent(Intent.ACTION_VIEW, link.toUri())
-                        context.startActivity(browserIntent)
+                        uriHandler.openUri(link)
                     },
                 )
             }

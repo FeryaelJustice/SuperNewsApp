@@ -5,7 +5,7 @@
     <string name="sendMailMessage">Contactanos</string>
     <string name="your_message">Tu mensaje</string>
     <string name="contact">Contacto</string>
-    <string name="source_of_news">Fuente de las noticias: %1$s ($2$s)</string>
+    <string name="source_of_news">Fuente de las noticias: %1$s ->&#160;</string>
     <string name="author">Autor: %1$s</string>
     <string name="notSavedNews">¡No has guardado ninguna noticia hasta ahora!</string>
     <string name="emptyMsgNotAllowed">Los mensajes vacíos no están permitidos</string>

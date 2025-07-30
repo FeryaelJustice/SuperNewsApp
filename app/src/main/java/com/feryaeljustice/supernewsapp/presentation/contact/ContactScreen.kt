@@ -2,10 +2,13 @@ package com.feryaeljustice.supernewsapp.presentation.contact
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
+import com.feryaeljustice.supernewsapp.presentation.common.ClickableLinkText
 
 @Composable
 fun ContactScreen(
@@ -55,10 +59,22 @@ fun ContactScreen(
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
-            Text(
-                text = stringResource(R.string.source_of_news, newsSourceName, newsSourceLink),
-                fontFamily = FontFamily.Monospace,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = stringResource(R.string.source_of_news, newsSourceName),
+                    fontFamily = FontFamily.Monospace,
+                )
+
+                ClickableLinkText(
+                    text = newsSourceLink,
+                    url = newsSourceLink,
+                    onClick = onOpenNewsSource,
+                )
+            }
 
             Spacer(modifier = Modifier.padding(16.dp))
 
@@ -99,7 +115,8 @@ fun ContactScreen(
             fontFamily = FontFamily.Monospace,
             modifier =
                 Modifier
-                    .align(Alignment.BottomCenter),
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 8.dp),
         )
     }
 }
