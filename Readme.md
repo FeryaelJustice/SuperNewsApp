@@ -1,6 +1,6 @@
 # SuperNewsApp
 
-MiraiLink es la app social diseñada para fans del anime y los videojuegos, con backend propio en ExpressJS e interfaz creada íntegramente con Jetpack Compose.
+SuperNewsApp es la app diseñada para mantenerte al día con las noticias, con la interfaz creada íntegramente con Jetpack Compose.
 
 ## Visión general
 
