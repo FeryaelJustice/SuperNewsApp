@@ -2,7 +2,6 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.hiltAndroid)
@@ -14,12 +13,12 @@ val deeplApiKey: String = gradleLocalProperties(rootDir, providers).getProperty(
 
 android {
     namespace = "com.feryaeljustice.supernewsapp"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.feryaeljustice.supernewsapp"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 13
         versionName = "1.1.2"
 
@@ -74,6 +73,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.com.google.android.material)
+    implementation(libs.compose.material.icons)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
