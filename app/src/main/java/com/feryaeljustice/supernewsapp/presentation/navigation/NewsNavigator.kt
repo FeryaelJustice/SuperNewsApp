@@ -110,6 +110,12 @@ fun NewsNavigator() {
         }
     }) { paddingValues ->
         val bottomPadding = paddingValues.calculateBottomPadding()
+
+        val emptyMsgNotAllowed = stringResource(R.string.emptyMsgNotAllowed)
+        val contactMsgLengthWarning = stringResource(R.string.contactMsgLengthWarning)
+        val contactToEmail = stringResource(R.string.contact_to_email)
+        val contactToUser = stringResource(R.string.contact_from_user)
+
         NavHost(
             navController = navController,
             startDestination = Route.HomeScreen.route,
@@ -144,7 +150,7 @@ fun NewsNavigator() {
                             Toast
                                 .makeText(
                                     context,
-                                    context.getString(R.string.emptyMsgNotAllowed),
+                                    emptyMsgNotAllowed,
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             return@ContactScreen
@@ -153,7 +159,7 @@ fun NewsNavigator() {
                             Toast
                                 .makeText(
                                     context,
-                                    context.getString(R.string.contactMsgLengthWarning),
+                                    contactMsgLengthWarning,
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             return@ContactScreen
@@ -165,11 +171,11 @@ fun NewsNavigator() {
 //                        mailIntent.type = "message/rfc822"
                         mailIntent.putExtra(
                             Intent.EXTRA_EMAIL,
-                            arrayOf(context.getString(R.string.contact_to_email)),
+                            arrayOf(contactToEmail),
                         )
                         mailIntent.putExtra(
                             Intent.EXTRA_SUBJECT,
-                            context.getString(R.string.contact_from_user),
+                            contactToUser,
                         )
                         mailIntent.putExtra(Intent.EXTRA_TEXT, message)
                         try {

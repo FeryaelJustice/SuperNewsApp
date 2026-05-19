@@ -66,7 +66,7 @@ fun NewsBottomNavigation(
 }
 
 data class BottomNavigationItem(
-    @DrawableRes val icon: Int,
+    @param:DrawableRes val icon: Int,
     val text: String,
 )
 
