@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.feryaeljustice.supernewsapp.domain.model.Article
@@ -46,7 +47,7 @@ fun ArticlesList(
     articles: LazyPagingItems<Article>,
     onClick: (Article) -> Unit,
 ) {
-    val handlePagingResult = handlePagingResult(articles)
+    val handlePagingResult = handlePagingResult(articles.loadState)
 
     if (handlePagingResult) {
         if (articles.itemCount == 0) {
@@ -77,8 +78,8 @@ fun ArticlesList(
 }
 
 @Composable
-fun handlePagingResult(articles: LazyPagingItems<Article>): Boolean {
-    val loadState = articles.loadState
+fun handlePagingResult(loadState: CombinedLoadStates): Boolean {
+    loadState
     val error =
         when {
             loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error

@@ -25,7 +25,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.feryaeljustice.supernewsapp.R
@@ -152,7 +152,7 @@ fun DetailsScreen(
                 Spacer(modifier = Modifier.height(SmallPadding1))
 
                 Text(
-                    text = article.content.removeTrailingCharsIndicator().takeIf { !it.isBlank() }
+                    text = (article.content ?: "").removeTrailingCharsIndicator().takeIf { it.isNotBlank() }
                         ?: stringResource(R.string.noContent),
                     style = MaterialTheme.typography.bodyMedium,
                     color =

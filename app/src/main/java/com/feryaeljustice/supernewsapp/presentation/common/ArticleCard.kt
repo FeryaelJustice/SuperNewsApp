@@ -88,7 +88,7 @@ fun ArticleCard(
                 modifier = Modifier.padding(bottom = ExtraSmallPadding2)
             ) {
                 Text(
-                    text = article.source.name,
+                    text = article.source?.name ?: "",
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color =
                         colorResource(
@@ -107,7 +107,7 @@ fun ArticleCard(
                 )
                 Spacer(modifier = Modifier.width(ExtraSmallPadding2))
                 Text(
-                    text = " • ${article.publishedAt}",
+                    text = " • ${article.publishedAt ?: ""}",
                     style = MaterialTheme.typography.bodySmall,
                     color =
                         colorResource(
