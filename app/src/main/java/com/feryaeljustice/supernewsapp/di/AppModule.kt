@@ -16,8 +16,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.Locale
 import javax.inject.Singleton
 
@@ -46,13 +48,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsAPI(): NewsApi =
-        Retrofit
+    fun provideNewsAPI(): NewsApi {
+        val json = Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+        }
+        val contentType = "application/json".toMediaType()
+        return Retrofit
             .Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(json.asConverterFactory(contentType))
             .build()
             .create(NewsApi::class.java)
+    }
 
     @Provides
     @Singleton

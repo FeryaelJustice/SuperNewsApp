@@ -10,8 +10,11 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.feryaeljustice.supernewsapp.domain.manager.LocalUserManager
 import com.feryaeljustice.supernewsapp.util.Constants
 import com.feryaeljustice.supernewsapp.util.Constants.USER_SETTINGS
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LocalUserManagerImpl
@@ -20,15 +23,17 @@ constructor(
     private val application: Application,
 ) : LocalUserManager {
     override suspend fun saveAppEntry() {
-        application.dataStore.edit { settings ->
-            settings[PreferencesKeys.APP_ENTRY] = true
+        withContext(Dispatchers.IO) {
+            application.dataStore.edit { settings ->
+                settings[PreferencesKeys.APP_ENTRY] = true
+            }
         }
     }
 
     override fun readAppEntry(): Flow<Boolean> =
         application.dataStore.data.map { preferences ->
             preferences[PreferencesKeys.APP_ENTRY] ?: false
-        }
+        }.flowOn(Dispatchers.IO)
 }
 
 private val readOnlyProperty = preferencesDataStore(name = USER_SETTINGS)

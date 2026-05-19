@@ -14,6 +14,9 @@ import com.feryaeljustice.supernewsapp.domain.usecase.news.UpsertArticle
 import com.feryaeljustice.supernewsapp.util.UIComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +29,17 @@ constructor(
     private val upsertArticleUseCase: UpsertArticle,
     @param:ApplicationContext private val application: Context,
 ) : ViewModel() {
+
+    val state: StateFlow<NewsDetailState>
+        field = MutableStateFlow(NewsDetailState())
+
+    fun setArticle(article: Article) {
+        state.update { it.copy(article = article) }
+        viewModelScope.launch {
+            checkIfArticleIsSaved()
+        }
+    }
+
     var sideEffect by mutableStateOf<UIComponent?>(null)
         private set
 
@@ -33,12 +47,13 @@ constructor(
         when (event) {
             is NewsDetailEvent.UpsertDeleteArticle -> {
                 viewModelScope.launch {
-                    val article = getSavedArticleUseCase(url = event.article.url)
-                    if (article == null) {
-                        upsertArticle(article = event.article)
+                    val savedArticle = getSavedArticleUseCase(url = event.article.url)
+                    if (savedArticle == null) {
+                        upsertArticle(event.article)
                     } else {
-                        deleteArticle(article = event.article)
+                        deleteArticle(event.article)
                     }
+                    checkIfArticleIsSaved()
                 }
             }
 
@@ -48,7 +63,7 @@ constructor(
 
             is NewsDetailEvent.CheckIfArticleIsSaved -> {
                 viewModelScope.launch {
-                    checkIfArticleIsSaved(event.article)
+                    checkIfArticleIsSaved()
                 }
             }
         }
@@ -64,6 +79,9 @@ constructor(
         sideEffect = UIComponent.Toast(application.getString(R.string.article_inserted))
     }
 
-    suspend fun checkIfArticleIsSaved(article: Article): Boolean =
-        getSavedArticleUseCase(url = article.url) != null
+    private suspend fun checkIfArticleIsSaved() {
+        val currentArticle = state.value.article
+        val isSaved = currentArticle?.let { getSavedArticleUseCase(url = it.url) != null } ?: false
+        state.update { it.copy(isSaved = isSaved) }
+    }
 }

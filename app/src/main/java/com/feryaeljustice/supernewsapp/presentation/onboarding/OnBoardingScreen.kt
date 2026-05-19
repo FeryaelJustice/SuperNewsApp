@@ -27,7 +27,6 @@ import com.feryaeljustice.supernewsapp.presentation.onboarding.components.OnBoar
 import com.feryaeljustice.supernewsapp.presentation.onboarding.components.PageIndicator
 import kotlinx.coroutines.launch
 
-// navigateToHome: () -> Unit
 @Composable
 fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
     Column(
@@ -85,7 +84,6 @@ fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
                     scope.launch {
                         if (pagerState.currentPage == 2) {
                             event(OnBoardingEvent.SaveAppEntry)
-//                            navigateToHome()
                         } else {
                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
                         }

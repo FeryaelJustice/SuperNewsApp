@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
@@ -21,10 +21,21 @@ import com.feryaeljustice.supernewsapp.presentation.common.SearchBar
 @Composable
 fun SearchScreen(
     navigateToDetails: (Article) -> Unit,
+    viewModel: SearchViewModel = viewModel()
 ) {
-    val viewModel: SearchViewModel = hiltViewModel()
     val state = viewModel.state.value
 
+    SearchRealScreen(state = state, navigateToDetails = navigateToDetails, onEvent = {
+        viewModel.onEvent(it)
+    })
+}
+
+@Composable
+fun SearchRealScreen(
+    state: SearchState,
+    onEvent: (SearchEvent) -> Unit,
+    navigateToDetails: (Article) -> Unit
+) {
     Column(
         modifier =
             Modifier
@@ -37,8 +48,8 @@ fun SearchScreen(
         SearchBar(
             text = state.searchQuery,
             readOnly = false,
-            onValueChange = { viewModel.onEvent(SearchEvent.UpdateSearchQuery(it)) },
-            onSearch = { viewModel.onEvent(SearchEvent.SearchNews) },
+            onValueChange = { onEvent(SearchEvent.UpdateSearchQuery(it)) },
+            onSearch = { onEvent(SearchEvent.SearchNews) },
         )
 
         Spacer(modifier = Modifier.height(Dimens.MediumPadding1))

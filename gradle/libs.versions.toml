@@ -1,22 +1,23 @@
 [versions]
+adaptive = "1.2.0"
 agp = "9.2.1"
 integrity = "1.6.0"
 kotlin = "2.3.21"
 kotlinPlugin = "2.3.21"
+kotlinxSerializationJson = "1.11.0"
 ksp = "2.3.8"
 coreKtx = "1.18.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
-lifecycleRuntimeKtx = "2.10.0"
+lifecycle = "2.10.0"
 activityCompose = "1.13.0"
 composeBom = "2026.05.00"
 googleMaterial = "1.14.0"
+navigation3 = "1.1.1"
 splashScreen = "1.2.0"
-navigationCompose = "2.9.8"
 hiltAndroid = "2.59.2"
 hiltCompiler = "2.59.2"
-hiltNavigationCompose = "1.3.0"
 retrofit = "3.0.0"
 #leakcanary = "2.14"
 coilCompose = "2.7.0"
@@ -29,12 +30,16 @@ roomKtxVersion = "2.8.4"
 deeplJava = "1.16.0"
 
 [libraries]
+androidx-compose-adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version.ref = "adaptive" }
+androidx-compose-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout", version.ref = "adaptive" }
+androidx-compose-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "adaptive" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 integrity = { module = "com.google.android.play:integrity", version.ref = "integrity" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -49,14 +54,14 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashScreen" }
 
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "navigation3" }
+androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "navigation3" }
 
 com-google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
 com-google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltCompiler" }
-androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 com-squareup-retrofit2-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-com-squareup-retrofit2-convertergson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+com-squareup-retrofit2-converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
 # com-squareup-leakcanary = { group = "'com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 
 io-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
@@ -69,11 +74,14 @@ androidx-room-room-runtime = { group = "androidx.room", name = "room-runtime", v
 androidx-room-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
 androidx-room-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtxVersion" }
 
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
 com-deepl-api = { group = "com.deepl.api", name = "deepl-java", version.ref = "deeplJava" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinPlugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }

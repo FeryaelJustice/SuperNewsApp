@@ -14,10 +14,17 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.feryaeljustice.supernewsapp.presentation.navigation.NavGraph
+import com.feryaeljustice.supernewsapp.ui.adaptive.LocalDeviceType
+import com.feryaeljustice.supernewsapp.ui.adaptive.getDeviceType
 import com.feryaeljustice.supernewsapp.ui.theme.SuperNewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +40,7 @@ class MainActivity : ComponentActivity() {
         // MAIN APP
         setContent {
             SuperNewsAppTheme {
-                val view = LocalView.current
+                // val view = LocalView.current
                 /* val useDarkIcons = !isSystemInDarkTheme()
 
                  SideEffect {
@@ -43,6 +50,15 @@ class MainActivity : ComponentActivity() {
                      }
                  }*/
 
+                val windowAdaptiveInfo = currentWindowAdaptiveInfo()
+                val deviceType by remember {
+                    derivedStateOf {
+                        getDeviceType(windowAdaptiveInfo = windowAdaptiveInfo)
+                    }
+                }
+
+                val startRoute by viewModel.startDestination.collectAsStateWithLifecycle()
+
                 Scaffold { paddingValues ->
                     Box(
                         modifier = Modifier
@@ -51,7 +67,13 @@ class MainActivity : ComponentActivity() {
                             .background(color = MaterialTheme.colorScheme.background)
                     ) {
                         Log.i("MainActivity paddingValues", paddingValues.toString())
-                        NavGraph(startDestination = viewModel.startDestination.value)
+                        CompositionLocalProvider(LocalDeviceType provides deviceType) {
+                            // Mientras startRoute sea null (restando milisegundos de lectura de disco), no pintamos nada.
+                            // La Splash Screen cubre este espacio de tiempo.
+                            startRoute?.let { route ->
+                                NavGraph(startDestination = route)
+                            }
+                        }
                     }
                 }
             }

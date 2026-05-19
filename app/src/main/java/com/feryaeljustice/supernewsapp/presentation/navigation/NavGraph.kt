@@ -1,41 +1,36 @@
 package com.feryaeljustice.supernewsapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
 import com.feryaeljustice.supernewsapp.presentation.onboarding.OnBoardingScreen
 import com.feryaeljustice.supernewsapp.presentation.onboarding.OnBoardingViewModel
 
 @Composable
-fun NavGraph(startDestination: String) {
-    val navController = rememberNavController()
+fun NavGraph(startDestination: Route, navViewModel: NavigationViewModel = viewModel()) {
+    LaunchedEffect(startDestination) {
+        navViewModel.initialize(startDestination)
+    }
 
-    NavHost(navController = navController, startDestination = startDestination) {
-        navigation(
-            route = Route.AppStartNavigation.route,
-            startDestination = Route.OnBoardingScreen.route,
-        ) {
-            composable(route = Route.OnBoardingScreen.route) {
-                val viewModel: OnBoardingViewModel = hiltViewModel()
+    if (navViewModel.backStack.isEmpty()) return
+
+    NavDisplay(
+        backStack = navViewModel.backStack,
+        onBack = {},
+        entryDecorators = listOf(rememberSaveableStateHolderNavEntryDecorator())
+    ) { route ->
+        when (route) {
+            is Route.OnBoardingScreen, is Route.AppStartNavigation -> NavEntry(route) {
+                val onboardingViewModel: OnBoardingViewModel = viewModel()
                 OnBoardingScreen(
-                    event = viewModel::onEvent,
-//                    navigateToHome = {
-//                        navController.navigate(
-//                            route = Route.HomeScreen.route
-//                        )
-//                    },
+                    event = onboardingViewModel::onEvent
                 )
             }
-        }
 
-        navigation(
-            route = Route.NewsNavigation.route,
-            startDestination = Route.NewsNavigatorScreen.route,
-        ) {
-            composable(route = Route.NewsNavigatorScreen.route) {
+            else -> NavEntry(route){
                 NewsNavigator()
             }
         }

@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeljustice.supernewsapp.presentation.common.ClickableLinkText
@@ -36,10 +36,23 @@ import com.feryaeljustice.supernewsapp.presentation.common.ClickableLinkText
 fun ContactScreen(
     onContactClick: (message: String) -> Unit,
     onOpenNewsSource: (link: String) -> Unit,
+    viewModel: ContactViewModel = viewModel()
 ) {
-    val viewModel: ContactViewModel = hiltViewModel()
     val state = viewModel.state.value
 
+    ContactRealScreen(
+        state = state,
+        onContactClick = onContactClick,
+        onOpenNewsSource = onOpenNewsSource
+    )
+}
+
+@Composable
+fun ContactRealScreen(
+    state: ContactState,
+    onContactClick: (message: String) -> Unit,
+    onOpenNewsSource: (link: String) -> Unit
+) {
     val name = state.name
     val newsSourceName = state.newsSourceName
     val newsSourceLink = state.newsSourceLink

@@ -1,26 +1,35 @@
 package com.feryaeljustice.supernewsapp.presentation.navigation
 
+import com.feryaeljustice.supernewsapp.domain.model.Article
+import kotlinx.serialization.Serializable
+
 // import androidx.navigation.NamedNavArgument
 // val arguments: List<NamedNavArgument> = emptyList()
 
-sealed class Route(
-    val route: String,
-) {
-    data object OnBoardingScreen : Route(route = "onBoardingScreen")
+@Serializable
+sealed class Route {
+    @Serializable
+    data object OnBoardingScreen : Route()
 
-    data object HomeScreen : Route(route = "homeScreen")
+    @Serializable
+    data object HomeScreen : Route()
 
-    data object ContactScreen : Route(route = "contactScreen")
+    @Serializable
+    data object ContactScreen : Route()
 
-    data object SearchScreen : Route(route = "searchScreen")
+    @Serializable
+    data object SearchScreen : Route()
 
-    data object BookmarkScreen : Route(route = "bookmarkScreen")
+    @Serializable
+    data object BookmarkScreen : Route()
 
-    data object NewsDetailScreen : Route(route = "newsDetailScreen")
+    @Serializable data class NewsDetailScreen(val article: Article) : Route()
+    @Serializable
+    data object AppStartNavigation : Route()
 
-    data object AppStartNavigation : Route(route = "appStartNavigation")
+    @Serializable
+    data object NewsNavigation : Route()
 
-    data object NewsNavigation : Route(route = "newsNavigation")
-
-    data object NewsNavigatorScreen : Route(route = "newsNavigatorScreen")
+    @Serializable
+    data object NewsNavigatorScreen : Route()
 }

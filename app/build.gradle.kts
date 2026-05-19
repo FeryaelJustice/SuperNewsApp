@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 val newsApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("api_key", "")
@@ -17,10 +18,10 @@ android {
 
     defaultConfig {
         applicationId = "com.feryaeljustice.supernewsapp"
-        minSdk = 26
+        minSdk = 35
         targetSdk = 37
-        versionCode = 13
-        versionName = "1.1.2"
+        versionCode = 14
+        versionName = "2.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -54,6 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
+        resValues = true
     }
     packaging {
         resources {
@@ -62,10 +64,17 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexplicit-backing-fields")
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -84,16 +93,18 @@ dependencies {
 
 //    debugImplementation(libs.com.squareup.leakcanary)
 
+    implementation(libs.kotlinx.serialization.json)
+
     implementation(libs.androidx.core.splashscreen)
 
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
 
     implementation(libs.com.google.dagger.hilt.android)
     ksp(libs.com.google.dagger.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.com.squareup.retrofit2.retrofit2)
-    implementation(libs.com.squareup.retrofit2.convertergson)
+    implementation(libs.com.squareup.retrofit2.converter.kotlinx.serialization)
 
     implementation(libs.io.coil.compose)
 
@@ -108,4 +119,8 @@ dependencies {
     implementation(libs.com.deepl.api)
 
     implementation(libs.integrity)
+
+    implementation(libs.androidx.compose.adaptive)
+    implementation(libs.androidx.compose.adaptive.layout)
+    implementation(libs.androidx.compose.adaptive.navigation)
 }

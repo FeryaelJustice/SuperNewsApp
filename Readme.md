@@ -87,14 +87,13 @@ SuperNewsApp es la app diseñada para mantenerte al día con las noticias, con l
 
 ### Gradle y catálogo de versiones
 
-- `gradle/libs.versions.toml`: centraliza versiones de AGP 8.11.1, Kotlin 2.2.0, Compose BOM 2025.07.00, Hilt 2.57, Retrofit 3.0.0, Room 2.7.2, Paging 3.3.6, Coil 2.7.0 y Google Play Integrity 1.4.0.
-- Los plugins se declaran con alias (`alias(libs.plugins.android.application)`) para mantener consistencia y facilitar actualizaciones.
+- `gradle/libs.versions.toml`: centraliza versiones de AGP 9.2.1, Kotlin 2.3.21, Compose BOM 2026.05.00, Hilt 2.59.2, Retrofit 3.0.0, Room 2.8.4, Paging 3.5.0, Coil 2.7.0 y Google Play Integrity 1.6.0.
 
 ## Dependencias clave
 
 - Jetpack Compose Material 3 y Navigation Compose para UI declarativa y navegación basada en gráficos.
 - Hilt con KSP para inyección de dependencias y enlaces automáticos de componentes.
-- Retrofit con convertidor Gson para consumo de servicios REST expuestos por el backend ExpressJS.
+- Retrofit con convertidor Kotlinx Serialization para consumo de servicios REST expuestos por el backend ExpressJS.
 - Room y Paging que manejan la persistencia local de artículos y listas infinitas.
 - DataStore Preferences para persistir flags ligeros, como la entrada al onboarding.
 - Coil para carga de imágenes eficiente dentro de composables.

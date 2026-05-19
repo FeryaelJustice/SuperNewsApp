@@ -3,39 +3,45 @@ package com.feryaeljustice.supernewsapp.presentation.navigation
 import android.content.Intent
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
 import com.feryaeljustice.supernewsapp.R
-import com.feryaeljustice.supernewsapp.domain.model.Article
 import com.feryaeljustice.supernewsapp.presentation.bookmark.BookmarkScreen
 import com.feryaeljustice.supernewsapp.presentation.contact.ContactScreen
 import com.feryaeljustice.supernewsapp.presentation.home.HomeScreen
+import com.feryaeljustice.supernewsapp.presentation.navigation.components.AnalyticsPanel
 import com.feryaeljustice.supernewsapp.presentation.navigation.components.BottomNavigationItem
+import com.feryaeljustice.supernewsapp.presentation.navigation.components.CustomNavigationRail
 import com.feryaeljustice.supernewsapp.presentation.navigation.components.NewsBottomNavigation
 import com.feryaeljustice.supernewsapp.presentation.newsDetail.DetailsScreen
 import com.feryaeljustice.supernewsapp.presentation.search.SearchScreen
+import com.feryaeljustice.supernewsapp.ui.adaptive.DeviceType
+import com.feryaeljustice.supernewsapp.ui.adaptive.LocalDeviceType
+import com.feryaeljustice.supernewsapp.ui.adaptive.greaterThanOrEqual
 
 @Composable
-fun NewsNavigator() {
-    val context = LocalContext.current
-    val uriHandler = LocalUriHandler.current
+fun NewsNavigator(navigatorViewModel: NavigationViewModel = viewModel()) {
+    val deviceType = LocalDeviceType.current
 
     val homeText = stringResource(R.string.home)
     val searchText = stringResource(R.string.search)
@@ -51,31 +57,31 @@ fun NewsNavigator() {
                 BottomNavigationItem(icon = R.drawable.ic_contact, text = contactText),
             )
         }
+// Inicializamos el contenedor interno apuntando a Home si la pila está vacía
+    navigatorViewModel.initialize(Route.HomeScreen)
 
-    val navController = rememberNavController()
-    val backStackState = navController.currentBackStackEntryAsState().value
-    var selectedItem by rememberSaveable {
-        mutableIntStateOf(0)
+    // Calculamos de manera reactiva cuál es la pantalla activa actual en la cima de la pila
+    val currentRoute by remember {
+        derivedStateOf { navigatorViewModel.backStack.lastOrNull() }
     }
-    selectedItem =
-        when (backStackState?.destination?.route) {
-            Route.HomeScreen.route -> 0
-            Route.SearchScreen.route -> 1
-            Route.BookmarkScreen.route -> 2
-            else -> 0
-        }
+
+    val selectedItem = when (currentRoute) {
+        is Route.HomeScreen -> 0
+        is Route.SearchScreen -> 1
+        is Route.BookmarkScreen -> 2
+        is Route.ContactScreen -> 3
+        else -> 0
+    }
 
     // Hide the bottom navigation when the user is in the details screen
-    val isBottomBarVisible =
-        remember(key1 = backStackState) {
-            backStackState?.destination?.route == Route.HomeScreen.route ||
-                    backStackState?.destination?.route == Route.SearchScreen.route ||
-                    backStackState?.destination?.route == Route.BookmarkScreen.route ||
-                    backStackState?.destination?.route == Route.ContactScreen.route
-        }
+    val areBarsVisible =
+        currentRoute is Route.NewsNavigation || currentRoute is Route.NewsNavigatorScreen || currentRoute is Route.HomeScreen ||
+                currentRoute is Route.SearchScreen ||
+                currentRoute is Route.BookmarkScreen ||
+                currentRoute is Route.ContactScreen
 
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-        if (isBottomBarVisible) {
+        if (areBarsVisible && (deviceType is DeviceType.Compact)) {
             NewsBottomNavigation(
                 items = bottomNavigationItems,
                 selectedItem = selectedItem,
@@ -83,26 +89,26 @@ fun NewsNavigator() {
                     when (index) {
                         0 ->
                             navigateToTab(
-                                navController = navController,
-                                route = Route.HomeScreen.route,
+                                navigatorViewModel = navigatorViewModel,
+                                route = Route.HomeScreen,
                             )
 
                         1 ->
                             navigateToTab(
-                                navController = navController,
-                                route = Route.SearchScreen.route,
+                                navigatorViewModel = navigatorViewModel,
+                                route = Route.SearchScreen,
                             )
 
                         2 ->
                             navigateToTab(
-                                navController = navController,
-                                route = Route.BookmarkScreen.route,
+                                navigatorViewModel = navigatorViewModel,
+                                route = Route.BookmarkScreen,
                             )
 
                         3 ->
                             navigateToTab(
-                                navController = navController,
-                                route = Route.ContactScreen.route,
+                                navigatorViewModel = navigatorViewModel,
+                                route = Route.ContactScreen,
                             )
                     }
                 },
@@ -111,81 +117,90 @@ fun NewsNavigator() {
     }) { paddingValues ->
         val bottomPadding = paddingValues.calculateBottomPadding()
 
-        val emptyMsgNotAllowed = stringResource(R.string.emptyMsgNotAllowed)
-        val contactMsgLengthWarning = stringResource(R.string.contactMsgLengthWarning)
-        val contactToEmail = stringResource(R.string.contact_to_email)
-        val contactToUser = stringResource(R.string.contact_from_user)
+        if (deviceType greaterThanOrEqual DeviceType.Medium) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = bottomPadding)
+            ) {
+                AnimatedVisibility(areBarsVisible) { CustomNavigationRail() }
+                CommonNavHost(
+                    navigatorViewModel = navigatorViewModel,
+                    paddingValues = paddingValues
+                )
+                AnimatedVisibility(areBarsVisible && deviceType greaterThanOrEqual DeviceType.Expanded) {
+                    AnalyticsPanel(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(260.dp)
+                    )
+                }
+            }
+        } else {
+            CommonNavHost(
+                navigatorViewModel = navigatorViewModel,
+                paddingValues = PaddingValues(bottom = bottomPadding)
+            )
+        }
+    }
+}
 
-        NavHost(
-            navController = navController,
-            startDestination = Route.HomeScreen.route,
-            modifier = Modifier.padding(bottom = bottomPadding),
-        ) {
-            composable(route = Route.HomeScreen.route) {
+@Composable
+fun CommonNavHost(navigatorViewModel: NavigationViewModel, paddingValues: PaddingValues) {
+    val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+
+    val emptyMsgNotAllowed = stringResource(R.string.emptyMsgNotAllowed)
+    val contactMsgLengthWarning = stringResource(R.string.contactMsgLengthWarning)
+    val contactToEmail = stringResource(R.string.contact_to_email)
+    val contactToUser = stringResource(R.string.contact_from_user)
+
+    // Interceptamos la navegación hacia atrás nativa de los botones del dispositivo
+    if (navigatorViewModel.backStack.lastOrNull() !is Route.HomeScreen) {
+        BackHandler(enabled = true) {
+            val processed = navigatorViewModel.popBackStack()
+            if (!processed) {
+                navigatorViewModel.navigateToTab(Route.HomeScreen)
+            }
+        }
+    }
+
+    NavDisplay(
+        backStack = navigatorViewModel.backStack,
+        onBack = {},
+        modifier = Modifier.padding(paddingValues),
+        entryDecorators = listOf(rememberSaveableStateHolderNavEntryDecorator())
+    ) { route ->
+        when (route) {
+            is Route.HomeScreen, Route.NewsNavigation, Route.NewsNavigatorScreen -> NavEntry(route) {
                 HomeScreen(
-//                    navigateToSearch = {
-//                        navigateToTab(
-//                            navController = navController,
-//                            route = Route.SearchScreen.route
-//                        )
-//                    },
                     navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController,
-                            article = article,
-                        )
-                    },
-//                    navigateToContact = {
-//                        navigateToTab(
-//                            navController = navController,
-//                            route = Route.ContactScreen.route
-//                        )
-//                    },
+                        navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                    }
                 )
             }
-            composable(route = Route.ContactScreen.route) {
+
+            is Route.ContactScreen -> NavEntry(route) {
                 ContactScreen(
                     onContactClick = { message ->
                         if (message.isBlank() || message.isEmpty()) {
-                            Toast
-                                .makeText(
-                                    context,
-                                    emptyMsgNotAllowed,
-                                    Toast.LENGTH_SHORT,
-                                ).show()
+                            Toast.makeText(context, emptyMsgNotAllowed, Toast.LENGTH_SHORT).show()
                             return@ContactScreen
                         }
                         if (message.length > 100) {
-                            Toast
-                                .makeText(
-                                    context,
-                                    contactMsgLengthWarning,
-                                    Toast.LENGTH_SHORT,
-                                ).show()
+                            Toast.makeText(context, contactMsgLengthWarning, Toast.LENGTH_SHORT)
+                                .show()
                             return@ContactScreen
                         }
 
-                        val mailIntent = Intent(Intent.ACTION_SEND)
-                        // type: text/plain
-                        mailIntent.data = "mailto:".toUri()
-//                        mailIntent.type = "message/rfc822"
-                        mailIntent.putExtra(
-                            Intent.EXTRA_EMAIL,
-                            arrayOf(contactToEmail),
-                        )
-                        mailIntent.putExtra(
-                            Intent.EXTRA_SUBJECT,
-                            contactToUser,
-                        )
-                        mailIntent.putExtra(Intent.EXTRA_TEXT, message)
+                        val mailIntent = Intent(Intent.ACTION_SEND).apply {
+                            data = "mailto:".toUri()
+                            putExtra(Intent.EXTRA_EMAIL, arrayOf(contactToEmail))
+                            putExtra(Intent.EXTRA_SUBJECT, contactToUser)
+                            putExtra(Intent.EXTRA_TEXT, message)
+                        }
                         try {
                             context.startActivity(mailIntent)
-//                            context.startActivity(
-//                                Intent.createChooser(
-//                                    mailIntent,
-//                                    context.getString(R.string.chooseMailClient)
-//                                )
-//                            )
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
@@ -195,74 +210,49 @@ fun NewsNavigator() {
                     },
                 )
             }
-            composable(route = Route.SearchScreen.route) {
-                OnBackClickStateSaver(navController = navController)
+
+            is Route.SearchScreen -> NavEntry(route) {
+                OnBackClickStateSaver(navigatorViewModel = navigatorViewModel)
                 SearchScreen(
                     navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController,
-                            article = article,
-                        )
+                        navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
                     },
                 )
             }
-            composable(route = Route.NewsDetailScreen.route) {
-                navController.previousBackStackEntry
-                    ?.savedStateHandle
-                    ?.get<Article?>("article")
-                    ?.let { article ->
-                        DetailsScreen(
-                            article = article,
-                            navigateUp = { navController.navigateUp() },
-                        )
-                    }
+
+            is Route.NewsDetailScreen -> NavEntry(route) {
+                // Recuperamos de manera completamente automatizada y segura el artículo tipado de la ruta
+                DetailsScreen(
+                    article = route.article,
+                    navigateUp = { navigatorViewModel.popBackStack() },
+                )
             }
-            composable(route = Route.BookmarkScreen.route) {
-                OnBackClickStateSaver(navController = navController)
+
+            is Route.BookmarkScreen -> NavEntry(route) {
+                OnBackClickStateSaver(navigatorViewModel = navigatorViewModel)
                 BookmarkScreen(
                     navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController,
-                            article = article,
-                        )
+                        navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
                     },
                 )
             }
+
+            else -> NavEntry(route) {}
         }
     }
 }
 
 @Composable
-fun OnBackClickStateSaver(navController: NavController) {
-    BackHandler(true) {
-        navigateToTab(
-            navController = navController,
-            route = Route.HomeScreen.route,
-        )
+fun OnBackClickStateSaver(navigatorViewModel: NavigationViewModel) {
+    BackHandler(enabled = true) {
+        // Si el usuario no está en la HomeScreen, la pestaña inferior se redirige a ella limpiando la pila
+        navigatorViewModel.navigateToTab(Route.HomeScreen)
     }
 }
 
 private fun navigateToTab(
-    navController: NavController,
-    route: String,
+    navigatorViewModel: NavigationViewModel,
+    route: Route,
 ) {
-    navController.navigate(route) {
-        navController.graph.startDestinationRoute?.let { screenRoute ->
-            popUpTo(screenRoute) {
-                saveState = true
-            }
-        }
-        launchSingleTop = true
-        restoreState = true
-    }
-}
-
-private fun navigateToDetails(
-    navController: NavController,
-    article: Article,
-) {
-    navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
-    navController.navigate(
-        route = Route.NewsDetailScreen.route,
-    )
+    navigatorViewModel.navigateToTab(route)
 }

@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
@@ -38,8 +38,8 @@ fun HomeScreen(
 //    navigateToSearch: () -> Unit,
 //    navigateToContact: () -> Unit,
     navigateToDetails: (Article) -> Unit,
+    viewModel: HomeViewModel = viewModel()
 ) {
-    val viewModel: HomeViewModel = hiltViewModel()
     // Here we decide to translate the news before showing or not
     val articles = viewModel.news.collectAsLazyPagingItems()
 //  val translatedArticles = viewModel.translatedNews.collectAsLazyPagingItems()
