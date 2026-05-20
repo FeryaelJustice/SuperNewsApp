@@ -28,7 +28,10 @@ import com.feryaeljustice.supernewsapp.presentation.onboarding.components.PageIn
 import kotlinx.coroutines.launch
 
 @Composable
-fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
+fun OnBoardingScreen(
+    event: (OnBoardingEvent) -> Unit,
+    onNavigate: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -84,6 +87,7 @@ fun OnBoardingScreen(event: (OnBoardingEvent) -> Unit) {
                     scope.launch {
                         if (pagerState.currentPage == 2) {
                             event(OnBoardingEvent.SaveAppEntry)
+                            onNavigate()
                         } else {
                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
                         }

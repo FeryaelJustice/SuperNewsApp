@@ -26,7 +26,10 @@ fun NavGraph(startDestination: Route, navViewModel: NavigationViewModel = viewMo
             is Route.OnBoardingScreen, is Route.AppStartNavigation -> NavEntry(route) {
                 val onboardingViewModel: OnBoardingViewModel = viewModel()
                 OnBoardingScreen(
-                    event = onboardingViewModel::onEvent
+                    event = onboardingViewModel::onEvent,
+                    onNavigate = {
+                        navViewModel.navigateToTab(Route.NewsNavigatorScreen)
+                    }
                 )
             }
 
