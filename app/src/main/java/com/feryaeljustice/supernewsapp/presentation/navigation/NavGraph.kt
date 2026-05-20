@@ -19,7 +19,7 @@ fun NavGraph(startDestination: Route, navViewModel: NavigationViewModel = viewMo
 
     NavDisplay(
         backStack = navViewModel.backStack,
-        onBack = {},
+        onBack = { navViewModel.popBackStack() },
         entryDecorators = listOf(rememberSaveableStateHolderNavEntryDecorator())
     ) { route ->
         when (route) {
@@ -31,7 +31,7 @@ fun NavGraph(startDestination: Route, navViewModel: NavigationViewModel = viewMo
             }
 
             else -> NavEntry(route){
-                NewsNavigator()
+                NewsNavigator(navigatorViewModel = navViewModel)
             }
         }
     }
