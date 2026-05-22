@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -83,17 +84,31 @@ fun ArticleCard(
                 modifier = Modifier.padding(top = ExtraSmallPadding2)
             )
 
+            val sourceAndAuthor = remember(article.source?.name, article.author) {
+                val src = article.source?.name ?: ""
+                val auth = article.author?.trim()
+                when {
+                    src.isNotBlank() && !auth.isNullOrBlank() -> "$src • $auth"
+                    src.isNotBlank() -> src
+                    !auth.isNullOrBlank() -> auth
+                    else -> ""
+                }
+            }
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = ExtraSmallPadding2)
             ) {
                 Text(
-                    text = article.source?.name ?: "",
+                    text = sourceAndAuthor,
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color =
                         colorResource(
                             R.color.text_medium,
                         ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false)
                 )
                 Spacer(modifier = Modifier.width(ExtraSmallPadding2))
                 Icon(

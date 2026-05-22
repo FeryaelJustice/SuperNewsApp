@@ -21,9 +21,6 @@ class NavigationViewModel @Inject constructor() : ViewModel() {
     fun initialize(startRoute: Route) {
         if (backStack.isEmpty()) {
             backStack.add(startRoute)
-        } else if (backStack.firstOrNull() != startRoute) {
-            backStack.clear()
-            backStack.add(startRoute)
         }
     }
 

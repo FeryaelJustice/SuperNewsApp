@@ -21,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
@@ -29,6 +30,7 @@ import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.domain.model.Article
 import com.feryaeljustice.supernewsapp.domain.util.removeTrailingCharsIndicator
 import com.feryaeljustice.supernewsapp.presentation.Dimens.ArticleImageHeight
+import com.feryaeljustice.supernewsapp.presentation.Dimens.ExtraSmallPadding2
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding1
 import com.feryaeljustice.supernewsapp.presentation.Dimens.SmallPadding1
 import com.feryaeljustice.supernewsapp.presentation.newsDetail.components.DetailsTopBar
@@ -127,6 +129,25 @@ fun DetailsScreen(
 
                 Spacer(modifier = Modifier.height(SmallPadding1))
 
+                // Publisher (Source) attribution
+                val displayedPublisher = article.source?.name
+                    .takeIf { !it.isNullOrBlank() }
+                    ?: stringResource(R.string.unknown)
+                Text(
+                    text = stringResource(
+                        R.string.publisher_text,
+                        displayedPublisher
+                    ),
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                    color =
+                        colorResource(
+                            id = R.color.colorAccent,
+                        ),
+                )
+
+                Spacer(modifier = Modifier.height(ExtraSmallPadding2))
+
+                // Author attribution
                 val displayedAuthor = article.author
                     .takeIf { !it.isNullOrBlank() }
                     ?: stringResource(R.string.unknown)
@@ -139,7 +160,7 @@ fun DetailsScreen(
                     color =
                         colorResource(
                             id = R.color.colorAccent,
-                        ),
+                        ).copy(alpha = 0.8f),
                 )
 
                 Spacer(modifier = Modifier.height(SmallPadding1))

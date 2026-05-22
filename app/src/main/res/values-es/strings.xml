@@ -7,6 +7,7 @@
     <string name="contact">Contacto</string>
     <string name="source_of_news">Fuente de las noticias: %1$s ->&#160;</string>
     <string name="author">Autor: %1$s</string>
+    <string name="app_version">Versión: %1$s</string>
     <string name="notSavedNews">¡No has guardado ninguna noticia hasta ahora!</string>
     <string name="emptyMsgNotAllowed">Los mensajes vacíos no están permitidos</string>
     <string name="contactMsgLengthWarning">Porfavor ingresa un mensaje de menos de 100 caracteres</string>
@@ -20,4 +21,18 @@
     <string name="author_text">Autor: %1$s</string>
     <string name="unknown">Desconocido</string>
     <string name="noContent">Sin contenido</string>
+    
+    <!-- News Policy Compliance Strings -->
+    <string name="contact_section_title">Información del Desarrollador</string>
+    <string name="contact_email_title">Correo Electrónico</string>
+    <string name="contact_phone_title">Teléfono</string>
+    <string name="contact_phone_raw" translatable="false">+34609283851</string>
+    <string name="contact_phone_display" translatable="false">+34 609 28 38 51</string>
+    <string name="contact_website_title">Sitio Web</string>
+    <string name="contact_website_raw" translatable="false">https://feryaeljustice.github.io/SuperNewsApp/contact.html</string>
+    <string name="contact_website_display" translatable="false">feryaeljustice.github.io/SuperNewsApp</string>
+    <string name="contact_disclosure_title">Declaración de Agregador de Noticias</string>
+    <string name="contact_disclosure_body">Esta aplicación funciona como un agregador de noticias, recuperando artículos de NewsAPI de manera legítima. En cumplimiento con la política de noticias de Google Play, proporcionamos la información de contacto del desarrollador y el acceso al proveedor de la fuente.</string>
+    <string name="contact_feedback_title">Envíanos un Mensaje</string>
+    <string name="publisher_text">Editorial: %1$s</string>
 </resources>

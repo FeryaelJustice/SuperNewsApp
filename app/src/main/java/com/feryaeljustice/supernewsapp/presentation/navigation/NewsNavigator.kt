@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -57,8 +58,10 @@ fun NewsNavigator(navigatorViewModel: NavigationViewModel = viewModel()) {
                 BottomNavigationItem(icon = R.drawable.ic_contact, text = contactText),
             )
         }
-// Inicializamos el contenedor interno apuntando a Home si la pila está vacía
-    navigatorViewModel.initialize(Route.HomeScreen)
+    // Inicializamos el contenedor interno apuntando a Home si la pila está vacía
+    LaunchedEffect(navigatorViewModel) {
+        navigatorViewModel.initialize(Route.HomeScreen)
+    }
 
     // Calculamos de manera reactiva cuál es la pantalla activa actual en la cima de la pila
     val currentRoute by remember {
