@@ -34,7 +34,7 @@ fun DetailsTopBar(
         title = {},
         modifier = Modifier.fillMaxWidth(),
         colors =
-            TopAppBarDefaults.mediumTopAppBarColors(
+            TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.Transparent,
                 actionIconContentColor = colorResource(id = R.color.iconTint),
                 navigationIconContentColor = colorResource(id = R.color.iconTint),

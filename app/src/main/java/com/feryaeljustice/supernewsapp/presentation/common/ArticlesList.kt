@@ -79,7 +79,6 @@ fun ArticlesList(
 
 @Composable
 fun handlePagingResult(loadState: CombinedLoadStates): Boolean {
-    loadState
     val error =
         when {
             loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
