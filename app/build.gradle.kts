@@ -20,8 +20,8 @@ android {
         applicationId = "com.feryaeljustice.supernewsapp"
         minSdk = 35
         targetSdk = 37
-        versionCode = 15
-        versionName = "2.1.0"
+        versionCode = 16
+        versionName = "2.1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
