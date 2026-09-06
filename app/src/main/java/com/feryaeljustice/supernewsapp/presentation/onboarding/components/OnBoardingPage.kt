@@ -14,12 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.feryaeljustice.supernewsapp.R
+import androidx.compose.ui.unit.dp
 import com.feryaeljustice.supernewsapp.presentation.Dimens
 import com.feryaeljustice.supernewsapp.presentation.onboarding.Page
 import com.feryaeljustice.supernewsapp.presentation.onboarding.pages
@@ -35,7 +35,7 @@ fun OnBoardingPage(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(fraction = 0.60f),
+                    .fillMaxHeight(fraction = 0.58f),
             painter = painterResource(id = page.image),
             contentDescription = null,
             contentScale = ContentScale.Crop,
@@ -43,18 +43,19 @@ fun OnBoardingPage(
         )
         Spacer(modifier = Modifier.height(Dimens.SmallPadding1))
         Text(
-            text = page.title,
-            modifier = Modifier.padding(Dimens.MediumPadding2),
-            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-            color = colorResource(id = R.color.onboarding_title),
+            text = stringResource(id = page.titleRes),
+            modifier = Modifier.padding(horizontal = Dimens.MediumPadding2),
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onBackground,
             maxLines = 3,
             overflow = TextOverflow.Clip,
         )
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = page.description,
-            modifier = Modifier.padding(Dimens.MediumPadding2),
-            style = MaterialTheme.typography.bodySmall,
-            color = colorResource(id = R.color.onboarding_body),
+            text = stringResource(id = page.descriptionRes),
+            modifier = Modifier.padding(horizontal = Dimens.MediumPadding2),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }

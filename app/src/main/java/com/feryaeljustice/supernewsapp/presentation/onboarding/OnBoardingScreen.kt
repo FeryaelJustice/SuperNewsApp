@@ -17,8 +17,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.feryaeljustice.supernewsapp.R
 import com.feryaeljustice.supernewsapp.presentation.Dimens.MediumPadding2
 import com.feryaeljustice.supernewsapp.presentation.Dimens.PageIndicatorWidth
 import com.feryaeljustice.supernewsapp.presentation.common.NewsButton
@@ -32,6 +34,10 @@ fun OnBoardingScreen(
     event: (OnBoardingEvent) -> Unit,
     onNavigate: () -> Unit
 ) {
+    val nextText = stringResource(R.string.btn_next)
+    val backText = stringResource(R.string.btn_back)
+    val getStartedText = stringResource(R.string.btn_get_started)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -43,12 +49,12 @@ fun OnBoardingScreen(
                 pages.size
             }
         val buttonState =
-            remember {
+            remember(nextText, backText, getStartedText) {
                 derivedStateOf {
                     when (pagerState.currentPage) {
-                        0 -> listOf("", "Next")
-                        1 -> listOf("Back", "Next")
-                        2 -> listOf("Back", "Get Started")
+                        0 -> listOf("", nextText)
+                        1 -> listOf(backText, nextText)
+                        2 -> listOf(backText, getStartedText)
                         else -> listOf("", "")
                     }
                 }

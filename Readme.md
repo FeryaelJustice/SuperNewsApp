@@ -1,110 +1,137 @@
 # SuperNewsApp
 
-SuperNewsApp es la app diseñada para mantenerte al día con las noticias, con la interfaz creada íntegramente con Jetpack Compose.
+SuperNewsApp es una aplicación nativa moderna para Android diseñada para mantenerte al día con las noticias más relevantes de todo el mundo. Su interfaz está construida íntegramente con **Jetpack Compose**, adoptando los principios de diseño de **Material 3** y una arquitectura escalable **Clean Architecture + MVVM**.
 
-## Visión general
+---
 
-- MVVM estructurado en capas Clean Architecture con separación clara entre dominio, datos e interfaz
-- Inyección de dependencias mediante Hilt con KSP y calificadores personalizados para credenciales
-- Retrofit, Paging y Room para consumir servicios REST y gestionar caché local de artículos
-- DataStore Preferences para recordar el flujo de onboarding y ajustes de usuario
-- Interfaz Material 3 con navegación Compose, componentes reutilizables y soporte para español y modo nocturno
-- Catálogo de versiones Gradle que unifica plugins y dependencias para facilitar actualizaciones
+## Documentación Técnica Detallada
 
-## Requisitos de desarrollo
+Para facilitar la comprensión global de la aplicación y orientar futuros desarrollos, el proyecto cuenta con documentación especializada en la carpeta `docs/`:
 
-- Android Studio Koala Feature Drop (2024.1.2) o superior con Android Gradle Plugin 8.11.1
-- Gradle 8.14.2 (incluido mediante wrapper) y Kotlin 2.2.0 habilitado para K2 y Compose Compiler
+- [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md): Guía oficial de diseño visual, tokens de color (Modo Claro y Modo Oscuro), tipografía Poppins, escala tipográfica, espaciados y especificaciones de componentes.
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): Arquitectura Clean Architecture, capas de datos, dominio y presentación, inyección con Hilt y flujo reactivo.
+- [docs/FEATURES_GUIDE.md](docs/FEATURES_GUIDE.md): Guía detallada de cada pantalla (Onboarding, Inicio, Búsqueda, Guardados, Detalle y Contacto) y flujos de usuario.
+
+---
+
+## Características Principales y Mejoras Visuales
+
+1. **Carrusel Hero Destacado (`FeaturedNewsCarousel`)**:
+   - Deslizador horizontal automático (`HorizontalPager`) en la parte superior de Inicio.
+   - Tarjetas de alto impacto con fotografía recortada, gradiente de contraste vertical, badge de fuente, titular destacado y tiempo relativo.
+   - Píldoras indicadoras de página animadas y pausa automática al interactuar.
+   - Acceso directo al detalle del artículo al pulsar la tarjeta.
+
+2. **Cinta de Última Hora Interactiva (`BreakingNewsTicker`)**:
+   - Barra estilizada con distintivo `[ 🔴 ÚLTIMA HORA ]` y punto indicador pulsante en vivo.
+   - Transición vertical animada entre titulares de actualidad.
+   - Totalmente interactiva: un toque sobre el titular en movimiento abre la noticia de inmediato.
+
+3. **Presentación Enriquecida de Noticias (`ArticleCard`)**:
+   - Tarjetas Material 3 con esquinas redondeadas de `16.dp` y elevación sutil.
+   - Miniatura de `96x96 dp` con animación Shimmer durante la carga e icono de fallback si la URL falla.
+   - Formato de tiempo relativo amigable ("Hace 15 min", "Hace 2 h", "Ayer") en lugar de marcas de tiempo ISO crudas.
+   - Badge de fuente con color primario.
+
+4. **Pantalla de Detalle Mejorada (`NewsDetailScreen`)**:
+   - Fotografía de cabecera con relación de aspecto optimizada.
+   - Resumen editorial (`description`) formateado como entradilla destacada en cursiva.
+   - Tiempo estimado de lectura calculado automáticamente ("Lectura: 3 min").
+   - Botón de acción principal para abrir el artículo original completo en la fuente.
+
+5. **Búsqueda Dinámica con Tendencias (`SearchScreen`)**:
+   - Barra de búsqueda con botón de borrado instantáneo ("X").
+   - Chips de temas del momento cuando el campo está vacío ("Tecnología", "Ciencia", "Economía", "Deportes", "Salud").
+
+6. **Gestión de Guardados (`BookmarkScreen`)**:
+   - Contador en tiempo real de artículos almacenados en local (Room).
+   - Estado vacío acogedor con botón de acceso directo para explorar noticias.
+
+7. **Paleta Editorial Material 3 y Modo Oscuro**:
+   - Unificación visual con azul editorial (`#1A56DB` / `#4B8BF5`), rojo de alerta (`#EF4444`) y superficies neutras limpias.
+   - Compatibilidad nativa con tema claro y modo oscuro profundo.
+
+---
+
+## Requisitos de Desarrollo
+
+- Android Studio Koala Feature Drop (2024.1.2) o superior con Android Gradle Plugin 8.11.1+
+- Gradle 8.14.2 (incluido mediante wrapper) y Kotlin con Compose Compiler
 - JDK 21 configurado en el IDE para compilar con `sourceCompatibility` y `targetCompatibility` 21
-- Android SDK 36 instalado junto con las Platform Tools y Build Tools recientes
-- Dispositivos o emuladores con Android 8.0 (API 26) o superior, que coincide con `minSdk`
+- Android SDK 36 instalado junto con Platform Tools y Build Tools
+- Dispositivos o emuladores con Android 8.0 (API 26) o superior (`minSdk` 26)
 
-## Configuración previa
+---
+
+## Configuración Previa
 
 1. Clona el repositorio y abre la carpeta raíz desde Android Studio (`File > Open`).
-2. Verifica que `local.properties` contenga el `sdk.dir` de tu instalación del SDK de Android.
+2. Verifica que `local.properties` contenga la ruta a tu Android SDK (`sdk.dir`).
 3. Añade tus claves en `local.properties`:
 
-   ```text
-
+   ```properties
    api_key=TU_API_KEY_DE_NEWSAPI
    deepl_api_key=TU_API_KEY_DE_DEEPL
-
    ```
 
-   Estas entradas se exponen como `string` en recursos para los módulos Hilt de `AppModule`.
-4. Sincroniza Gradle (`Sync Now`) para descargar dependencias y generar código con KSP.
+4. Sincroniza el proyecto con los archivos de Gradle (`Sync Now`).
 
-## Cómo ejecutar
+---
 
-- Desde Android Studio, selecciona la configuración `app`, elige un dispositivo objetivo y pulsa `Run`.
-- Para generar un APK sin IDE, ejecuta `./gradlew assembleDebug` (Linux/macOS) o `gradlew.bat assembleDebug` (Windows) en la raíz del proyecto.
-- Las variantes de lanzamiento activan ProGuard, reducción de recursos y subida de símbolos de NDK configurada en `build.gradle.kts`.
+## Cómo Ejecutar
 
-## Estructura del repositorio
+- Desde Android Studio, selecciona la configuración `app`, elige un dispositivo objetivo y pulsa `Run` (o `Shift + F10`).
+- Para generar el APK de depuración desde la terminal:
+  - En Windows: `.\gradlew.bat assembleDebug`
+  - En Linux o macOS: `./gradlew assembleDebug`
+- Para ejecutar las pruebas unitarias:
+  - `.\gradlew.bat testDebugUnitTest`
 
-### Raíz
+---
 
-- `app/`: módulo Android principal con código Kotlin, recursos y configuración específica.
-- `gradle/` y `gradle.properties`: definen el wrapper y opciones globales de compilación.
-- `gradlew` y `gradlew.bat`: scripts para ejecutar tareas de Gradle sin instalarlo.
-- `contact.html`: recurso estático de soporte utilizado en la sección de contacto.
-- `settings.gradle.kts` y `build.gradle.kts`: coordinan plugins, catálogos de versiones y módulos incluidos.
+## Estructura del Repositorio
 
-### Módulo app
+```text
+SuperNewsApp/
+├── app/
+│   ├── build.gradle.kts           # Configuración del módulo, dependencias y plugins
+│   └── src/
+│       ├── main/
+│       │   ├── java/com/feryaeljustice/supernewsapp/
+│       │   │   ├── annotations/   # Calificadores de inyección Hilt
+│       │   │   ├── data/          # Implementaciones: Room, Retrofit, Paging, DataStore
+│       │   │   ├── di/            # Módulos de Hilt (AppModule, ManagerModule, etc.)
+│       │   │   ├── domain/        # Modelos de negocio, repositorios y casos de uso
+│       │   │   │   └── util/      # DateTimeUtils y transformaciones de texto
+│       │   │   ├── presentation/  # Pantallas Compose, componentes UI y ViewModels
+│       │   │   │   ├── bookmark/  # Pantalla de artículos guardados
+│       │   │   │   ├── common/    # ArticleCard, BreakingNewsTicker, SearchBar, Shimmer
+│       │   │   │   ├── contact/   # Pantalla de contacto y políticas de noticias
+│       │   │   │   ├── home/      # HomeScreen y FeaturedNewsCarousel
+│       │   │   │   ├── navigation/# Navigation 3 y NewsBottomNavigation
+│       │   │   │   ├── newsDetail/# Pantalla de detalle de noticia
+│       │   │   │   └── search/    # Pantalla de búsqueda y chips de tendencias
+│       │   │   └── ui/theme/      # Color.kt, Theme.kt, Type.kt (Poppins M3)
+│       │   └── res/               # Drawables, fuentes Poppins, strings localizados
+│       └── test/                  # Pruebas unitarias
+├── docs/                          # Documentación del proyecto
+│   ├── ARCHITECTURE.md            # Arquitectura Clean Architecture + MVVM
+│   ├── DESIGN_SYSTEM.md           # Guía oficial de diseño visual, colores y tipografía
+│   └── FEATURES_GUIDE.md          # Guía detallada de pantallas y componentes
+├── gradle/libs.versions.toml      # Catálogo centralizado de versiones
+├── build.gradle.kts               # Configuración raíz de Gradle
+├── settings.gradle.kts            # Configuración de repositorios y módulos
+└── Readme.md                      # Documento principal del repositorio
+```
 
-- `build.gradle.kts`: activa Compose, Hilt, Room, Paging, Retrofit y configura claves con `gradleLocalProperties`.
-- `proguard-rules.pro`: reglas adicionales para ofuscación en el build de lanzamiento.
-- `src/`: contiene los paquetes de código (`main`), pruebas unitarias (`test`) y pruebas instrumentadas (`androidTest`).
+---
 
-### Paquetes principales `app/src/main/java/com/feryaeljustice/supernewsapp`
+## Dependencias Clave
 
-- `annotations`: define calificadores `@NewsApiKey` y `@DeeplApiKey` para diferenciar inyecciones de cadenas.
-- `data/local`: base de datos Room, DAO y conversores para almacenar artículos guardados.
-- `data/manager`: implementación de `LocalUserManager` con DataStore para el flujo de onboarding.
-- `data/remote`: interfaz `NewsApi` y `PagingSource` que consumen el backend REST mediante Retrofit.
-- `data/remote/dto`: modelos de transferencia alineados con las respuestas del servicio.
-- `data/repository`: implementación concreta de `NewsRepository` que combina remoto y local.
-- `di`: módulos Hilt (`AppModule`, `ManagerModule`, `RepositoryModule`) que exponen dependencias de ámbito `Singleton`.
-- `domain/manager`: contratos que abstraen el almacenamiento de preferencias.
-- `domain/model`: modelos de dominio consumidos por la capa de presentación.
-- `domain/repository`: interfaz del repositorio de noticias accesible desde los casos de uso.
-- `domain/usecase`: casos de uso como `GetNews`, `SearchNews`, `UpsertArticle` o `SaveAppEntry`.
-- `domain/util`: utilidades compartidas, por ejemplo, transformaciones de cadenas.
-- `presentation/bookmark`, `home`, `newsDetail`, `onboarding`, `search`, `contact`: pantallas Compose feature-first con sus `ViewModel`.
-- `presentation/navigation`: gráfico de navegación compuesto con destinos y componentes auxiliares.
-- `presentation/common`: elementos reutilizables como estados de carga, chips o listas.
-- `ui/theme`: colores, tipografías y estilos Material 3 adaptados al branding de MiraiLink.
-- `util`: constantes (`Constants`) y envoltorios de estado (`DataState`) compartidos.
-
-### Recursos `app/src/main/res`
-
-- `values` y `values-es`: strings y estilos base con localización al español.
-- `values-night`: paleta nocturna para temas dinámicos.
-- `drawable` y `font`: assets estáticos utilizados por la interfaz Compose.
-- Carpetas `mipmap-*`: iconografía para distintos densidades.
-- `xml`: configuraciones como `backup_rules.xml` o definiciones de datos seguros.
-
-### Gradle y catálogo de versiones
-
-- `gradle/libs.versions.toml`: centraliza versiones de AGP 9.2.1, Kotlin 2.3.21, Compose BOM 2026.05.00, Hilt 2.59.2, Retrofit 3.0.0, Room 2.8.4, Paging 3.5.0, Coil 2.7.0 y Google Play Integrity 1.6.0.
-
-## Dependencias clave
-
-- Jetpack Compose Material 3 y Navigation Compose para UI declarativa y navegación basada en gráficos.
-- Hilt con KSP para inyección de dependencias y enlaces automáticos de componentes.
-- Retrofit con convertidor Kotlinx Serialization para consumo de servicios REST expuestos por el backend ExpressJS.
-- Room y Paging que manejan la persistencia local de artículos y listas infinitas.
-- DataStore Preferences para persistir flags ligeros, como la entrada al onboarding.
-- Coil para carga de imágenes eficiente dentro de composables.
-- Google Play Integrity como protección adicional en builds de producción.
-
-## Pruebas y automatización
-
-- `src/test/java`: pruebas unitarias basadas en JUnit para ViewModels y casos de uso.
-- `src/androidTest/java`: pruebas instrumentadas con Espresso y Compose Testing para validaciones UI.
-- Tareas recomendadas: `./gradlew testDebugUnitTest` para unit tests y `./gradlew connectedDebugAndroidTest` con un dispositivo/emulador conectado.
-
-## Notas de diseño
-
-Cada pantalla Compose debe iniciar su árbol con un contenedor que aplique `padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)` y `statusBarsPadding()` para evitar que la barra de estado solape el contenido.
+- **Jetpack Compose & Material 3**: UI moderna, reactiva y completamente declarativa.
+- **Navigation 3**: Navegación fuertemente tipada con pila inmutable.
+- **Hilt & KSP**: Inyección de dependencias modular y de alto rendimiento.
+- **Retrofit & Kotlinx Serialization**: Consumo del API REST de noticias.
+- **Room & Paging 3**: Persistencia local de marcadores y paginación reactiva de listas infinitas.
+- **DataStore Preferences**: Persistencia de preferencias ligeras de usuario.
+- **Coil**: Carga eficiente y asíncrona de imágenes con caché en memoria y disco.

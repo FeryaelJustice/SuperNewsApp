@@ -237,6 +237,9 @@ fun CommonNavHost(navigatorViewModel: NavigationViewModel, paddingValues: Paddin
                     navigateToDetails = { article ->
                         navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
                     },
+                    navigateToHome = {
+                        navigatorViewModel.navigateToTab(Route.HomeScreen)
+                    }
                 )
             }
 

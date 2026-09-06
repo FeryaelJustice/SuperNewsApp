@@ -1,30 +1,56 @@
 <resources>
-    <string name="app_name" translatable="false">Super News App</string>
+    <string name="app_name" translatable="false">SuperNews</string>
     <string name="newsApiKey" translatable="false">0</string>
     <string name="deeplApiKey" translatable="false">0</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="bookmark">Bookmark</string>
+    <string name="bookmark">Bookmarks</string>
     <string name="sendMailMessage">Contact us</string>
     <string name="your_message">Your message</string>
     <string name="contact">Contact Info</string>
     <string name="source_of_news">Source of news: %1$s ->&#160;</string>
     <string name="author">Author: %1$s</string>
     <string name="app_version">Version: %1$s</string>
-    <string name="notSavedNews">You have not saved news so far!</string>
+    <string name="notSavedNews">You have not saved any articles yet</string>
+    <string name="empty_bookmarks_desc">Save articles to read them later, even without an internet connection.</string>
     <string name="emptyMsgNotAllowed">Empty messages not allowed</string>
     <string name="contactMsgLengthWarning">Please enter a shorter message than 100 characters</string>
     <string name="chooseMailClient">"Choose an email client: "</string>
     <string name="contact_from_user">Contact from user of SuperNewsApp Android</string>
     <string name="contact_to_email">fgonzalezserrano10@gmail.com</string>
-    <string name="article_inserted">Article Inserted</string>
-    <string name="article_deleted">Article deleted</string>
-    <string name="enter_search_query">Please enter a search query</string>
+    <string name="article_inserted">Article saved to bookmarks</string>
+    <string name="article_deleted">Article removed from bookmarks</string>
+    <string name="enter_search_query">Search news from all sources</string>
     <string name="openLink">Open %1$s</string>
     <string name="author_text">Author: %1$s</string>
     <string name="unknown">Unknown</string>
-    <string name="noContent">No content</string>
+    <string name="noContent">No content available</string>
     
+    <!-- UI & Design System Extensions -->
+    <string name="breaking_news">Breaking News</string>
+    <string name="breaking_badge">BREAKING</string>
+    <string name="featured_news">Featured Stories</string>
+    <string name="latest_news">Latest News</string>
+    <string name="read_full_story">Read full article at %1$s</string>
+    <string name="retry">Retry</string>
+    <string name="explore_news">Explore News</string>
+    <string name="trending_topics">Trending Topics</string>
+    <string name="search_placeholder">Search news, topics, sources…</string>
+    <string name="clear_search">Clear search</string>
+    <string name="network_error_title">Connection Error</string>
+    <string name="network_error_desc">Could not load news. Please check your internet connection.</string>
+    
+    <!-- Onboarding strings -->
+    <string name="onboarding_title_1">Welcome to SuperNews</string>
+    <string name="onboarding_desc_1">Stay updated with top news from verified worldwide sources.</string>
+    <string name="onboarding_title_2">Instant Breaking News</string>
+    <string name="onboarding_desc_2">Be instantly informed about events happening around the globe.</string>
+    <string name="onboarding_title_3">Save &amp; Read Anywhere</string>
+    <string name="onboarding_desc_3">Bookmark your favorite stories to read them anytime, anywhere.</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_get_started">Get Started</string>
+
     <!-- News Policy Compliance Strings -->
     <string name="contact_section_title">Developer Info</string>
     <string name="contact_email_title">Email</string>

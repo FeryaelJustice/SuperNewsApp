@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000000</color>
+    <color name="black">#0F172A</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="colorPrimary">#FF6200EE</color>
-    <color name="colorPrimaryDark">#FFBB86FC</color>
-    <color name="colorAccent">#409285</color>
+    <color name="colorPrimary">#4B8BF5</color>
+    <color name="colorPrimaryDark">#1A3268</color>
+    <color name="colorAccent">#4B8BF5</color>
 
-    <color name="onboarding_title">#FFFFFF</color>
-    <color name="onboarding_body">#BAB1D3</color>
-    <color name="text_medium">#BAB1D3</color>
-    <color name="text_title">#FFFC00</color>
-    <color name="iconTint">#B4ADDB</color>
-    <color name="placeholder">#A0A3BD</color>
-    <color name="shimmer">#C3C3C3</color>
+    <color name="onboarding_title">#F8FAFC</color>
+    <color name="onboarding_body">#94A3B8</color>
+    <color name="text_medium">#94A3B8</color>
+    <color name="text_title">#F8FAFC</color>
+    <color name="iconTint">#94A3B8</color>
+    <color name="placeholder">#64748B</color>
+    <color name="shimmer">#334155</color>
+    <color name="breaking_red">#F87171</color>
 </resources>

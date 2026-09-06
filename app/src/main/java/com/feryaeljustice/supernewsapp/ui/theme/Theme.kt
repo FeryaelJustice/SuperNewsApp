@@ -8,23 +8,38 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme =
     darkColorScheme(
-        primary = Blue,
-        background = Black,
-        error = DarkRed,
-        surface = LightBlack,
+        primary = PrimaryDark,
+        onPrimary = OnPrimaryDark,
+        primaryContainer = PrimaryContainerDark,
+        onPrimaryContainer = OnPrimaryContainerDark,
+        background = BackgroundDark,
+        onBackground = OnBackgroundDark,
+        surface = SurfaceDark,
+        onSurface = OnSurfaceDark,
+        surfaceVariant = SurfaceVariantDark,
+        onSurfaceVariant = OnSurfaceVariantDark,
+        error = ErrorDark,
+        onError = OnErrorDark,
     )
 
 private val LightColorScheme =
     lightColorScheme(
-        primary = Blue,
-        background = Color.White,
-        error = LightRed,
-        surface = Color.White,
+        primary = PrimaryLight,
+        onPrimary = OnPrimaryLight,
+        primaryContainer = PrimaryContainerLight,
+        onPrimaryContainer = OnPrimaryContainerLight,
+        background = BackgroundLight,
+        onBackground = OnBackgroundLight,
+        surface = SurfaceLight,
+        onSurface = OnSurfaceLight,
+        surfaceVariant = SurfaceVariantLight,
+        onSurfaceVariant = OnSurfaceVariantLight,
+        error = ErrorLight,
+        onError = OnErrorLight,
     )
 
 @Composable
@@ -35,7 +50,7 @@ fun SuperNewsAppTheme(
 ) {
     val colorScheme =
         when {
-            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            dynamicColor -> {
                 val context = LocalContext.current
                 if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
             }

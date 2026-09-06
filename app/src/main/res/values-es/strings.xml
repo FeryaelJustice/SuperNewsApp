@@ -1,27 +1,53 @@
 <resources>
     <string name="home">Inicio</string>
     <string name="search">Buscar</string>
-    <string name="bookmark">Marcadores</string>
-    <string name="sendMailMessage">Contactanos</string>
+    <string name="bookmark">Guardados</string>
+    <string name="sendMailMessage">Contáctanos</string>
     <string name="your_message">Tu mensaje</string>
     <string name="contact">Contacto</string>
     <string name="source_of_news">Fuente de las noticias: %1$s ->&#160;</string>
     <string name="author">Autor: %1$s</string>
     <string name="app_version">Versión: %1$s</string>
-    <string name="notSavedNews">¡No has guardado ninguna noticia hasta ahora!</string>
+    <string name="notSavedNews">No tienes artículos guardados aún</string>
+    <string name="empty_bookmarks_desc">Guarda artículos para leerlos con calma en cualquier momento, incluso sin conexión.</string>
     <string name="emptyMsgNotAllowed">Los mensajes vacíos no están permitidos</string>
-    <string name="contactMsgLengthWarning">Porfavor ingresa un mensaje de menos de 100 caracteres</string>
+    <string name="contactMsgLengthWarning">Por favor ingresa un mensaje de menos de 100 caracteres</string>
     <string name="chooseMailClient">"Elige un cliente de correo: "</string>
     <string name="contact_from_user">Contacto desde usuario de SuperNewsApp Android</string>
     <string name="contact_to_email">fgonzalezserrano10@gmail.com</string>
-    <string name="article_inserted">Articulo insertado</string>
-    <string name="article_deleted">Articulo eliminado</string>
-    <string name="enter_search_query">Porfavor introduce una consulta</string>
+    <string name="article_inserted">Artículo guardado en marcadores</string>
+    <string name="article_deleted">Artículo eliminado de marcadores</string>
+    <string name="enter_search_query">Explora noticias de todas las fuentes</string>
     <string name="openLink">Abrir %1$s</string>
     <string name="author_text">Autor: %1$s</string>
     <string name="unknown">Desconocido</string>
-    <string name="noContent">Sin contenido</string>
+    <string name="noContent">Sin contenido disponible</string>
     
+    <!-- UI & Design System Extensions -->
+    <string name="breaking_news">Última Hora</string>
+    <string name="breaking_badge">ÚLTIMA HORA</string>
+    <string name="featured_news">Noticias Destacadas</string>
+    <string name="latest_news">Últimas Noticias</string>
+    <string name="read_full_story">Leer noticia completa en %1$s</string>
+    <string name="retry">Reintentar</string>
+    <string name="explore_news">Explorar noticias</string>
+    <string name="trending_topics">Temas del momento</string>
+    <string name="search_placeholder">Buscar noticias, temas, fuentes…</string>
+    <string name="clear_search">Borrar búsqueda</string>
+    <string name="network_error_title">Error de conexión</string>
+    <string name="network_error_desc">No pudimos cargar las noticias. Comprueba tu conexión a internet.</string>
+
+    <!-- Onboarding strings -->
+    <string name="onboarding_title_1">Bienvenido a SuperNews</string>
+    <string name="onboarding_desc_1">Mantente al día con las mejores noticias de fuentes verificadas de todo el mundo.</string>
+    <string name="onboarding_title_2">Noticias de Última Hora</string>
+    <string name="onboarding_desc_2">Infórmate al instante de los acontecimientos más relevantes a nivel global.</string>
+    <string name="onboarding_title_3">Guarda y Lee Donde Quieras</string>
+    <string name="onboarding_desc_3">Guarda tus artículos preferidos para leerlos cuando quieras, estés donde estés.</string>
+    <string name="btn_next">Siguiente</string>
+    <string name="btn_back">Atrás</string>
+    <string name="btn_get_started">Comenzar</string>
+
     <!-- News Policy Compliance Strings -->
     <string name="contact_section_title">Información del Desarrollador</string>
     <string name="contact_email_title">Correo Electrónico</string>

@@ -1,29 +1,30 @@
 package com.feryaeljustice.supernewsapp.presentation.onboarding
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.feryaeljustice.supernewsapp.R
 
 data class Page(
-    val title: String,
-    val description: String,
+    @param:StringRes val titleRes: Int,
+    @param:StringRes val descriptionRes: Int,
     @param:DrawableRes val image: Int,
 )
 
 val pages =
     listOf(
         Page(
-            title = "Welcome to your favourite news app",
-            description = "Read the latest news from around the world.",
+            titleRes = R.string.onboarding_title_1,
+            descriptionRes = R.string.onboarding_desc_1,
             image = R.drawable.onboarding1,
         ),
         Page(
-            title = "We will make you be informed of the most important news around the world",
-            description = "No matter what is happening, you will be instantly informed.",
+            titleRes = R.string.onboarding_title_2,
+            descriptionRes = R.string.onboarding_desc_2,
             image = R.drawable.onboarding2,
         ),
         Page(
-            title = "If you like this app, please may I ask you to leave a review and recommend it!",
-            description = "Thank you.",
+            titleRes = R.string.onboarding_title_3,
+            descriptionRes = R.string.onboarding_desc_3,
             image = R.drawable.onboarding3,
         ),
     )
