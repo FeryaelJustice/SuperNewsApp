@@ -18,7 +18,8 @@
   <a href="#-stack-tecnológico">Stack Tecnológico</a> •
   <a href="#-arquitectura">Arquitectura</a> •
   <a href="#-instalación-y-configuración">Instalación</a> •
-  <a href="#-documentación-técnica-detallada">Documentación</a>
+  <a href="#-documentación-técnica-detallada">Documentación</a> •
+  <a href="PRIVACY_POLICY.md">Privacidad</a>
 </p>
 
 ---
@@ -254,6 +255,7 @@ Para profundizar en el diseño y la ingeniería de SuperNewsApp, consulta las gu
 - 🎨 **[docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)**: Sistema de diseño, tokens de color (Light/Dark), tipografía Poppins, escala de espaciado y directrices de accesibilidad.
 - 🏗️ **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**: Análisis en profundidad de la Clean Architecture, flujo unidireccional de datos (UDF), Hilt y contratos de dominio.
 - 📱 **[docs/FEATURES_GUIDE.md](docs/FEATURES_GUIDE.md)**: Desglose exhaustivo pantalla por pantalla, manejo de estados y flujos de usuario.
+- 🛡️ **[PRIVACY_POLICY.md](PRIVACY_POLICY.md)**: Política de Privacidad oficial para Google Play Store y agregación de noticias.
 
 ---
 
