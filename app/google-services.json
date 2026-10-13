@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "926567469473",
+    "project_id": "supernewsapp",
+    "storage_bucket": "supernewsapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926567469473:android:08b2cca73d1ea15691bbe0",
+        "android_client_info": {
+          "package_name": "com.feryaeljustice.supernewsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtu1JDpQ0YD1EDzfKRj5TVG2-HcR3Nnqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
