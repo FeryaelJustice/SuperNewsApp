@@ -1,6 +1,8 @@
 package com.feryaeljustice.supernewsapp.di
 
+import com.feryaeljustice.supernewsapp.data.manager.AdManagerImpl
 import com.feryaeljustice.supernewsapp.data.manager.LocalUserManagerImpl
+import com.feryaeljustice.supernewsapp.domain.manager.AdManager
 import com.feryaeljustice.supernewsapp.domain.manager.LocalUserManager
 import dagger.Binds
 import dagger.Module
@@ -14,4 +16,8 @@ abstract class ManagerModule {
     @Binds
     @Singleton
     abstract fun bindLocalUserManger(localUserMangerImpl: LocalUserManagerImpl): LocalUserManager
+
+    @Binds
+    @Singleton
+    abstract fun bindAdManager(adManagerImpl: AdManagerImpl): AdManager
 }

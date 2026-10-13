@@ -1,5 +1,6 @@
 package com.feryaeljustice.supernewsapp.presentation.navigation
 
+import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -10,7 +11,11 @@ import com.feryaeljustice.supernewsapp.presentation.onboarding.OnBoardingScreen
 import com.feryaeljustice.supernewsapp.presentation.onboarding.OnBoardingViewModel
 
 @Composable
-fun NavGraph(startDestination: Route, navViewModel: NavigationViewModel = viewModel()) {
+fun NavGraph(
+    startDestination: Route,
+    navViewModel: NavigationViewModel = viewModel(),
+    onShowInterstitialAd: (Activity, () -> Unit) -> Unit = { _, onDone -> onDone() },
+) {
     LaunchedEffect(startDestination) {
         navViewModel.initialize(startDestination)
     }
@@ -33,8 +38,11 @@ fun NavGraph(startDestination: Route, navViewModel: NavigationViewModel = viewMo
                 )
             }
 
-            else -> NavEntry(route){
-                NewsNavigator(navigatorViewModel = navViewModel)
+            else -> NavEntry(route) {
+                NewsNavigator(
+                    navigatorViewModel = navViewModel,
+                    onShowInterstitialAd = onShowInterstitialAd,
+                )
             }
         }
     }
