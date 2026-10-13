@@ -31,6 +31,7 @@ roomKtxVersion = "2.8.5"
 deeplJava = "1.17.0"
 playServicesAds = "25.5.0"
 userMessagingPlatform = "4.0.0"
+firebaseCrashlyticsPlugin = "3.0.8"
 
 [libraries]
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
@@ -85,6 +86,7 @@ com-deepl-api = { group = "com.deepl.api", name = "deepl-java", version.ref = "d
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -94,3 +96,4 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 gms-google-services = { id = "com.google.gms.google-services", version.ref = "gmsGoogleServices"}
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }

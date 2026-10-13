@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.gms.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 val newsApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("api_key", "")
@@ -25,8 +26,8 @@ android {
         applicationId = "com.feryaeljustice.supernewsapp"
         minSdk = 35
         targetSdk = 37
-        versionCode = 18
-        versionName = "2.3.0"
+        versionCode = 19
+        versionName = "2.4.0"
 
         manifestPlaceholders["admobAppId"] = admobAppId
 
@@ -140,6 +141,7 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     implementation(libs.play.services.ads)
     implementation(libs.user.messaging.platform)

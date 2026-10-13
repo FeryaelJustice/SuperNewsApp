@@ -12,7 +12,16 @@
           "package_name": "com.feryaeljustice.supernewsapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "926567469473-51ac2n71ruabngd0ont420hr6adh9h03.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.feryaeljustice.supernewsapp",
+            "certificate_hash": "a5c3deade0144bf0463f79e3a33a4238dfa48083"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDtu1JDpQ0YD1EDzfKRj5TVG2-HcR3Nnqg"
