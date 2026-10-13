@@ -37,6 +37,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         installSplashScreen().apply { setKeepOnScreenCondition { viewModel.splashCondition.value } }
 
+        viewModel.initializeAds(this)
+
         // MAIN APP
         setContent {
             SuperNewsAppTheme {
@@ -71,7 +73,12 @@ class MainActivity : ComponentActivity() {
                             // Mientras startRoute sea null (restando milisegundos de lectura de disco), no pintamos nada.
                             // La Splash Screen cubre este espacio de tiempo.
                             startRoute?.let { route ->
-                                NavGraph(startDestination = route)
+                                NavGraph(
+                                    startDestination = route,
+                                    onShowInterstitialAd = { activity, onDismissed ->
+                                        viewModel.showInterstitialAd(activity, onDismissed)
+                                    }
+                                )
                             }
                         }
                     }

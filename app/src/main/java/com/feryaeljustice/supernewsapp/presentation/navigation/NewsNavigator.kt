@@ -1,5 +1,6 @@
 package com.feryaeljustice.supernewsapp.presentation.navigation
 
+import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
@@ -41,7 +42,10 @@ import com.feryaeljustice.supernewsapp.ui.adaptive.LocalDeviceType
 import com.feryaeljustice.supernewsapp.ui.adaptive.greaterThanOrEqual
 
 @Composable
-fun NewsNavigator(navigatorViewModel: NavigationViewModel = viewModel()) {
+fun NewsNavigator(
+    navigatorViewModel: NavigationViewModel = viewModel(),
+    onShowInterstitialAd: (Activity, () -> Unit) -> Unit = { _, onDone -> onDone() },
+) {
     val deviceType = LocalDeviceType.current
 
     val homeText = stringResource(R.string.home)
@@ -129,7 +133,8 @@ fun NewsNavigator(navigatorViewModel: NavigationViewModel = viewModel()) {
                 AnimatedVisibility(areBarsVisible) { CustomNavigationRail() }
                 CommonNavHost(
                     navigatorViewModel = navigatorViewModel,
-                    paddingValues = paddingValues
+                    paddingValues = paddingValues,
+                    onShowInterstitialAd = onShowInterstitialAd,
                 )
                 AnimatedVisibility(areBarsVisible && deviceType greaterThanOrEqual DeviceType.Expanded) {
                     AnalyticsPanel(
@@ -142,15 +147,21 @@ fun NewsNavigator(navigatorViewModel: NavigationViewModel = viewModel()) {
         } else {
             CommonNavHost(
                 navigatorViewModel = navigatorViewModel,
-                paddingValues = PaddingValues(bottom = bottomPadding)
+                paddingValues = PaddingValues(bottom = bottomPadding),
+                onShowInterstitialAd = onShowInterstitialAd,
             )
         }
     }
 }
 
 @Composable
-fun CommonNavHost(navigatorViewModel: NavigationViewModel, paddingValues: PaddingValues) {
+fun CommonNavHost(
+    navigatorViewModel: NavigationViewModel,
+    paddingValues: PaddingValues,
+    onShowInterstitialAd: (Activity, () -> Unit) -> Unit = { _, onDone -> onDone() },
+) {
     val context = LocalContext.current
+    val activity = context as? Activity
     val uriHandler = LocalUriHandler.current
 
     val emptyMsgNotAllowed = stringResource(R.string.emptyMsgNotAllowed)
@@ -178,7 +189,13 @@ fun CommonNavHost(navigatorViewModel: NavigationViewModel, paddingValues: Paddin
             is Route.HomeScreen, Route.NewsNavigation, Route.NewsNavigatorScreen -> NavEntry(route) {
                 HomeScreen(
                     navigateToDetails = { article ->
-                        navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                        if (activity != null) {
+                            onShowInterstitialAd(activity) {
+                                navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                            }
+                        } else {
+                            navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                        }
                     }
                 )
             }
@@ -218,7 +235,13 @@ fun CommonNavHost(navigatorViewModel: NavigationViewModel, paddingValues: Paddin
                 OnBackClickStateSaver(navigatorViewModel = navigatorViewModel)
                 SearchScreen(
                     navigateToDetails = { article ->
-                        navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                        if (activity != null) {
+                            onShowInterstitialAd(activity) {
+                                navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                            }
+                        } else {
+                            navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                        }
                     },
                 )
             }
@@ -235,7 +258,13 @@ fun CommonNavHost(navigatorViewModel: NavigationViewModel, paddingValues: Paddin
                 OnBackClickStateSaver(navigatorViewModel = navigatorViewModel)
                 BookmarkScreen(
                     navigateToDetails = { article ->
-                        navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                        if (activity != null) {
+                            onShowInterstitialAd(activity) {
+                                navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                            }
+                        } else {
+                            navigatorViewModel.navigateTo(Route.NewsDetailScreen(article))
+                        }
                     },
                     navigateToHome = {
                         navigatorViewModel.navigateToTab(Route.HomeScreen)

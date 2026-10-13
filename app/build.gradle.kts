@@ -12,6 +12,10 @@ plugins {
 
 val newsApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("api_key", "")
 val deeplApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("deepl_api_key", "")
+val admobAppId: String = gradleLocalProperties(rootDir, providers).getProperty("admob_app_id", "ca-app-pub-3940256099942544~3347511713")
+val admobInterstitialTestId: String = gradleLocalProperties(rootDir, providers).getProperty("admob_interstitial_test_id", "ca-app-pub-3940256099942544/1033173712")
+val admobInterstitialProdId: String =
+    gradleLocalProperties(rootDir, providers).getProperty("admob_interstitial_prod_id", "")
 
 android {
     namespace = "com.feryaeljustice.supernewsapp"
@@ -21,8 +25,10 @@ android {
         applicationId = "com.feryaeljustice.supernewsapp"
         minSdk = 35
         targetSdk = 37
-        versionCode = 16
-        versionName = "2.1.1"
+        versionCode = 18
+        versionName = "2.3.0"
+
+        manifestPlaceholders["admobAppId"] = admobAppId
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -44,10 +50,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            val releaseAdUnitId = if (admobInterstitialProdId.isNotBlank()) admobInterstitialProdId else admobInterstitialTestId
+            val isTestMode = admobInterstitialProdId.isBlank()
+            buildConfigField("String", "ADMOB_INTERSTITIAL_AD_UNIT_ID", "\"${releaseAdUnitId}\"")
+            buildConfigField("Boolean", "IS_ADMOB_TEST_MODE", "$isTestMode")
         }
         debug {
             isMinifyEnabled = false
             isDebuggable = true
+            buildConfigField("String", "ADMOB_INTERSTITIAL_AD_UNIT_ID", "\"${admobInterstitialTestId}\"")
+            buildConfigField("Boolean", "IS_ADMOB_TEST_MODE", "true")
         }
     }
     compileOptions {
@@ -57,6 +69,7 @@ android {
     buildFeatures {
         compose = true
         resValues = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -127,4 +140,7 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+
+    implementation(libs.play.services.ads)
+    implementation(libs.user.messaging.platform)
 }
